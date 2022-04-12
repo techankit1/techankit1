@@ -86,16 +86,12 @@ ASGI_APPLICATION = 'GeniAnalysis.asgi.application'
 DATABASES = {
 	'default': {
 				'ENGINE': 'django.db.backends.mysql',
-				'NAME': 'GeniAnalysis_Development_DB',
+				'NAME': 'genianalysis_db',
 				# 'NAME': 'GeniAnalysis_DB',
 				'USER': 'root',
 				'PORT': '3306',
-				'PASSWORD':'root@1234',
-				'HOST': '127.0.0.1',
-				'OPTIONS': {
-						'charset': 'utf8mb4',
-						'use_unicode': True,
-				}
+				'PASSWORD':'',
+				'HOST': 'localhost',
 	}
 }
 
