@@ -55,112 +55,112 @@ from . import req_ids, td_app, symbols, nifty_chain, bank_nifty_chain
 
 
 
-tl = Timeloop()
+# tl = Timeloop()
 
-@tl.job(interval=timedelta(seconds=60))
-def my_cron_job():
-	if date.today().weekday() == 5 or date.today().weekday() == 6:
-		pass
-	else:
-		check_time = datetime.now().time()	
+# @tl.job(interval=timedelta(seconds=60))
+# def my_cron_job():
+	# if date.today().weekday() == 5 or date.today().weekday() == 6:
+		# pass
+	# else:
+		# check_time = datetime.now().time()	
 		
-		if (check_time >= time(9,15) and check_time <= time(15,31)):
-			live_data_objs = {}
+		# if (check_time >= time(9,15) and check_time <= time(15,31)):
+			# live_data_objs = {}
 			
-			for req_id in req_ids:
-				if req_id == 2000: 
-					live_data = td_app.live_data[req_id].__dict__
+			# for req_id in req_ids:
+				# if req_id == 2000: 
+					# live_data = td_app.live_data[req_id].__dict__
 			
-			if (check_time >= time(9,20) and check_time < time(9,21)):
-				SaveOpenModel.objects.create(open_val=live_data['day_open'])
+			# if (check_time >= time(9,20) and check_time < time(9,21)):
+				# SaveOpenModel.objects.create(open_val=live_data['day_open'])
 				
-			if (check_time >= time(9,30) and check_time < time(9,31)):
-				GannHighLow.objects.create(high_val=live_data['day_high'], low_val = live_data['day_low'])
+			# if (check_time >= time(9,30) and check_time < time(9,31)):
+				# GannHighLow.objects.create(high_val=live_data['day_high'], low_val = live_data['day_low'])
 			
-			option_chain = nifty_chain.get_option_chain()
+			# option_chain = nifty_chain.get_option_chain()
 			
-			row_data = option_chain.to_dict('records')
-			obj = ""
+			# row_data = option_chain.to_dict('records')
+			# obj = ""
 			
-			total_call_change_oi_val = 0
-			total_put_change_oi_val = 0
+			# total_call_change_oi_val = 0
+			# total_put_change_oi_val = 0
 			
-			for row in row_data:
-				if row['type'] == 'CE':
-					obj = HistoryLog.objects.create(strike_price=row['strike'], call_change_oi=row['oi_change'], ltp=live_data['ltp'], call_oi=row['oi'], call_ltp=row['ltp'])
-					total_call_change_oi_val = total_call_change_oi_val + int(row['oi_change'])
-				else:
-					HistoryLog.objects.filter(id=obj.id).update(put_change_oi=row['oi_change'], put_oi=row['oi'], put_ltp=row['ltp'])
-					total_put_change_oi_val = total_put_change_oi_val + int(row['oi_change'])
-			SumOfOiLog.objects.create(total_call_change_oi=total_call_change_oi_val, total_put_change_oi=total_put_change_oi_val)
-		else: 
-			pass
-tl.start()
+			# for row in row_data:
+				# if row['type'] == 'CE':
+					# obj = HistoryLog.objects.create(strike_price=row['strike'], call_change_oi=row['oi_change'], ltp=live_data['ltp'], call_oi=row['oi'], call_ltp=row['ltp'])
+					# total_call_change_oi_val = total_call_change_oi_val + int(row['oi_change'])
+				# else:
+					# HistoryLog.objects.filter(id=obj.id).update(put_change_oi=row['oi_change'], put_oi=row['oi'], put_ltp=row['ltp'])
+					# total_put_change_oi_val = total_put_change_oi_val + int(row['oi_change'])
+			# SumOfOiLog.objects.create(total_call_change_oi=total_call_change_oi_val, total_put_change_oi=total_put_change_oi_val)
+		# else: 
+			# pass
+# tl.start()
 
-t2 = Timeloop()
+# t2 = Timeloop()
 
-@t2.job(interval=timedelta(seconds=60))
-def my_cron_job1():
-	if date.today().weekday() == 5 or date.today().weekday() == 6:
-		pass
-	else: 
-		check_time = datetime.now().time()
+# @t2.job(interval=timedelta(seconds=60))
+# def my_cron_job1():
+	# if date.today().weekday() == 5 or date.today().weekday() == 6:
+		# pass
+	# else: 
+		# check_time = datetime.now().time()
 		
-		if (check_time >= time(9,15) and check_time <= time(15,31)):
-			live_data_objs = {}
+		# if (check_time >= time(9,15) and check_time <= time(15,31)):
+			# live_data_objs = {}
 			
-			for req_id in req_ids:
-				if req_id == 2001:
-					live_data = td_app.live_data[req_id].__dict__
+			# for req_id in req_ids:
+				# if req_id == 2001:
+					# live_data = td_app.live_data[req_id].__dict__
 			
-			if (check_time >= time(9,20) and check_time < time(9,21)):
-				BnfSaveOpenModel.objects.create(open_val=live_data['day_open'])
+			# if (check_time >= time(9,20) and check_time < time(9,21)):
+				# BnfSaveOpenModel.objects.create(open_val=live_data['day_open'])
 				
-			if (check_time >= time(9,30) and check_time < time(9,31)):
-				BnfGannHighLow.objects.create(high_val=live_data['day_high'], low_val=live_data['day_low'])
+			# if (check_time >= time(9,30) and check_time < time(9,31)):
+				# BnfGannHighLow.objects.create(high_val=live_data['day_high'], low_val=live_data['day_low'])
 			
-			option_chain = bank_nifty_chain.get_option_chain()
+			# option_chain = bank_nifty_chain.get_option_chain()
 			
-			row_data = option_chain.to_dict('records')
-			obj = ""
+			# row_data = option_chain.to_dict('records')
+			# obj = ""
 			
-			total_call_change_oi_val = 0
-			total_put_change_oi_val = 0
+			# total_call_change_oi_val = 0
+			# total_put_change_oi_val = 0
 			
-			for row in row_data:
-				if row['type'] == 'CE':
-					obj = BnfHistoryLog.objects.create(strike_price=row['strike'], call_change_oi=row['oi_change'], ltp=live_data['ltp'], call_oi=row['oi'], call_ltp=row['ltp'])
-					total_call_change_oi_val = total_call_change_oi_val + int(row['oi_change'])
-				else:
-					BnfHistoryLog.objects.filter(id=obj.id).update(put_change_oi=row['oi_change'], put_oi=row['oi'], put_ltp=row['ltp'])
-					total_put_change_oi_val = total_put_change_oi_val + int(row['oi_change'])
-			BnfSumOfOiLog.objects.create(total_call_change_oi=total_call_change_oi_val, total_put_change_oi=total_put_change_oi_val)
-		else: 
-			pass	
+			# for row in row_data:
+				# if row['type'] == 'CE':
+					# obj = BnfHistoryLog.objects.create(strike_price=row['strike'], call_change_oi=row['oi_change'], ltp=live_data['ltp'], call_oi=row['oi'], call_ltp=row['ltp'])
+					# total_call_change_oi_val = total_call_change_oi_val + int(row['oi_change'])
+				# else:
+					# BnfHistoryLog.objects.filter(id=obj.id).update(put_change_oi=row['oi_change'], put_oi=row['oi'], put_ltp=row['ltp'])
+					# total_put_change_oi_val = total_put_change_oi_val + int(row['oi_change'])
+			# BnfSumOfOiLog.objects.create(total_call_change_oi=total_call_change_oi_val, total_put_change_oi=total_put_change_oi_val)
+		# else: 
+			# pass	
 	
-t2.start()
+# t2.start()
 	
-t3 = Timeloop()
+# t3 = Timeloop()
 
-@t3.job(interval=timedelta(seconds=60))
-def my_cron_job2():
-	if date.today().weekday() == 5 or date.today().weekday() == 6:
-		pass
-	else: 
-		check_time = datetime.now().time()
+# @t3.job(interval=timedelta(seconds=60))
+# def my_cron_job2():
+	# if date.today().weekday() == 5 or date.today().weekday() == 6:
+		# pass
+	# else: 
+		# check_time = datetime.now().time()
 		
-		if (check_time >= time(9,15) and check_time <= time(15,31)):
-			live_data_objs = {}
+		# if (check_time >= time(9,15) and check_time <= time(15,31)):
+			# live_data_objs = {}
 			
-			for req_id in req_ids:
-				if req_id != 2000 and req_id != 2001 and req_id != 2003:
-					live_data = td_app.live_data[req_id].to_dict()
-					IntradayFutureAnalysis.objects.create(symbol=live_data['symbol'], last_price=live_data['ltp'], price_change=live_data['change'], oi_change=live_data['oi_change'], oi = live_data['oi'])
+			# for req_id in req_ids:
+				# if req_id != 2000 and req_id != 2001 and req_id != 2003:
+					# live_data = td_app.live_data[req_id].to_dict()
+					# IntradayFutureAnalysis.objects.create(symbol=live_data['symbol'], last_price=live_data['ltp'], price_change=live_data['change'], oi_change=live_data['oi_change'], oi = live_data['oi'])
 			
-		else:		   
-			pass	
+		# else:		   
+			# pass	
 	
-t3.start()	
+# t3.start()	
 
 
 ######## MASTER FUNCTIONS ##############
