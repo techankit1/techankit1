@@ -1,0 +1,802 @@
+{% load static %}
+{% include "Panel/header.html" %}
+<style type="text/css">
+    .table-bordered th , td , tr{
+        border: 1px solid #000!important;
+    }
+    .table{
+        width: 88% !important;
+        table-layout: auto;
+    }
+    .table-bordered td{
+        font-size: 12px;
+    }
+    .table-bordered th{
+        font-size: 12px;
+        padding: 4px;
+    }
+    .table-bordered td{
+        padding: 3px;
+    }
+    .f-color{
+        color: #000;
+    }
+    .green-bg{
+        background-color: #79ee9b;
+    }
+    .red-bg{
+        background-color: #ff5f5f;
+    }
+    .f-c-red{
+        color: red;
+    }
+    .f-c-green{
+        color: green;
+    }
+    .f-c-white{
+        color: #fff;
+    }
+    .button-style{
+        height: 140px !important; 
+        border: 1px solid#000; 
+        background-color:#ffd966; 
+        width: 12%;
+        border-left:hidden; 
+        float:right;
+    }
+    .button-1{
+        margin-bottom: 10px; 
+        margin-left: 10px; 
+        margin-top: 8px;
+        background-color:white;
+    }
+    .button-2{
+        margin-bottom: 10px; 
+        margin-left: 10px;
+        background-color:white;
+    }
+    .button-3{
+        margin-left: 10px; 
+        background-color:white;
+    }
+    .bg-1{
+        background-color: #10b5f1;
+    }
+    .bg-2{
+        background-color:#ffd966;
+    }
+    .bg-3{
+        background-color: #d9e1f2;
+    }
+    .bg-4 {
+        background-color:#92ddf9;
+    }
+    .bg-5{
+        background-color:#ff4a4a;
+    }
+    .bg-6{
+        background-color:#ffff96;
+    }
+    .bg-7{
+        background-color:#c00000;
+    }
+    .bg-black{
+        background-color:#000;
+    }
+    .darkred-bg{
+        background-color:#ff0000;
+    }
+    .sl-bg{
+        background-color:#febaac;
+    } 
+    .buy-bg{
+        background-color:#305496;
+    }
+    .bg-yello{
+        background-color: #ffc000;
+    }
+    .light-red{
+        background-color:#fce4d6;
+    }
+	td{
+		text-align: center;
+	}
+	.app-main__inner{font-weight:750;}
+	
+	
+	.loader2{
+	  width: 100px;
+	  height: 100px;
+	  border-radius: 100%;
+	  position: relative;
+	  margin: 0 auto;
+	}
+
+
+	/* LOADER 6 */
+
+	#loader-6{
+	  top: 40px;
+	  left: -2.5px;
+	}
+
+	#loader-6 span{
+	  display: inline-block;
+	  width: 5px;
+	  height: 20px;
+	  background-color: #53a591;
+	}
+
+	#loader-6 span:nth-child(1){
+	  animation: grow 1s ease-in-out infinite;
+	}
+
+	#loader-6 span:nth-child(2){
+	  animation: grow 1s ease-in-out 0.15s infinite;
+	}
+
+	#loader-6 span:nth-child(3){
+	  animation: grow 1s ease-in-out 0.30s infinite;
+	}
+
+	#loader-6 span:nth-child(4){
+	  animation: grow 1s ease-in-out 0.45s infinite;
+	}
+
+	@keyframes grow{
+	  0%, 100%{
+		-webkit-transform: scaleY(1);
+		-ms-transform: scaleY(1);
+		-o-transform: scaleY(1);
+		transform: scaleY(1);
+	  }
+
+	  50%{
+		-webkit-transform: scaleY(1.8);
+		-ms-transform: scaleY(1.8);
+		-o-transform: scaleY(1.8);
+		transform: scaleY(1.8);
+	  }
+	}
+	<!-- #hideloader -->
+	<!-- { -->
+		<!-- display: none; -->
+	<!-- } -->
+	.tug_of_war{
+		background-color: #FDFD96;
+	}
+	.mild_support{
+		background-color:#96b85d;
+		color: white;
+	}
+	.mild_resistence{
+		background-color: #ffcccb;
+		color: red;
+	}
+	.strong_support{
+		background-color: lightgreen;
+	}
+	.strong_resistence{
+		background-color: #fe5a1d;
+		color: white;
+	}
+	.select_support_resistence{
+		width: 100%;
+		font-size: 14px;
+		font-weight: 700;
+		test-align: center;
+		text-align-last: center;
+
+	
+}	
+	.card-body{
+		<!-- widht: 1510px !important; -->
+	}
+	#myChart{
+		height: 701px !important; width: 1253px !important;
+	}
+</style>
+<div class="app-main__inner" style="padding: 15px 0px 0 !important;">             
+<div class="tabs-animation">
+                        
+<div class="col-lg-12">
+<row>
+<div class="main-card mb-3 card">
+<div class="card-body">
+<h5 class="card-title">Intraday future OI Analysis Dashboard</h5>
+
+	<div class="row mb-3">
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Select Script:</label>
+			<select class="form-control" onchange="chain_type()" name="testing" id="testing">
+				<!-- <option value="Nifty-I">NIFTY</option> -->
+				<!-- <option value="BankNifty-I">BANKNIFTY</option> -->
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Interval:</label>
+			<select class="form-control" onchange="interval()" name="expiry" id="id_interval_select">
+				<!-- <option value="60000" {% if interval_obj.interval == 1 %} selected {% endif %}>1</option> -->
+				<option value="180000" {% if interval_obj.interval == 3 %} selected {% endif %}>3</option>
+				<option {% if interval_obj.interval == 5 %} selected {% endif %} value="300000">5</option>
+				<option {% if interval_obj.interval == 15 %} selected {% endif %} value="900000">15</option>
+				<option {% if interval_obj.interval == 30 %} selected {% endif %} value="1800000">30</option>
+				<option {% if interval_obj.interval == 60 %} selected {% endif %} value="3600000">60</option>
+			</select>
+		</div>
+		
+		<div class="col-md-1" style="margin-top: 30px;">
+			<button class="btn btn-warning" style="color: white;" onclick="refreshChart()">Refresh</button>
+		</div>
+	</div>
+	<div class="mt-5" >
+		<canvas id="myChart"></canvas>
+	</div>
+</div>
+</div>
+
+
+
+</row>
+
+</div>
+<div id='app'>
+
+</div>
+</div>
+</div>
+<script>
+	var arr = [
+    'NIFTY-I', 'BANKNIFTY-I','FINNIFTY-I',
+    'AARTIIND-I','ABB-I','ABBOTINDIA-I','ABCAPITAL-I','ABFRL-I','ACC-I',
+    'ADANIENT-I','ADANIPORTS-I','ALKEM-I','AMARAJABAT-I','AMBUJACEM-I',
+    'APLLTD-I','APOLLOHOSP-I','APOLLOTYRE-I','ASHOKLEY-I','ASIANPAINT-I',
+    'ASTRAL-I','ATUL-I','AUBANK-I','AUROPHARMA-I','AXISBANK-I','BAJAJ-AUTO-I',
+    'BAJAJFINSV-I','BAJFINANCE-I','BALKRISIND-I','BALRAMCHIN-I','BANDHANBNK-I',
+    'BANKBARODA-I','BATAINDIA-I','BEL-I','BERGEPAINT-I','BHARATFORG-I','BHARTIARTL-I',
+    'BHEL-I','BIOCON-I','BOSCHLTD-I','BPCL-I','BRITANNIA-I','BSOFT-I','CANBK-I',
+    'CANFINHOME-I','CHAMBLFERT-I','CHOLAFIN-I','CIPLA-I','COALINDIA-I','COFORGE-I',
+    'COLPAL-I','CONCOR-I','COROMANDEL-I','CROMPTON-I','CUB-I','CUMMINSIND-I','DABUR-I',
+    'DALBHARAT-I','DEEPAKNTR-I','DELTACORP-I','DIVISLAB-I','DIXON-I','DLF-I','DRREDDY-I',
+    'EICHERMOT-I','ESCORTS-I','EXIDEIND-I','FEDERALBNK-I','FSL-I','GAIL-I','GLENMARK-I',
+    'GMRINFRA-I','GNFC-I','GODREJCP-I','GODREJPROP-I','GRANULES-I','GRASIM-I','GSPL-I',
+    'GUJGASLTD-I','HAL-I','HAVELLS-I','HCLTECH-I','HDFC-I','HDFCAMC-I','HDFCBANK-I',
+    'HDFCLIFE-I','HEROMOTOCO-I','HINDALCO-I','HINDCOPPER-I','HINDPETRO-I','HINDUNILVR-I',
+    'HONAUT-I','IBULHSGFIN-I','ICICIBANK-I','ICICIGI-I','ICICIPRULI-I','IDEA-I','IDFC-I',
+    'IDFCFIRSTB-I','IEX-I','IGL-I','INDHOTEL-I','INDIACEM-I','INDIAMART-I','INDIGO-I',
+    'INDUSINDBK-I','INDUSTOWER-I','INFY-I','INTELLECT-I','IOC-I','IPCALAB-I','IRCTC-I',
+    'ITC-I','JINDALSTEL-I','JKCEMENT-I','JSWSTEEL-I','JUBLFOOD-I','KOTAKBANK-I','L&TFH-I',
+    'LALPATHLAB-I','LAURUSLABS-I','LICHSGFIN-I','LT-I','LTI-I','LTTS-I','LUPIN-I','M&M-I',
+    'M&MFIN-I','MANAPPURAM-I','MARICO-I','MARUTI-I','MCDOWELL-N-I','MCX-I','METROPOLIS-I',
+    'MFSL-I','MGL-I','MINDTREE-I','MOTHERSUMI-I','MPHASIS-I','MRF-I','MUTHOOTFIN-I',
+    'NAM-INDIA-I','NATIONALUM-I','NAUKRI-I','NAVINFLUOR-I','NBCC-I','NESTLEIND-I','NMDC-I',
+    'NTPC-I','OBEROIRLTY-I','OFSS-I','ONGC-I','PAGEIND-I','PEL-I','PERSISTENT-I','PETRONET-I',
+    'PFC-I','PFIZER-I','PIDILITIND-I','PIIND-I','PNB-I','POLYCAB-I','POWERGRID-I','PVR-I',
+    'RAIN-I','RAMCOCEM-I','RBLBANK-I','RECLTD-I','RELIANCE-I','SAIL-I','SBICARD-I','SBILIFE-I',
+    'SBIN-I','SHREECEM-I','SIEMENS-I','SRF-I','SRTRANSFIN-I','STAR-I','SUNPHARMA-I','SUNTV-I',
+    'SYNGENE-I','TATACHEM-I','TATACOMM-I','TATACONSUM-I','TATAMOTORS-I','TATAPOWER-I','TATASTEEL-I',
+    'TCS-I','TECHM-I','TITAN-I','TORNTPHARM-I','TORNTPOWER-I','TRENT-I','TVSMOTOR-I','UBL-I','ULTRACEMCO-I',
+    'UPL-I','VEDL-I','VOLTAS-I','WHIRLPOOL-I','WIPRO-I','ZEEL-I','ZYDUSLIFE-I',
+    ]
+	
+	arr.forEach(function(value) 
+	{	
+		var opt = document.createElement('option');
+		opt.value = value;
+		opt.innerHTML = value.slice(0,-2);
+		select = document.getElementById('testing').appendChild(opt);
+	});
+</script>
+<script>
+
+<!-- testing adding code for 9:15 maintain last date pending -->
+
+var myChart;
+function CreateChart(price_val, oi_val, label_val, min_price, max_price, min_oi, max_oi)
+{
+	if (myChart) {
+		myChart.destroy();
+	  }
+	const context = document.getElementById("myChart").getContext('2d');
+
+	context.clearRect(0, 0, document.getElementById("myChart").width, document.getElementById("myChart").height);
+	
+	var data = {
+		"datasets": [
+		  {
+			"backgroundColor": "red",
+			"borderColor": "red",
+			"fill": false,
+			"data": price_val,
+			"id": "amount",
+			"label": "PRICE",
+					"yAxisID":"left"
+		  },
+		  {
+			"backgroundColor": "lightblue",
+			"borderColor": "lightblue",
+			"fill": false,
+			"data": oi_val,
+			"id": "amount",
+			"label": "OI",
+					"yAxisID":"right"
+
+		  }
+		],
+		"labels": label_val,
+	  };
+
+	var type = "line";
+	myChart = new Chart(document.getElementById("myChart").getContext('2d'), {
+		options: {
+			<!-- events: [], -->
+			animation: {
+				duration: 0, // general animation time
+			},
+			legend: {
+			display: false
+			},
+			scales: {
+				yAxes: [
+					{
+						"scaleLabel": {
+							"display": true,
+							"labelString": "PRICE"
+						},
+						"id": "left",
+						"stacked": false,
+						"ticks": {
+							"beginAtZero": false,
+							suggestedMin: min_price,
+							suggestedMax: max_price,
+						}
+					},
+					{
+						"scaleLabel": {
+							"display": true,
+							"labelString": "OI"
+						},
+						"id": "right",
+						"position": "right",
+						"stacked": false,
+						"ticks": {
+							"beginAtZero": false,
+							suggestedMin: min_oi,
+							suggestedMax: max_oi
+						}
+					}
+				],
+				 xAxes: [{
+					ticks: {
+						autoSkip: false,
+						<!-- maxRotation: 90, -->
+						<!-- minRotation: 90 -->
+					}
+				}]
+			}
+		},
+		data,
+		type
+	});
+}
+	
+	
+	
+var now_after_close = new Date();
+var dateTime_after_close = new Date (new Date().toDateString() + ' ' + '15:30');
+var dateTime_in_morning = new Date (new Date().toDateString() + ' ' + '09:15');
+
+if ((now_after_close.getTime() > dateTime_after_close.getTime()) || (now_after_close.getTime() < dateTime_in_morning.getTime())) 
+{
+	if (now_after_close.getTime() > dateTime_after_close.getTime())
+	{
+		var interval_flag = 0;
+
+		function indianRupee(x)
+		{
+			var number = parseFloat(x);
+			return number.toLocaleString("en-IN", {minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'INR'})
+		}
+		<!-- creating table on first page load  -->
+		var price_array = new Array();
+		var oi_array = new Array();
+		var lable_array = new Array();
+
+		var min_price = null;
+		var min_oi = null;
+		var max_price = null;
+		var max_oi = null;
+
+		function fetch_all()
+		{
+			price_array = [];
+			oi_array = [];
+			lable_array = [];
+			
+			var first_history = 'Yes';
+
+			$( document ).ready(function() 
+			{
+				$.ajax({
+					method: "POST",
+					url: "/intraday_data_log/",
+					data: {
+						'first_history': first_history,
+						'symbol': $('#testing').val(),
+					},
+					success: function (response) 
+					{			   
+						if (response.status == '1')
+						{
+							first_history = 'No';
+							
+							var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+							<!-- console.log(total_add_time_arg); -->
+							var totalhistory_count = 0;
+							var total_first_record = 0;
+							
+							var string_time = null;
+							
+							response.data.forEach(function(value) 
+							{	
+								if (totalhistory_count == total_add_time_arg)
+								{
+									totalhistory_count = 0;
+								}
+								if (totalhistory_count==0)
+								{
+									price_array.push(parseFloat(value.last_price));
+									oi_array.push(parseFloat(value.oi));
+									lable_array.push(value.today_time.slice(0, -7));
+									totalhistory_count = 1;	
+								}
+								else
+								{
+									totalhistory_count = totalhistory_count + 1;
+								}
+							});
+							max_price = Math.max.apply(Math,price_array);
+							min_price = Math.min.apply(Math,price_array);
+							max_oi = Math.max.apply(Math,oi_array);
+							min_oi = Math.min.apply(Math,oi_array);
+							
+							<!-- console.log(lable_array); -->
+							
+							CreateChart(price_array, oi_array, lable_array, min_price, max_price, min_oi, max_oi);
+						}
+						else
+						{
+							<!-- console.log(response.msg); -->
+						}
+					}
+					
+				});	
+			});
+		}
+
+		fetch_all();	
+
+
+		<!-- ending table on first page load  -->
+
+		function chain_type()
+		{
+			fetch_all();
+		}
+
+
+		function interval()
+		{
+			fetch_all();
+		}
+
+		function refreshChart()
+		{
+			fetch_all();
+		}
+	}
+	else if (now_after_close.getTime() < dateTime_in_morning.getTime())
+	{
+		var interval_flag = 0;
+
+		function indianRupee(x)
+		{
+			var number = parseFloat(x);
+			return number.toLocaleString("en-IN", {minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'INR'})
+		}
+		<!-- creating table on first page load  -->
+		var price_array = new Array();
+		var oi_array = new Array();
+		var lable_array = new Array();
+
+		var min_price = null;
+		var min_oi = null;
+		var max_price = null;
+		var max_oi = null;
+
+		function fetch_all()
+		{
+			price_array = [];
+			oi_array = [];
+			lable_array = [];
+			
+			var first_history = 'Yes';
+
+			$( document ).ready(function() 
+			{ 
+				$.ajax({
+					method: "POST",
+					url: "/get_yesterday_intraday_data_log/",
+					data: {
+						'symbol': $('#testing').val(),
+					},
+					success: function (response) 
+					{			   
+						if (response.status == '1')
+						{
+							first_history = 'No';
+							
+							var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+							<!-- console.log(total_add_time_arg); -->
+							var totalhistory_count = 0;
+							var total_first_record = 0;
+							
+							var string_time = null;
+							
+							response.data.forEach(function(value) 
+							{	
+								if (totalhistory_count == total_add_time_arg)
+								{
+									totalhistory_count = 0;
+								}
+								if (totalhistory_count==0)
+								{
+									price_array.push(parseFloat(value.last_price));
+									oi_array.push(parseFloat(value.oi));
+									lable_array.push(value.today_time.slice(0, -7));
+									totalhistory_count = 1;	
+								}
+								else
+								{
+									totalhistory_count = totalhistory_count + 1;
+								}
+							});
+							max_price = Math.max.apply(Math,price_array);
+							min_price = Math.min.apply(Math,price_array);
+							max_oi = Math.max.apply(Math,oi_array);
+							min_oi = Math.min.apply(Math,oi_array);
+							
+							<!-- console.log(lable_array); -->
+							
+							CreateChart(price_array, oi_array, lable_array, min_price, max_price, min_oi, max_oi);
+						}
+						else
+						{
+							<!-- console.log(response.msg); -->
+						}
+					}
+					
+				});	
+			});
+		}
+
+		fetch_all();	
+
+
+		<!-- ending table on first page load  -->
+
+		function chain_type()
+		{
+			fetch_all();
+		}
+
+
+		function interval()
+		{
+			fetch_all();
+		}
+
+		function refreshChart()
+		{
+			fetch_all();
+		}
+	}
+}
+else
+{
+	var interval_flag = 0;
+
+	function indianRupee(x)
+	{
+		var number = parseFloat(x);
+		return number.toLocaleString("en-IN", {minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'INR'})
+	}
+	<!-- creating table on first page load  -->
+	var price_array = new Array();
+	var oi_array = new Array();
+	var lable_array = new Array();
+
+	var min_price = null;
+	var min_oi = null;
+	var max_price = null;
+	var max_oi = null;
+	var intraday_temp_date_time;
+	function fetch_all()
+	{
+		price_array = [];
+		oi_array = [];
+		lable_array = [];
+		
+		var first_history = 'Yes';
+
+		$( document ).ready(function() 
+		{
+			$.ajax({
+				method: "POST",
+				url: "/intraday_data_log/",
+				data: {
+					'first_history': first_history,
+					'symbol': $('#testing').val(),
+				},
+				success: function (response) 
+				{			   
+					if (response.status == '1')
+					{
+						first_history = 'No';
+						
+						var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+						<!-- console.log(total_add_time_arg); -->
+						var totalhistory_count = 0;
+						var total_first_record = 0;
+						
+						var string_time = null;
+						
+						response.data.forEach(function(value) 
+						{	
+							if (totalhistory_count == total_add_time_arg)
+							{
+								totalhistory_count = 0;
+							}
+							if (totalhistory_count==0)
+							{
+								price_array.push(parseFloat(value.last_price));
+								oi_array.push(parseFloat(value.oi));
+								lable_array.push(value.today_time.slice(0, -7));
+								totalhistory_count = 1;	
+								string_time = value.today_time.slice(0, -7);
+							}
+							else
+							{
+								totalhistory_count = totalhistory_count + 1;
+							}
+						});
+						max_price = Math.max.apply(Math,price_array);
+						min_price = Math.min.apply(Math,price_array);
+						max_oi = Math.max.apply(Math,oi_array);
+						min_oi = Math.min.apply(Math,oi_array);
+						
+						<!-- console.log(lable_array); -->
+						
+						CreateChart(price_array, oi_array, lable_array, min_price, max_price, min_oi, max_oi);
+						
+						intraday_analysis_interval_time = parseInt($("#id_interval_select option:selected").val());
+						
+						intraday_analysis_add_time = parseInt($("#id_interval_select option:selected").text());
+						
+						intraday_temp_date_time = new Date (new Date().toDateString() + ' ' + string_time);
+						intraday_temp_date_time.setMinutes( intraday_temp_date_time.getMinutes() + intraday_analysis_add_time );
+						
+						<!-- alert(intraday_temp_date_time); -->
+						if (interval_flag == 0)
+						{
+							run1 = setInterval(request, intraday_analysis_interval_time);
+							interval_flag = 1;
+						}
+						else
+						{
+							clearInterval(run1);
+							run1 = setInterval(request, intraday_analysis_interval_time);
+						}
+					}
+					else
+					{
+						<!-- console.log(response.msg); -->
+					}
+				}
+				
+			});	
+		});
+	}
+
+	fetch_all();	
+
+
+	<!-- ending table on first page load  -->
+
+	<!-- adding one row as selected interval  -->
+
+	async function request() 
+	{ 
+		<!-- console.log(intraday_temp_date_time); -->
+		if(intraday_temp_date_time.getMinutes() < 10)
+		{
+			total_log_time = intraday_temp_date_time.getHours() + ":0" +intraday_temp_date_time.getMinutes();
+		}
+		else
+		{
+			total_log_time = intraday_temp_date_time.getHours() + ":" +intraday_temp_date_time.getMinutes();
+		}
+		
+		<!-- console.log(total_log_time); -->
+		<!-- console.log( $('#testing').val()); -->
+		
+		first_history = 'No';
+			
+		$.ajax({
+			method: "POST",
+			url: "/intraday_data_log/",
+			data: {
+				'first_history': first_history,
+				'symbol': $('#testing').val(),
+				'total_log_time': total_log_time,
+			},
+			success: function (response) 
+			{			   
+				if (response.status == '1')
+				{
+					first_history = 'No';
+					
+					var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+					var string_time = null;
+					
+					intraday_temp_date_time.setMinutes( intraday_temp_date_time.getMinutes() + total_add_time_arg );
+					
+					response.data.forEach(function(value) 
+					{	
+						price_array.push(parseFloat(value.last_price));
+						oi_array.push(parseFloat(value.oi));
+						lable_array.push(value.today_time.slice(0, -7));
+						
+						max_price = Math.max.apply(Math,price_array);
+						min_price = Math.min.apply(Math,price_array);
+						max_oi = Math.max.apply(Math,oi_array);
+						min_oi = Math.min.apply(Math,oi_array);
+						
+						console.log(max_price);
+						console.log(min_oi);
+						
+						CreateChart(price_array, oi_array, lable_array, min_price, max_price, min_oi, max_oi);
+					});
+				}
+				else
+				{
+					<!-- console.log(response.msg); -->
+				}
+			}
+		});	
+	};
+
+
+	<!-- End adding one row as selected interval  -->
+	function chain_type()
+	{
+		fetch_all();
+	}
+
+
+	function interval()
+	{
+		fetch_all();
+	}
+
+	function refreshChart()
+	{
+		fetch_all();
+	}
+}
+</script>
+
+<script>
+
+</script>
+{% include "Panel/footer.html" %}				 

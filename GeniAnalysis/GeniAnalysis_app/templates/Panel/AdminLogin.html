@@ -1,0 +1,314 @@
+{% load static %}
+<html lang="en"><head>
+<meta charset="UTF-8">
+<link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+<title>Genianalysis</title>
+<script src="https://kit.fontawesome.com/e2ac9cc532.js" crossorigin="anonymous"></script><link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all">
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+background: #f1f2f6;
+font-family: sans-serif;
+}
+
+.sign-up {
+position: relative;
+width: 1100px;
+height: 500px;
+overflow: hidden;
+margin: 50px auto;
+background: white;
+box-shadow: 0px 0px 30px 20px rgba(0, 0, 0, 0.12);
+}
+.sign-up h1, .sign-up h2 {
+margin: 35px 0;
+width: 365.5px;
+text-align: center;
+font-weight: normal;
+color: #329dfe;
+}
+.sign-up h1 i {
+height: 75px;
+width: 75px;
+line-height: 75px;
+border: 2px solid red;
+border-radius: 50%;
+}
+.sign-up h2 {
+color: #a4b0be;
+}
+.sign-up div {
+width: 365.5px;
+}
+.sign-up fieldset {
+border: none;
+margin: 0 50px;
+<!-- padding: 10px 20px; -->
+}
+.sign-up .top {
+border-top: 1px solid #a4b0be;
+}
+.sign-up label, .sign-up input {
+display: inline-block;
+height: 50px;
+line-height: 50px;
+border: none;
+}
+.sign-up label {
+width: 15%;
+text-align: center;
+color: #329dfe;
+}
+.sign-up label i {
+font-size: 18px;
+}
+.sign-up input {
+width: 85%;
+outline: none;
+padding-left: 20px;
+color: #2f3542;
+font-size: 16px;
+}
+.sign-up button {
+display: block;
+height: 40px;
+border: 0;
+width: 230px;
+border-radius: 75px;
+margin: 20px auto;
+background: #329dfe;
+color: white;
+outline: none;
+}
+.sign-up img {
+position: absolute;
+top: 0;
+right: 0;
+height: 500px;
+}
+</style>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+window.console = window.console || function(t) {};
+</script>
+<script>
+if (document.location.search.match(/type=embed/gi)) {
+window.parent.postMessage("resize", "*");
+}
+</script>
+</head>
+<body translate="no" style="background-image: url('{% static 'AdminPanel/trending-stocks.jpg' %}');background-repeat: no-repeat;background-attachment: fixed;
+  background-size: 100% 100%;">
+	<div class="sign-up" style="width: 60%;" id="login_div">
+		<h1>
+		<!-- <i class="fas fa-user-alt" aria-hidden="true"></i> -->
+		</h1>
+		<h1 style="color: #329dfe;">
+			Genianalysis
+		</h1>
+		<div>
+		<h2 style="color: #329dfe;    margin-bottom: 10px;">
+			Login
+		</h2>
+		<fieldset>
+			<label><i class="fas fa-user" aria-hidden="true"></i></label><input type="text"  Placeholder="Email" id="email">
+			<center style="margin-top: -2%;"><span style="display:none;color:red;font-size: 12px;" id ="email_error">Please Enter Valid Email</span></center>
+		</fieldset>
+		<fieldset class="top">
+			<label><i class="fas fa-lock" aria-hidden="true"></i></label><input type="password"  Placeholder="Password" id="password">
+			<center style="margin-top: -2%;"><span style="display:none;color:red;font-size: 12px;" id ="error_password">Please Enter Valid Password</span></center>
+		</fieldset>
+		<button type="button" style="cursor: pointer;"  id="button_submit" onclick="Login()">LOGIN</button>
+		<center style="margin-top: -2%;margin-bottom: 7px;"><span style="display:none;color:red;font-size: 12px;" id ="error_admin">Invalid Credentials...!</span></center>
+		<center><h6 >
+			Don't have an account? <a href="#" style="color: #329dfe;" onclick="Open_Signup()">Sign Up</a>
+		</h6></center>
+		</div>
+		<img src="{% static 'AdminPanel/stock.jpg' %}" style="width:50%">
+	</div>
+	
+	<div class="sign-up" style="width: 60%;display:none" id="signup_div">
+		<h1>
+		<!-- <i class="fas fa-user-alt" aria-hidden="true"></i> -->
+		</h1>
+		<h1 style="color: #329dfe;">
+			Genianalysis
+		</h1>
+		<div>
+		<h2 style="color: #329dfe;    margin-bottom: 10px;">
+			Sign Up
+		</h2>
+		<fieldset>
+			<label><i class="fas fa-user" aria-hidden="true"></i></label><input type="text"  Placeholder="Name" id="signup_name">
+			<center style="margin-top: -2%;"><span style="display:none;color:red;font-size: 12px;" id ="name_error_signup">Please Enter Name</span></center>
+		</fieldset>
+		<fieldset class="top">
+			<label><i class="fas fa-user" aria-hidden="true"></i></label><input type="text"  Placeholder="Email" id="signup_email">
+			<center style="margin-top: -2%;"><span style="display:none;color:red;font-size: 12px;" id ="email_error_signup">Please Enter Valid Email</span></center>
+			<center ><span style="display:none;color:red;font-size: 12px;" id ="alreadyemail_error_signup">Email Already Exists</span></center>
+		</fieldset>
+		<fieldset class="top">
+			<label><i class="fas fa-lock" aria-hidden="true"></i></label><input type="password"  Placeholder="Password" id="signup_password">
+			<center style="margin-top: -2%;"><span style="display:none;color:red;font-size: 12px;" id ="error_password_signup">Please Enter Valid Password</span></center>
+		</fieldset>
+		<fieldset class="top">
+			<label><i class="fas fa-lock" aria-hidden="true"></i></label><input type="password"  Placeholder="Confirm Password" id="signup_confirm_password">
+			<center style="margin-top: -2%;"><span style="display:none;color:red;font-size: 12px;" id ="error_cnfpassword_signup">Password Not Matched...!</span></center>
+		</fieldset>
+		<button type="button" style="cursor: pointer;"  id="button_submit" onclick="Signup()">REGISTER</button>
+		<!-- <center style="margin-top: -2%;"><span style="display:none;color:red;font-size: 12px;" id ="error_admin">Invalid Credentials...!</span></center> -->
+		<center><h6 >
+			Already have an account? <a href="#" style="color: #329dfe;" onclick="Open_Login()">Login</a>
+		</h6></center>
+		</div>
+		<img src="{% static 'AdminPanel/stock.jpg' %}" style="width:50%">
+	</div>
+
+
+</body>
+
+<script>
+$(document).ready(function(){
+	$(document).bind('keypress', function(e) {
+            if(e.keyCode==13){
+                 $('#button_submit').trigger('click');
+             }
+        });
+})
+
+function Open_Login(){
+	$('#signup_div').hide();
+	$('#login_div').show();
+}
+
+function Open_Signup(){
+	$('#login_div').hide();
+	$('#signup_div').show();
+}
+
+
+
+<!-- for login -->
+$('#email').keyup(function(){
+	$('#email_error').hide();
+})
+$('#password').keyup(function(){
+	$('#error_password').hide();
+})
+$('#email').keyup(function(){
+	$('#error_admin').hide();
+})
+$('#password').keyup(function(){
+	$('#error_admin').hide();
+})
+
+<!-- var emailfilter = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i -->
+
+function Login(){
+  var email = $("#email").val();
+  var password = $("#password").val();
+	if (email == ""){
+		$('#email_error').show();
+	}
+	<!-- else if(! emailfilter.test(email)){ -->
+		<!-- $("#email_error").show(); -->
+	<!-- } -->
+	else if (password == ""){
+		$('#error_password').show();
+	}
+	else{
+		$.ajax({
+			method : "POST",
+			url : "/user_login_check/",
+			data : {
+				'email':email,
+				'password':password,
+			},
+			success : function(loginobj){
+				console.log(loginobj)
+				if (loginobj == "errorAdmin"){
+					$('#error_admin').show();
+				}
+				else{
+					location.href = "/nifty_dashboard_page/";
+				}
+				
+			}
+		});
+	}
+}
+
+
+<!-- for signup -->
+$('#signup_name').keyup(function(){
+	$('#name_error_signup').hide();
+})
+$('#signup_email').keyup(function(){
+	$('#email_error_signup').hide();
+})
+$('#signup_email').keyup(function(){
+	$('#alreadyemail_error_signup').hide();
+})
+$('#signup_password').keyup(function(){
+	$('#error_password_signup').hide();
+})
+$('#signup_confirm_password').keyup(function(){
+	$('#error_cnfpassword_signup').hide();
+})
+
+var emailfilter = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+function Signup(){
+  var name = $("#signup_name").val();
+  var email = $("#signup_email").val();
+  var password = $("#signup_password").val();
+  var confirm_password = $("#signup_confirm_password").val();
+	if (name == ""){
+		$('#name_error_signup').show();
+	}
+	else if (email == ""){
+		$('#email_error_signup').show();
+	}
+	else if(! emailfilter.test(email)){
+		$("#email_error_signup").show();
+	}
+	else if (password == ""){
+		$('#error_password_signup').show();
+	}
+	else if (password != confirm_password){
+		$('#error_cnfpassword_signup').show();
+	}
+	else{
+		$.ajax({
+			method : "POST",
+			url : "/new_user_signup/",
+			data : {
+				'name':name,
+				'email':email,
+				'password':password,
+			},
+			success : function(loginobj){
+				console.log(loginobj)
+				if (loginobj == "exists"){
+					$('#alreadyemail_error_signup').show();
+				}
+				else{
+					location.href = "/nifty_dashboard_page/";
+				}
+				
+			}
+		});
+	}
+}
+
+</script>
+
+
+</html>

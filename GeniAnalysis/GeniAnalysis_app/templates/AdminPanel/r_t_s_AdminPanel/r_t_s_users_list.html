@@ -1,0 +1,89 @@
+<table id="users-table" class="table">
+	<thead>
+		<tr>
+			<th>Sr.No.</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Subscription Plan</th>
+			<!-- <th>Subscription Status</th> -->
+			<th>Start Date</th>
+			<th>End Date</th>
+			<th>Status</th>
+			<th style="text-align: center;">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for user in users %}
+			<tr>
+                <td>{{forloop.counter}}</td>
+				<td>{{user.name}}</td>
+				<td>{{user.email}}</td>
+				<td>
+					{% if not user.sub_plan_type %}
+						---
+					{% else %}
+						{{user.sub_plan_type}}
+					{% endif %}
+				</td>
+				<!-- <td> -->
+					<!-- {% if not user.subscription_status %} -->
+						<!-- --- -->
+					<!-- {% else %} -->
+						<!-- {{user.subscription_status}} -->
+					<!-- {% endif %} -->
+				<!-- </td> -->
+				<td>
+					{% if not user.sub_start_date %}
+						---
+					{% else %}
+						{{user.sub_start_date}}
+					{% endif %}
+				</td>
+				<td>
+					{% if not user.sub_end_date %}
+						---
+					{% else %}
+						{{user.sub_end_date}}
+					{% endif %}
+				</td>
+				{% if user.approval_status == 'Approved' %}
+					<td>Approved</td>
+					<td style="text-align: center;">
+						<div class="badge status-badge badge-info bg-danger">
+							<span class="button_span" onclick="approveDisapprove('{{user.id}}','Rejected')">Reject</span>
+						</div>
+						<div class="badge status-badge badge-info bg-primary">
+							<span data-toggle="modal" data-target="#myModal" class="button_span" onclick="add_subscription('{{user.id}}', '{{user.name}}', '{{user.sub_start_date}}', '{{user.sub_end_date}}')">Add Subscription</span>
+						</div>
+					</td>
+				{% elif user.approval_status == 'Rejected' %}
+					<td>Rejected</td>
+					<td style="text-align: center;">
+						<div class="badge status-badge badge-info bg-success">
+							<span class="button_span" onclick="approveDisapprove('{{user.id}}','Approved')">Approve</span>
+						</div>
+						<div class="badge status-badge badge-info bg-primary">
+							<span data-toggle="modal" data-target="#myModal" class="button_span" onclick="add_subscription('{{user.id}}', '{{user.name}}', '{{user.sub_start_date}}', '{{user.sub_end_date}}')">Add Subscription</span>
+						</div>
+					</td>
+				{% else %}
+					<td>Pending</td>
+					<td style="text-align: center;">
+						<div class="badge status-badge badge-info bg-success">
+							<span class="button_span" onclick="approveDisapprove('{{user.id}}','Approved')">Approve</span>
+						</div>
+						<div class="badge status-badge badge-info bg-danger">
+							<span class="button_span" onclick="approveDisapprove('{{user.id}}','Rejected')">Reject</span>
+						</div>
+						<div class="badge status-badge badge-info bg-primary">
+							<span data-toggle="modal" data-target="#myModal" class="button_span" onclick="add_subscription('{{user.id}}', '{{user.name}}', '{{user.sub_start_date}}', '{{user.sub_end_date}}')">Add Subscription</span>
+						</div>
+					</td>
+				{% endif %}
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<script>
+	dataTable = $("#users-table").DataTable({});
+</script>

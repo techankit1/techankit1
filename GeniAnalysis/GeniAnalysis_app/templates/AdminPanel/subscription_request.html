@@ -1,0 +1,253 @@
+{% load static %}
+{% include "AdminPanel/header.html" %}
+<style type="text/css">
+	.content {
+		padding: 40px 0;
+	}
+
+	/*
+			.filter-wrapper{
+			padding: 30px 0;
+			}*/
+
+	.filter-checkbox {
+		margin-left: 30px
+	}
+
+	.filter-checkbox:first-child {
+		margin-left: 0
+	}
+	.users-container{
+		padding-bottom: 30px;
+	}
+	.button_span:hover{
+		cursor: pointer;
+	}
+	td{
+		text-align: center;
+	}
+	span{
+		font-size: 14px;
+	}
+	.action-btn
+	{
+		cursor: pointer;
+	}
+	#users-table_length
+	{
+		float: left;
+	}
+	#users-table_filter
+	{
+		float: right;
+	}
+	.table-bordered th, td, tr {
+		text-align: center;
+	}
+</style>
+
+<div class="app-main__inner" style="padding: 15px 0px 0 !important;">                    
+	<div class="tabs-animation">                    
+		<div class="col-lg-12" style="width: 100% !important";>
+			<row>
+				<div class="container card shadow users-container" style="width: 100% !important";>
+					<div class="content">
+						<div class="row">
+							<div class="col-5">
+								<div class="btn-group submitter-group float-right">
+									<div class="input-group-prepend">
+										<div class="input-group-text">Form Date</div>
+									</div>
+									<input type="date" class="form-control" id="id_form_date">
+								</div>
+							</div>
+							<div class="col-3">
+								<div class="btn-group submitter-group float-right">
+									<div class="input-group-prepend">
+										<div class="input-group-text">To Date</div>
+									</div>
+									<input type="date" class="form-control" id="id_to_date">
+								</div>
+							</div>
+							<div class="col-4" style="margin-left: -25px;">
+								<div class="btn-group submitter-group ">
+									<div class="input-group-prepend">
+										<div class="input-group-text">Status</div>
+									</div>
+									<select class="form-control status-dropdown">
+										<option value="All">All</option>
+										<option value="Pending" selected>Pending</option>
+										<option value="Approved" >Approved</option>
+										<option value="Rejected">Rejected</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="id_table_container">
+						{{string}}
+					</div>
+				</div>
+			</row>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(document.body).on('change','#id_form_date',function(){
+	
+		var e_date = new Date($('#id_form_date').val());
+		var d = e_date.getDate();
+		var m = e_date.getMonth() + 1;
+		var y = e_date.getFullYear();
+		
+		var e_date = y + '-' + (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+		
+		var input = document.getElementById("id_to_date").setAttribute("min", e_date);
+		document.getElementById("id_to_date").value = 'dd-mm-yyyy';
+		
+		
+	});
+	
+	$(document.body).on('change','#id_to_date',function(){
+	
+		var from_date = $('#id_form_date').val();
+		var to_date = $('#id_to_date').val();
+		var filter_status = $('.status-dropdown').val();
+		
+		
+		if (from_date != '')
+		{
+			$.ajax({
+				method: "POST",
+				url: "/transaction_filter/",
+				data: {
+					'filter_type': 'with_date',
+					'from_date':from_date,
+					'to_date':to_date,
+					'status':filter_status,
+				},
+				success: function (response) 
+				{
+					if (response.status == '1')
+					{
+						$('#id_table_container').html(response.string);
+					}
+				}
+			})
+		}
+	});
+</script>
+<script>
+	function approveDisapprove(id, defined_status)
+	{
+		var text_val = "";
+		var title_val = "";
+		if (defined_status == "Approved")
+		{
+			text_val = "Press yes to Approve the payment";
+			title_val = "Payment Approval";
+		}
+		else 
+		{
+			text_val = "Press yes to Reject the payment";
+			title_val = "Payment Rejection";
+		}
+		swal({
+			title: title_val,
+			text: text_val,
+			icon: "warning",
+ 
+			buttons: ["No", "Yes"],
+			closeOnClickOutside: false,
+			dangerMode: true,
+		}) 
+		.then((willUpdate) => {
+			if (willUpdate) {
+				$.ajax({
+					method: "POST",
+					url: "/change_payment_status/",
+					data: {
+						'subscription_id': id,
+						'status':defined_status,
+						'filter_status': $('.status-dropdown').val()
+					},
+					success: function (response) 
+					{
+						if (response.status == '1'){
+							swal(""+response.msg+"", {
+								icon: "success",
+								button: "Ok",
+								closeOnClickOutside: false,
+							}).then(function () {
+							
+								$('#id_table_container').html(response.string);
+						});
+						}
+						else{
+							swal(""+response.msg+"", {
+							icon: "info",
+							button: "Ok",
+							closeOnClickOutside: true,
+							});
+						}
+					}
+				})
+			}	
+		});
+	}
+</script>
+<script>
+$(document).ready(function () {
+
+	$('.status-dropdown').on('change', function (e) 
+	{
+		var from_date = $('#id_form_date').val();
+		var to_date = $('#id_to_date').val();
+		
+		if (from_date == '' || to_date == '')
+		{
+			$.ajax({
+				method: "POST",
+				url: "/transaction_filter/",
+				data: {
+					'filter_type': 'without_date',
+					'status':this.value,
+				},
+				success: function (response) 
+				{
+					if (response.status == '1')
+					{
+						console.log(response.string)
+						$('#id_table_container').html(response.string);
+					}
+				}
+			});
+		}
+		else
+		{
+			$.ajax({
+				method: "POST",
+				url: "/transaction_filter/",
+				data: {
+					'filter_type': 'with_date',
+					'from_date':from_date,
+					'to_date':to_date,
+					'status':this.value,
+				},
+				success: function (response) 
+				{
+					if (response.status == '1')
+					{
+						$('#id_table_container').html(response.string);
+					}
+				}
+			})	
+		}
+		
+	});
+	dataTable = $("#users-table").DataTable({});
+});
+</script>
+							
+{% include "AdminPanel/footer.html" %}				 

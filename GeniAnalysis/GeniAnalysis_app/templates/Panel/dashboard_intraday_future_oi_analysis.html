@@ -1,0 +1,604 @@
+{% load static %}
+{% include "Panel/header.html" %}
+<style type="text/css">
+    .table-bordered th , td , tr{
+        border: 1px solid #000!important;
+    }
+    .table{
+        width: 88% !important;
+        table-layout: auto;
+    }
+    .table-bordered td{
+        font-size: 12px;
+    }
+    .table-bordered th{
+        font-size: 12px;
+        padding: 4px;
+    }
+    .table-bordered td{
+        padding: 3px;
+    }
+    .f-color{
+        color: #000;
+    }
+    .green-bg{
+        background-color: #79ee9b;
+    }
+    .red-bg{
+        background-color: #ff5f5f;
+    }
+    .f-c-red{
+        color: red;
+    }
+    .f-c-green{
+        color: green;
+    }
+    .f-c-white{
+        color: #fff;
+    }
+    .button-style{
+        height: 140px !important; 
+        border: 1px solid#000; 
+        background-color:#ffd966; 
+        width: 12%;
+        border-left:hidden; 
+        float:right;
+    }
+    .button-1{
+        margin-bottom: 10px; 
+        margin-left: 10px; 
+        margin-top: 8px;
+        background-color:white;
+    }
+    .button-2{
+        margin-bottom: 10px; 
+        margin-left: 10px;
+        background-color:white;
+    }
+    .button-3{
+        margin-left: 10px; 
+        background-color:white;
+    }
+    .bg-1{
+        background-color: #10b5f1;
+    }
+    .bg-2{
+        background-color:#ffd966;
+    }
+    .bg-3{
+        background-color: #d9e1f2;
+    }
+    .bg-4 {
+        background-color:#92ddf9;
+    }
+    .bg-5{
+        background-color:#ff4a4a;
+    }
+    .bg-6{
+        background-color:#ffff96;
+    }
+    .bg-7{
+        background-color:#c00000;
+    }
+    .bg-black{
+        background-color:#000;
+    }
+    .darkred-bg{
+        background-color:#ff0000;
+    }
+    .sl-bg{
+        background-color:#febaac;
+    } 
+    .buy-bg{
+        background-color:#305496;
+    }
+    .bg-yello{
+        background-color: #ffc000;
+    }
+    .light-red{
+        background-color:#fce4d6;
+    }
+	td{
+		text-align: center;
+	}
+	.app-main__inner{font-weight:750;}
+	
+	
+	.loader2{
+	  width: 100px;
+	  height: 100px;
+	  border-radius: 100%;
+	  position: relative;
+	  margin: 0 auto;
+	}
+
+
+	/* LOADER 6 */
+
+	#loader-6{
+	  top: 40px;
+	  left: -2.5px;
+	}
+
+	#loader-6 span{
+	  display: inline-block;
+	  width: 5px;
+	  height: 20px;
+	  background-color: #53a591;
+	}
+
+	#loader-6 span:nth-child(1){
+	  animation: grow 1s ease-in-out infinite;
+	}
+
+	#loader-6 span:nth-child(2){
+	  animation: grow 1s ease-in-out 0.15s infinite;
+	}
+
+	#loader-6 span:nth-child(3){
+	  animation: grow 1s ease-in-out 0.30s infinite;
+	}
+
+	#loader-6 span:nth-child(4){
+	  animation: grow 1s ease-in-out 0.45s infinite;
+	}
+
+	@keyframes grow{
+	  0%, 100%{
+		-webkit-transform: scaleY(1);
+		-ms-transform: scaleY(1);
+		-o-transform: scaleY(1);
+		transform: scaleY(1);
+	  }
+
+	  50%{
+		-webkit-transform: scaleY(1.8);
+		-ms-transform: scaleY(1.8);
+		-o-transform: scaleY(1.8);
+		transform: scaleY(1.8);
+	  }
+	}
+	<!-- #hideloader -->
+	<!-- { -->
+		<!-- display: none; -->
+	<!-- } -->
+	.tug_of_war{
+		background-color: #FDFD96;
+	}
+	.mild_support{
+		background-color:#96b85d;
+		color: white;
+	}
+	.mild_resistence{
+		background-color: #ffcccb;
+		color: red;
+	}
+	.strong_support{
+		background-color: lightgreen;
+	}
+	.strong_resistence{
+		background-color: #fe5a1d;
+		color: white;
+	}
+	.select_support_resistence{
+		width: 100%;
+		font-size: 14px;
+		font-weight: 700;
+		test-align: center;
+		text-align-last: center;
+
+	
+}
+</style>
+<div class="app-main__inner" style="padding: 15px 0px 0 !important;">             
+<div class="tabs-animation">
+                        
+<div class="col-lg-12">
+<row>
+<div class="main-card mb-3 card">
+<div class="card-body">
+<h5 class="card-title">Intraday future OI Analysis Dashboard</h5>
+
+	<div class="row mb-3">
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Select Script:</label>
+			<select class="form-control" onchange="chain_type()" name="testing" id="testing">
+				<!-- <option value="Nifty">NIFTY</option> -->
+				<!-- <option value="BankNifty">BANKNIFTY</option> -->
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Interval:</label>
+			<select class="form-control" onchange="interval()" name="expiry" id="id_interval_select">
+				<!-- <option {% if interval_obj.interval == 1 %} selected {% endif %} value="60000">1</option> -->
+				<!-- <option {% if interval_obj.interval == 2 %} selected {% endif %} value="120000">2</option> -->
+				<option value="180000" {% if interval_obj.interval == 3 %} selected {% endif %}>3</option>
+				<option {% if interval_obj.interval == 5 %} selected {% endif %} value="300000">5</option>
+				<option {% if interval_obj.interval == 15 %} selected {% endif %} value="900000">15</option>
+				<option {% if interval_obj.interval == 30 %} selected {% endif %} value="1800000">30</option>
+				<option {% if interval_obj.interval == 60 %} selected {% endif %} value="3600000">60</option>
+			</select>
+		</div>
+		
+		<div class="col-md-1" style="margin-top: 30px;">
+			<button class="btn btn-warning" style="color: white;" onclick="refreshTable()">Refresh</button>
+		</div>
+	</div>
+	<div style="max-height: 760px; overflow-y: auto">
+		<table class="mb-0 table table-bordered " id="intraday_future_analysis_table" style="overflow-y:auto; width: 100% !important;  height:50px !important;">
+			<thead>
+				<tr class="text-center">
+					<th style="background: #fe5a1d; color: white;">TIME</th>
+					<th style="background: #fe5a1d; color: white;">SYMBOL</th>
+					<th style="background: #fe5a1d; color: white;">LAST PRICE</th>
+					<th style="background: #fe5a1d; color: white;">PRICE CHANGE</th>
+					<th style="background: #fe5a1d; color: white;">OI CHANGE</th>
+					<th style="background: #fe5a1d; color: white;">LONG SHORT</th>
+				</tr>
+			</thead>
+			<tbody id="tbodyid">
+			</tbody> 
+		</table> 	
+	</div>
+</div>
+</div>
+
+
+
+</row>
+
+</div>
+<div id='app'>
+
+</div>
+</div>
+</div>
+<script>
+	var arr = [
+    'NIFTY-I', 'BANKNIFTY-I','FINNIFTY-I',
+    'AARTIIND-I','ABB-I','ABBOTINDIA-I','ABCAPITAL-I','ABFRL-I','ACC-I',
+    'ADANIENT-I','ADANIPORTS-I','ALKEM-I','AMARAJABAT-I','AMBUJACEM-I',
+    'APLLTD-I','APOLLOHOSP-I','APOLLOTYRE-I','ASHOKLEY-I','ASIANPAINT-I',
+    'ASTRAL-I','ATUL-I','AUBANK-I','AUROPHARMA-I','AXISBANK-I','BAJAJ-AUTO-I',
+    'BAJAJFINSV-I','BAJFINANCE-I','BALKRISIND-I','BALRAMCHIN-I','BANDHANBNK-I',
+    'BANKBARODA-I','BATAINDIA-I','BEL-I','BERGEPAINT-I','BHARATFORG-I','BHARTIARTL-I',
+    'BHEL-I','BIOCON-I','BOSCHLTD-I','BPCL-I','BRITANNIA-I','BSOFT-I','CANBK-I',
+    'CANFINHOME-I','CHAMBLFERT-I','CHOLAFIN-I','CIPLA-I','COALINDIA-I','COFORGE-I',
+    'COLPAL-I','CONCOR-I','COROMANDEL-I','CROMPTON-I','CUB-I','CUMMINSIND-I','DABUR-I',
+    'DALBHARAT-I','DEEPAKNTR-I','DELTACORP-I','DIVISLAB-I','DIXON-I','DLF-I','DRREDDY-I',
+    'EICHERMOT-I','ESCORTS-I','EXIDEIND-I','FEDERALBNK-I','FSL-I','GAIL-I','GLENMARK-I',
+    'GMRINFRA-I','GNFC-I','GODREJCP-I','GODREJPROP-I','GRANULES-I','GRASIM-I','GSPL-I',
+    'GUJGASLTD-I','HAL-I','HAVELLS-I','HCLTECH-I','HDFC-I','HDFCAMC-I','HDFCBANK-I',
+    'HDFCLIFE-I','HEROMOTOCO-I','HINDALCO-I','HINDCOPPER-I','HINDPETRO-I','HINDUNILVR-I',
+    'HONAUT-I','IBULHSGFIN-I','ICICIBANK-I','ICICIGI-I','ICICIPRULI-I','IDEA-I','IDFC-I',
+    'IDFCFIRSTB-I','IEX-I','IGL-I','INDHOTEL-I','INDIACEM-I','INDIAMART-I','INDIGO-I',
+    'INDUSINDBK-I','INDUSTOWER-I','INFY-I','INTELLECT-I','IOC-I','IPCALAB-I','IRCTC-I',
+    'ITC-I','JINDALSTEL-I','JKCEMENT-I','JSWSTEEL-I','JUBLFOOD-I','KOTAKBANK-I','L&TFH-I',
+    'LALPATHLAB-I','LAURUSLABS-I','LICHSGFIN-I','LT-I','LTI-I','LTTS-I','LUPIN-I','M&M-I',
+    'M&MFIN-I','MANAPPURAM-I','MARICO-I','MARUTI-I','MCDOWELL-N-I','MCX-I','METROPOLIS-I',
+    'MFSL-I','MGL-I','MINDTREE-I','MOTHERSUMI-I','MPHASIS-I','MRF-I','MUTHOOTFIN-I',
+    'NAM-INDIA-I','NATIONALUM-I','NAUKRI-I','NAVINFLUOR-I','NBCC-I','NESTLEIND-I','NMDC-I',
+    'NTPC-I','OBEROIRLTY-I','OFSS-I','ONGC-I','PAGEIND-I','PEL-I','PERSISTENT-I','PETRONET-I',
+    'PFC-I','PFIZER-I','PIDILITIND-I','PIIND-I','PNB-I','POLYCAB-I','POWERGRID-I','PVR-I',
+    'RAIN-I','RAMCOCEM-I','RBLBANK-I','RECLTD-I','RELIANCE-I','SAIL-I','SBICARD-I','SBILIFE-I',
+    'SBIN-I','SHREECEM-I','SIEMENS-I','SRF-I','SRTRANSFIN-I','STAR-I','SUNPHARMA-I','SUNTV-I',
+    'SYNGENE-I','TATACHEM-I','TATACOMM-I','TATACONSUM-I','TATAMOTORS-I','TATAPOWER-I','TATASTEEL-I',
+    'TCS-I','TECHM-I','TITAN-I','TORNTPHARM-I','TORNTPOWER-I','TRENT-I','TVSMOTOR-I','UBL-I','ULTRACEMCO-I',
+    'UPL-I','VEDL-I','VOLTAS-I','WHIRLPOOL-I','WIPRO-I','ZEEL-I','ZYDUSLIFE-I',
+    ]
+	
+	arr.forEach(function(value) 
+	{	
+		var opt = document.createElement('option');
+		opt.value = value;
+		opt.innerHTML = value.slice(0,-2);
+		select = document.getElementById('testing').appendChild(opt);
+	});
+</script>
+<script>
+var interval_flag = 0;
+
+function indianRupee(x)
+{
+	var number = parseFloat(x);
+	return number.toLocaleString("en-IN", {minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'INR'})
+}
+<!-- creating table on first page load  -->
+var previous_price;
+function fetch_all()
+{
+	var first_history = 'Yes';
+
+	$( document ).ready(function() 
+	{
+		$.ajax({
+			method: "POST",
+			url: "/intraday_data_log/",
+			data: {
+				'first_history': first_history,
+				'symbol': $('#testing').val(),
+			},
+			success: function (response) 
+			{			   
+				if (response.status == '1')
+				{
+					first_history = 'No';
+					
+					var tbodyRef = document.getElementById('intraday_future_analysis_table').getElementsByTagName('tbody')[0];
+					var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+					
+					var totalhistory_count = 0;
+					var total_first_record = 0;
+					$('#tbodyid').empty();
+					
+					var string_time = null;
+					
+					var first_record = 0;
+					
+					response.data.forEach(function(value) 
+					{	
+						if (totalhistory_count == total_add_time_arg)
+						{
+							totalhistory_count = 0;
+						}
+						if (totalhistory_count==0)
+						{
+							newRow = tbodyRef.insertRow();
+							
+							cell_obj = newRow.insertCell();
+							cell_obj.style.backgroundColor="#FADA5E";
+							cell_obj.appendChild(document.createTextNode(value.today_time.slice(0, -7)));
+							
+							string_time = value.today_time.slice(0, -7);
+							
+							cell_obj = newRow.insertCell(1);
+							cell_obj.style.textAlign = "center";
+							cell_obj.appendChild(document.createTextNode(value.symbol.slice(0,-2)));
+							
+							cell_obj = newRow.insertCell(2);
+							cell_obj.style.textAlign = "center";
+							cell_obj.appendChild(document.createTextNode(indianRupee(value.last_price)));
+							
+							if(first_record == 0)
+							{
+								cell_obj = newRow.insertCell(3);
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode('---'));
+								first_record = 1;
+							}
+							else
+							{
+								cell_obj = newRow.insertCell(3);
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode((parseFloat(value.last_price) - previous_price).toFixed(2)));
+							}
+							cell_obj = newRow.insertCell(4);
+							cell_obj.style.textAlign = "center";
+							cell_obj.appendChild(document.createTextNode(indianRupee(value.oi_change)));
+							
+							var price_change = parseFloat(value.price_change);
+							var oi_change = parseFloat(value.oi_change);
+							
+							cell_obj = newRow.insertCell(5);
+							cell_obj.style.textAlign = "center";
+							if (price_change > 0 && oi_change > 0)
+							{
+								cell_obj.style.backgroundColor = 'lightgreen';
+								cell_obj.style.color = 'black';
+								cell_obj.appendChild(document.createTextNode('Long Build Up'));
+							}
+							else if(price_change < 0 && oi_change > 0)
+							{
+								cell_obj.style.backgroundColor = 'red';
+								cell_obj.style.color = 'white';
+								cell_obj.appendChild(document.createTextNode('Short Build Up'));
+							}
+							else if(price_change < 0 && oi_change < 0)
+							{
+								cell_obj.style.backgroundColor = 'red';
+								cell_obj.style.color = 'white';
+								cell_obj.appendChild(document.createTextNode('Long Liquidation'));
+							}
+							else if(price_change > 0 && oi_change < 0)
+							{
+								cell_obj.style.backgroundColor = 'lightgreen';
+								cell_obj.style.color = 'black';
+								cell_obj.appendChild(document.createTextNode('Short Covering'));
+							}
+							
+							
+							$("#tbodyid").prepend(newRow);
+							totalhistory_count = 1;	
+							previous_price = parseFloat(value.last_price);							
+						}
+						else
+						{
+							totalhistory_count = totalhistory_count + 1;
+						}
+					});
+					
+					
+					intraday_analysis_interval_time = parseInt($("#id_interval_select option:selected").val());
+					
+					intraday_analysis_add_time = parseInt($("#id_interval_select option:selected").text());
+					
+					intraday_temp_date_time = new Date (new Date().toDateString() + ' ' + string_time);
+					intraday_temp_date_time.setMinutes( intraday_temp_date_time.getMinutes() + intraday_analysis_add_time );
+					
+					<!-- alert(intraday_temp_date_time); -->
+					if (interval_flag == 0)
+					{
+						run1 = setInterval(request, intraday_analysis_interval_time);
+						interval_flag = 1;
+					}
+					else
+					{
+						clearInterval(run1);
+						run1 = setInterval(request, intraday_analysis_interval_time);
+					}
+				}
+				else
+				{
+					<!-- console.log(response.msg); -->
+				}
+			}
+			
+		});	
+	});
+}
+
+fetch_all();
+<!-- ending table on first page load  -->
+
+
+<!-- adding one row as selected interval  -->
+
+async function request() 
+{ 
+	if(intraday_temp_date_time.getMinutes() < 10)
+	{
+		total_log_time = intraday_temp_date_time.getHours() + ":0" +intraday_temp_date_time.getMinutes();
+	}
+	else
+	{
+		total_log_time = intraday_temp_date_time.getHours() + ":" +intraday_temp_date_time.getMinutes();
+	}
+	
+	<!-- console.log(total_log_time); -->
+	<!-- console.log( $('#testing').val()); -->
+	
+	first_history = 'No';
+		
+	$.ajax({
+		method: "POST",
+		url: "/intraday_data_log/",
+		data: {
+			'first_history': first_history,
+			'symbol': $('#testing').val(),
+			'total_log_time': total_log_time,
+		},
+		success: function (response) 
+		{			   
+			if (response.status == '1')
+			{
+				first_history = 'No';
+				
+				var tbodyRef = document.getElementById('intraday_future_analysis_table').getElementsByTagName('tbody')[0];
+				var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+				var string_time = null;
+				
+				intraday_temp_date_time.setMinutes( intraday_temp_date_time.getMinutes() + total_add_time_arg );
+				
+				response.data.forEach(function(value) 
+				{	
+					newRow = tbodyRef.insertRow();
+					
+					cell_obj = newRow.insertCell();
+					cell_obj.style.backgroundColor="#FADA5E";
+					cell_obj.appendChild(document.createTextNode(value.today_time.slice(0, -7)));
+					
+					string_time = value.today_time.slice(0, -7);
+					
+					cell_obj = newRow.insertCell(1);
+					cell_obj.style.textAlign = "center";
+					cell_obj.appendChild(document.createTextNode(value.symbol.slice(0,-2)));
+					
+					cell_obj = newRow.insertCell(2);
+					cell_obj.style.textAlign = "center";
+					cell_obj.appendChild(document.createTextNode(indianRupee(value.last_price)));
+					
+					cell_obj = newRow.insertCell(3);
+					cell_obj.style.textAlign = "center";
+					cell_obj.appendChild(document.createTextNode((parseFloat(value.last_price) - previous_price).toFixed(2)));
+					
+					cell_obj = newRow.insertCell(4);
+					cell_obj.style.textAlign = "center";
+					cell_obj.appendChild(document.createTextNode(value.oi_change));
+					
+					var price_change = parseFloat(value.price_change);
+					var oi_change = parseFloat(value.oi_change);
+					
+					cell_obj = newRow.insertCell(5);
+					cell_obj.style.textAlign = "center";
+					if (price_change > 0 && oi_change > 0)
+					{
+						cell_obj.style.backgroundColor = 'lightgreen';
+						cell_obj.style.color = 'black';
+						cell_obj.appendChild(document.createTextNode('Long Build Up'));
+					}
+					else if(price_change < 0 && oi_change > 0)
+					{
+						cell_obj.style.backgroundColor = 'red';
+						cell_obj.style.color = 'white';
+						cell_obj.appendChild(document.createTextNode('Short Build Up'));
+					}
+					else if(price_change < 0 && oi_change < 0)
+					{
+						cell_obj.style.backgroundColor = 'red';
+						cell_obj.style.color = 'white';
+						cell_obj.appendChild(document.createTextNode('Long Liquidation'));
+					}
+					else if(price_change > 0 && oi_change < 0)
+					{
+						cell_obj.style.backgroundColor = 'lightgreen';
+						cell_obj.style.color = 'black';
+						cell_obj.appendChild(document.createTextNode('Short Covering'));
+					}
+					
+					
+					$("#intraday_future_analysis_table tbody").prepend(newRow);
+					previous_price = parseFloat(value.last_price);
+				});
+			}
+			else
+			{
+				<!-- console.log(response.msg); -->
+			}
+		}
+	});	
+};
+
+
+<!-- End adding one row as selected interval  -->
+</script>
+<script>
+function chain_type()
+{
+	$('#tbodyid').empty();
+	fetch_all();
+}
+
+
+function interval()
+{
+	user_id = {{user.id}};
+	interval_val = parseInt($("#id_interval_select option:selected").text());
+	
+	$.ajax({
+		method: "POST",
+		url: "/set_intraday_interval/",
+		data: {
+			'user_id':user_id,
+			'interval_val':interval_val,
+		},
+		success: function (response) 
+		{			   
+			if (response.status == '1'){
+				alert(response.msg);
+			}
+			else{}
+		}
+	});
+	
+	$('#tbodyid').empty();
+	fetch_all();
+}
+</script>
+<script>
+function refreshTable()
+{
+	$('#tbodyid').empty();
+	fetch_all();
+}
+</script>
+{% include "Panel/footer.html" %}				 

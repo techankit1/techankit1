@@ -1,0 +1,1243 @@
+{% load static %}
+{% include "Panel/header.html" %}
+<style type="text/css">
+    .table-bordered th , td , tr{
+        border: 1px solid #000!important;
+    }
+    .table{
+        width: 88% !important;
+        table-layout: auto;
+    }
+    .table-bordered td{
+        font-size: 12px;
+    }
+    .table-bordered th{
+        font-size: 12px;
+        padding: 4px;
+    }
+    .table-bordered td{
+        padding: 3px;
+    }
+    .f-color{
+        color: #000;
+    }
+    .green-bg{
+        background-color: #79ee9b;
+    }
+    .red-bg{
+        background-color: #ff5f5f;
+    }
+    .f-c-red{
+        color: red;
+    }
+    .f-c-green{
+        color: green;
+    }
+    .f-c-white{
+        color: #fff;
+    }
+    .button-style{
+        height: 140px !important; 
+        border: 1px solid#000; 
+        background-color:#ffd966; 
+        width: 12%;
+        border-left:hidden; 
+        float:right;
+    }
+    .button-1{
+        margin-bottom: 10px; 
+        margin-left: 10px; 
+        margin-top: 8px;
+        background-color:white;
+    }
+    .button-2{
+        margin-bottom: 10px; 
+        margin-left: 10px;
+        background-color:white;
+    }
+    .button-3{
+        margin-left: 10px; 
+        background-color:white;
+    }
+    .bg-1{
+        background-color: #10b5f1;
+    }
+    .bg-2{
+        background-color:#ffd966;
+    }
+    .bg-3{
+        background-color: #d9e1f2;
+    }
+    .bg-4 {
+        background-color:#92ddf9;
+    }
+    .bg-5{
+        background-color:#ff4a4a;
+    }
+    .bg-6{
+        background-color:#ffff96;
+    }
+    .bg-7{
+        background-color:#c00000;
+    }
+    .bg-black{
+        background-color:#000;
+    }
+    .darkred-bg{
+        background-color:#ff0000;
+    }
+    .sl-bg{
+        background-color:#febaac;
+    } 
+    .buy-bg{
+        background-color:#305496;
+    }
+    .bg-yello{
+        background-color: #ffc000;
+    }
+    .light-red{
+        background-color:#fce4d6;
+    }
+	td{
+		text-align: center;
+	}
+	.app-main__inner{font-weight:750;}
+	
+	
+	.loader2{
+	  width: 100px;
+	  height: 100px;
+	  border-radius: 100%;
+	  position: relative;
+	  margin: 0 auto;
+	}
+
+
+	/* LOADER 6 */
+
+	#loader-6{
+	  top: 40px;
+	  left: -2.5px;
+	}
+
+	#loader-6 span{
+	  display: inline-block;
+	  width: 5px;
+	  height: 20px;
+	  background-color: #53a591;
+	}
+
+	#loader-6 span:nth-child(1){
+	  animation: grow 1s ease-in-out infinite;
+	}
+
+	#loader-6 span:nth-child(2){
+	  animation: grow 1s ease-in-out 0.15s infinite;
+	}
+
+	#loader-6 span:nth-child(3){
+	  animation: grow 1s ease-in-out 0.30s infinite;
+	}
+
+	#loader-6 span:nth-child(4){
+	  animation: grow 1s ease-in-out 0.45s infinite;
+	}
+
+	@keyframes grow{
+	  0%, 100%{
+		-webkit-transform: scaleY(1);
+		-ms-transform: scaleY(1);
+		-o-transform: scaleY(1);
+		transform: scaleY(1);
+	  }
+
+	  50%{
+		-webkit-transform: scaleY(1.8);
+		-ms-transform: scaleY(1.8);
+		-o-transform: scaleY(1.8);
+		transform: scaleY(1.8);
+	  }
+	}
+	<!-- #hideloader -->
+	<!-- { -->
+		<!-- display: none; -->
+	<!-- } -->
+	.tug_of_war{
+		background-color: #FDFD96;
+	}
+	.mild_support{
+		background-color:#96b85d;
+		color: white;
+	}
+	.mild_resistence{
+		background-color: #ffcccb;
+		color: red;
+	}
+	.strong_support{
+		background-color: lightgreen;
+	}
+	.strong_resistence{
+		background-color: #fe5a1d;
+		color: white;
+	}
+	.select_support_resistence{
+		width: 100%;
+		font-size: 14px;
+		font-weight: 700;
+		test-align: center;
+		text-align-last: center;
+
+	
+}	
+	<!-- .card-body{ -->
+		<!-- widht: 1510px !important; -->
+	<!-- } -->
+	<!-- #myChartCE{ -->
+		<!-- height: 700px !important; width: 1253px !important; -->
+	<!-- } -->
+</style>
+<div class="app-main__inner" style="padding: 15px 0px 0 !important;">             
+<div class="tabs-animation">
+                        
+<div class="col-lg-12">
+<row>
+<div class="main-card mb-3 card">
+<div class="card-body">
+<h5 class="card-title">oi chart</h5>
+
+	<div class="row mb-3">
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Select Script:</label>
+			<select class="form-control" onchange="chain_type()" name="testing" id="testing">
+				<option value="Nifty">NIFTY</option>
+				<option value="BankNifty">BANKNIFTY</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Strike Price 1:</label>
+			<select class="form-control" onchange="$('#id_start_end_error').hide();" name="testing" id="id_nifty_strike_price_1">
+				{% for strike_price in Nifty_strike_price %}
+					<option value="{{strike_price.strike_price}}">{{strike_price.strike_price}}</option>
+				{% endfor %}
+			</select>
+			<select style="display:none;" class="form-control" onchange="$('#id_start_end_error').hide();" name="id_nifty_strike_price" id="id_banknifty_strike_price_1">
+				{% for sp in BankNifty_strike_price %}
+					<option value="{{sp.strike_price}}">{{sp.strike_price}}</option>
+				{% endfor %}
+			</select>
+			
+		</div>
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Strike Price 2:</label>
+			<select class="form-control" onchange="$('#id_start_end_error').hide();" name="testing" id="id_nifty_strike_price_2">
+				{% for strike_price in Nifty_strike_price %}
+					{% if forloop.counter == 2 %}
+						<option value="{{strike_price.strike_price}}" selected>{{strike_price.strike_price}}</option>
+					{% else %}
+						<option value="{{strike_price.strike_price}}">{{strike_price.strike_price}}</option>
+					{% endif %}
+				{% endfor %}
+			</select>
+			<select style="display:none;" class="form-control" onchange="$('#id_start_end_error').hide();" name="id_nifty_strike_price" id="id_banknifty_strike_price_2">
+				{% for sp in BankNifty_strike_price %}
+					{% if forloop.counter == 2 %}
+						<option selected value="{{sp.strike_price}}">{{sp.strike_price}}</option>
+					{% else %}
+						<option value="{{sp.strike_price}}">{{sp.strike_price}}</option>
+					{% endif %}
+					<!-- <option value="{{sp.strike_price}}">{{sp.strike_price}}</option> -->
+				{% endfor %}
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Strike Price 3:</label>
+			<select class="form-control" onchange="$('#id_start_end_error').hide();" name="testing" id="id_nifty_strike_price_3">
+				{% for strike_price in Nifty_strike_price %}
+					{% if forloop.counter == 3 %}
+						<option value="{{strike_price.strike_price}}" selected>{{strike_price.strike_price}}</option>
+					{% else %}
+						<option value="{{strike_price.strike_price}}">{{strike_price.strike_price}}</option>
+					{% endif %}
+				{% endfor %}
+			</select>
+			<select style="display:none;" class="form-control" onchange="$('#id_start_end_error').hide();" name="id_nifty_strike_price" id="id_banknifty_strike_price_3">
+				{% for sp in BankNifty_strike_price %}
+					{% if forloop.counter == 3 %}
+						<option selected value="{{sp.strike_price}}">{{sp.strike_price}}</option>
+					{% else %}
+						<option value="{{sp.strike_price}}">{{sp.strike_price}}</option>
+					{% endif %}
+				{% endfor %}
+			</select>
+			<span id="id_start_end_error" style="display: none; float: right; color: red; font-size: 12px;">All values must not be same...</span>
+		</div>
+		<div class="col-md-1">
+			<label class="fw-bold text-uppercase">Interval:</label>
+			<select class="form-control" onchange="" name="expiry" id="id_interval_select">
+				<!-- <option value="60000" {% if interval_obj.interval == 1 %} selected {% endif %}>1</option> -->
+				<option value="180000" {% if interval_obj.interval == 3 %} selected {% endif %}>3</option>
+				<option {% if interval_obj.interval == 5 %} selected {% endif %} value="300000">5</option>
+				<option {% if interval_obj.interval == 15 %} selected {% endif %} value="900000">15</option>
+				<option {% if interval_obj.interval == 30 %} selected {% endif %} value="1800000">30</option>
+				<option {% if interval_obj.interval == 60 %} selected {% endif %} value="3600000">60</option>
+			</select>
+		</div>
+		
+		<div class="col-md-1" style="margin-top: 30px; margin-left:-10px;">
+			<button  class="btn btn-primary mb-1" style="color: white;" onclick="submit_chart()">Submit</button>
+		</div>
+		<div class="col-md-1" style="margin-top: 30px; margin-left: -25px;">
+				<button class="btn btn-warning" style="color: white;" onclick="refreshChart()">Refresh</button>
+		</div>
+	</div>
+	<div class="mt-5" >
+		<canvas id="myChartCE"></canvas>
+	</div>
+	
+	<div style="max-height: 500px; overflow-y: auto">
+		<table class="mb-0 mt-3 table table-bordered scrolldown " id="history_log_table" style="display: inline-table; width: 100% !important; max-height:500px !important;">
+			<thead>
+				<tr class="text-center">
+					<th rowspan="2" style="background: lightgrey; color: black;">Time</th>
+					<th colspan="3" style="background: lightgreen; color: black;">CALL Change OI</th>
+					<th colspan="3" style="background: red; color: black;">PUT Change OI</th>
+					<th rowspan="2" style="background: lightgreen; color: black;">TTL CALL OI Change</th>
+					<th rowspan="2" style="background: red; color: black;">TTL PUT OI Change</th>
+					<th rowspan="2" style="background: #FAFA33; color: black;">Spot Price</th>
+					<th rowspan="2" style="background: #00ffff; color: black;">Intraday Market View</th>
+					<th colspan="2" style="">Change %</th>
+				</tr>
+				<tr class="text-center">
+					<th id="id_h_call_change_oi_1" style="background: #353935; color: lightgreen;">#value</th>
+					<th id="id_h_call_change_oi_2" style="background: #353935; color: lightgreen;">#value</th>
+					<th id="id_h_call_change_oi_3" style="background: #353935; color: lightgreen;">#value</th>
+					
+					<th id="id_h_put_change_oi_1" style="background: #353935; color: white;">#value</th>
+					<th id="id_h_put_change_oi_2" style="background: #353935; color: white;">#value</th>
+					<th id="id_h_put_change_oi_3" style="background: #353935; color: white;">#value</th>
+					
+					<th style="color: lightgreen;">CE</th>
+					<th style="color: red;">PE</th>
+					
+					<!-- <th style="">Dchange</th> -->
+				</tr>
+			</thead>
+			<tbody id="id_history_table_body">
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+
+
+
+</row>
+
+</div>
+<div id='app'>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+<!-- testing adding code for 9:15 maintain last date pending -->
+
+var myChartCE;
+function CreateChart(ce_val, pe_val, label_val, min_oi, max_oi)
+{
+	<!-- console.log('max_oi' + max_oi); -->
+	<!-- console.log('min_oi' + min_oi); -->
+	if (myChartCE) {
+		myChartCE.destroy();
+	  }
+	const context = document.getElementById("myChartCE").getContext('2d');
+
+	context.clearRect(0, 0, document.getElementById("myChartCE").width, document.getElementById("myChartCE").height);
+	
+	var data = {
+		"datasets": [
+		  
+		  {
+			"backgroundColor": "green",
+			"borderColor": "green",
+			"fill": false,
+			"data": ce_val,
+			"id": "amount",
+			"label": "CE",
+			"yAxisID":"left"
+
+		  },
+		  {
+			"backgroundColor": "red",
+			"borderColor": "red",
+			"fill": false,
+			"data": pe_val,
+			"id": "amount",
+			"label": "PE",
+			"yAxisID":"left"
+		  },
+		  <!-- { -->
+			<!-- "backgroundColor": "red", -->
+			<!-- "borderColor": "red", -->
+			<!-- "fill": false, -->
+			<!-- "data": pe_val, -->
+			<!-- "id": "amount", -->
+			<!-- "label": "PE", -->
+			<!-- "yAxisID":"left" -->
+		  <!-- }, -->
+		],
+		"labels": label_val,
+	  };
+
+	var type = "line";
+	myChartCE = new Chart(document.getElementById("myChartCE").getContext('2d'), {
+		options: {
+			<!-- events: [], -->
+			animation: {
+				duration: 0, // general animation time
+			},
+			legend: {
+				 onClick: (e) => e.stopPropagation()
+			},
+			scales: {
+				yAxes: [
+					{
+						"scaleLabel": {
+							"display": true,
+							"labelString": "OI"
+						},
+						"id": "left",
+						"stacked": false,
+						"ticks": {
+							"beginAtZero": true,
+							suggestedMin: min_oi,
+							suggestedMax: max_oi,
+						}
+					},
+					<!-- { -->
+						<!-- "scaleLabel": { -->
+							<!-- "display": true, -->
+							<!-- "labelString": "Price" -->
+						<!-- }, -->
+						<!-- "id": "right", -->
+						<!-- "position": "right", -->
+						<!-- "stacked": false, -->
+						<!-- "ticks": { -->
+							<!-- "beginAtZero": false, -->
+							<!-- suggestedMin: min_ltp, -->
+							<!-- suggestedMax: max_ltp -->
+						<!-- } -->
+					<!-- } -->
+				],
+				 xAxes: [{
+					ticks: {
+						autoSkip: false,
+						maxRotation: 85,
+						minRotation: 85
+					}
+				}]
+			}
+		},
+		data,
+		type
+	});
+}
+
+var interval_flag = 0;
+
+function indianRupee(x)
+{
+	var number = parseFloat(x);
+	return number.toLocaleString("en-IN", {minimumFractionDigits: 0, maximumFractionDigits: 0, currency: 'INR'})
+}
+
+var call_oi_array = new Array(); 
+var put_oi_array = new Array();
+var ltp_array = new Array();
+var lable_array = new Array(); 
+
+var call_min_oi = null; 
+var call_max_oi = null; 
+
+var put_min_oi = null;
+var put_max_oi = null;
+
+var three_strike_interval_time;
+var three_strike_temp_date_and_time;
+var global_last_spot_price;
+
+
+function fetch_all(symbol)
+{
+	var strike_price_1;
+	var strike_price_2;
+	var strike_price_3;
+	
+	if ($('#testing').val() == 'Nifty')
+	{
+		strike_price_1 = parseInt($('#id_nifty_strike_price_1').val());
+		strike_price_2 = parseInt($('#id_nifty_strike_price_2').val());
+		strike_price_3 = parseInt($('#id_nifty_strike_price_3').val());
+	}
+	else
+	{
+		strike_price_1 = parseInt($('#id_banknifty_strike_price_1').val());
+		strike_price_2 = parseInt($('#id_banknifty_strike_price_2').val());
+		strike_price_3 = parseInt($('#id_banknifty_strike_price_3').val());
+	}
+	$('#id_h_call_change_oi_1').html(strike_price_1);
+	$('#id_h_call_change_oi_2').html(strike_price_2);
+	$('#id_h_call_change_oi_3').html(strike_price_3);
+	$('#id_h_put_change_oi_1').html(strike_price_1);
+	$('#id_h_put_change_oi_2').html(strike_price_2);
+	$('#id_h_put_change_oi_3').html(strike_price_3);
+	
+	call_oi_array = [];
+	ltp_array = [];
+	put_oi_array = [];
+	lable_array = [];
+	
+	var first_history = 'Yes';
+	
+	var dateTime_after_close = new Date (new Date().toDateString() + ' ' + '15:30');
+	var dateTime_in_morning = new Date (new Date().toDateString() + ' ' + '09:15');
+	
+	var dt = new Date();
+	var date_check;
+	var dateTime_after_close = new Date (new Date().toDateString() + ' ' + '15:30');
+	var dateTime_in_morning = new Date (new Date().toDateString() + ' ' + '09:15');
+	<!-- check data is coming or not  -->
+	$( document ).ready(function() 
+	{
+		$.ajax({
+			method: "POST",
+			url: "/three_strike_oi_analysis_data/",
+			data: {
+				'first_history': first_history,
+				'symbol': symbol,
+				'strike_price_1':strike_price_1,
+				'strike_price_2':strike_price_2,
+				'strike_price_3':strike_price_3,
+			},
+			success: function (response) 
+			{			
+				<!-- console.log(response.data); -->
+				if (response.status == '1')
+				{
+					first_history = 'No';					
+					var add_time_arg = parseInt($("#id_interval_select option:selected").text());
+					<!-- alert(add_time_arg); -->
+					var history_count = 0;
+					var total_first_record = 0;
+					var total_call_oi = 0;
+					var total_put_oi = 0;
+					var ltp_val = 0;
+					var label_time;
+					var string_time = null;
+					var first_record = 0;
+					var tbodyRef = document.getElementById('history_log_table').getElementsByTagName('tbody')[0];
+					response.data.forEach(function(value) 
+					{	
+						if (history_count == add_time_arg)
+						{
+							history_count = 0;
+						}
+						if (history_count==0)
+						{
+							console.log()
+							newRow = tbodyRef.insertRow();
+							
+							cell_obj = newRow.insertCell();
+							cell_obj.style.backgroundColor="#FADA5E";
+							cell_obj.appendChild(document.createTextNode(value.col1.slice(0, -7)));
+							
+							string_time = value.col1.slice(0, -7);
+							
+							cell_obj = newRow.insertCell(1);
+							cell_obj.style.backgroundColor="#e8e8d6";
+							cell_obj.appendChild(document.createTextNode(indianRupee(value.col2)));
+							
+							cell_obj = newRow.insertCell(2);
+							cell_obj.style.backgroundColor="#e8e8d6";
+							cell_obj.appendChild(document.createTextNode(indianRupee(value.col3)));
+							
+							cell_obj = newRow.insertCell(3);
+							cell_obj.style.backgroundColor="#e8e8d6";
+							cell_obj.appendChild(document.createTextNode(indianRupee(value.col4)));
+							
+							
+							cell_obj = newRow.insertCell(4);
+							cell_obj.style.backgroundColor="#ffcccb";
+							cell_obj.style.color="red";
+							cell_obj.appendChild(document.createTextNode(indianRupee(value.col5)));
+							
+							cell_obj = newRow.insertCell(5);
+							cell_obj.style.backgroundColor="#ffcccb";
+							cell_obj.style.color="red";
+							cell_obj.appendChild(document.createTextNode(indianRupee(value.col6)));
+							
+							cell_obj = newRow.insertCell(6);
+							cell_obj.style.backgroundColor="#ffcccb";
+							cell_obj.style.color="red";
+							cell_obj.appendChild(document.createTextNode(indianRupee(value.col7)));
+							
+							cell_obj1 = newRow.insertCell(7);
+							cell_obj1.style.backgroundColor="#353935";
+							cell_obj1.style.textAlign = "center";
+							total_call_change = parseInt(value.col2) + parseInt(value.col3) + parseInt(value.col4)
+							cell_obj1.appendChild(document.createTextNode(indianRupee(total_call_change)));
+							
+							cell_obj2 = newRow.insertCell(8);
+							cell_obj2.style.backgroundColor="#353935";
+							cell_obj2.style.textAlign = "center";
+							total_put_change = parseInt(value.col5) + parseInt(value.col6) + parseInt(value.col7)
+							cell_obj2.appendChild(document.createTextNode(indianRupee(total_put_change)));
+							
+							if (total_call_change > total_put_change)
+							{
+								cell_obj1.style.color="lightgreen";
+								cell_obj2.style.color="#FF7276";
+							}
+							else
+							{
+								cell_obj2.style.color="lightgreen";
+								cell_obj1.style.color="#FF7276";
+							}
+							
+							if (first_record > 0)
+							{
+								cell_obj = newRow.insertCell(9);
+								cell_obj.style.textAlign = "center";
+								if (parseFloat(value.col8) > last_spot_price)
+								{
+									cell_obj.style.background = "lightgreen";
+								}
+								else
+								{
+									cell_obj.style.background = "#ffcccb";
+									cell_obj.style.color = "red";
+								}
+								cell_obj.appendChild(document.createTextNode(value.col8));
+								
+								last_spot_price = parseFloat(value.col8);
+							}
+							else
+							{
+								<!-- First Record -->
+								cell_obj = newRow.insertCell(9);
+								cell_obj.style.textAlign = "center";
+								cell_obj.style.background = "lightgreen";
+								cell_obj.appendChild(document.createTextNode(value.col8));
+								last_spot_price = parseFloat(value.col8);
+							}
+
+							<!-- cell_obj = newRow.insertCell(9); -->
+							<!-- cell_obj.style.textAlign = "center"; -->
+							<!-- cell_obj.appendChild(document.createTextNode(value.col8)); -->
+							
+							total_oi_change = total_put_change - total_call_change;
+							
+							if (total_oi_change == 0)
+							{
+								cell_obj = newRow.insertCell(10);
+								cell_obj.style.backgroundColor="lightpink";
+								cell_obj.style.color="black";
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode('No Data'));
+							}
+							else if(total_oi_change > 400000)
+							{
+								cell_obj = newRow.insertCell(10);
+								cell_obj.style.backgroundColor="lightgreen";
+								cell_obj.style.color="black";
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode('BULLISH'));
+							}
+							else if(total_oi_change < 400000)
+							{
+								cell_obj = newRow.insertCell(10);
+								cell_obj.style.backgroundColor="#fd0e35";
+								cell_obj.style.color="black";
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode('BEARISH'));
+							}
+							else if(total_oi_change < 100000)
+							{
+								cell_obj = newRow.insertCell(10);
+								cell_obj.style.backgroundColor="lightgrey";
+								cell_obj.style.color="black";
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode('Wait'));
+							}
+							
+							var ce_per = 0;
+							if (first_record > 0)
+							{
+								if((total_call_change > 0) && (prev_call_change_val > 0))
+								{
+									ce_per = ((total_call_change-prev_call_change_val)/prev_call_change_val)*100;
+								}
+								else if((total_call_change < 0) && (prev_call_change_val < 0))
+								{
+									ce_per = ((total_call_change-prev_call_change_val)/-prev_call_change_val)*100;
+								}
+								else if((total_call_change > 0) && (prev_call_change_val < 0))
+								{
+									ce_per = ((total_call_change-prev_call_change_val)/-prev_call_change_val)*100;
+								}
+								else
+								{
+									ce_per = ((total_call_change-prev_call_change_val)/prev_call_change_val)*100;
+								}
+								if (ce_per <= 0)
+								{
+									cell_obj = newRow.insertCell(11);
+									cell_obj.style.backgroundColor="#ffcccb";
+									cell_obj.style.color="red";
+									cell_obj.style.textAlign = "center";
+									cell_obj.appendChild(document.createTextNode(ce_per.toFixed(2)+'%'));
+								}
+								else
+								{
+									cell_obj = newRow.insertCell(11);
+									cell_obj.style.backgroundColor="lightgreen";
+									cell_obj.style.color="black";
+									cell_obj.style.textAlign = "center";
+									cell_obj.appendChild(document.createTextNode(ce_per.toFixed(2)+'%'));
+								}
+							}
+							else
+							{
+								cell_obj = newRow.insertCell(11);
+								cell_obj.style.color="black";
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode('-'));
+							}
+							
+							var pe_per = 0;
+							if (first_record > 0)
+							{
+								if((total_put_change > 0) && (prev_put_change_val > 0))
+								{
+									pe_per = ((total_put_change-prev_put_change_val)/prev_put_change_val)*100;
+								}
+								else if((total_put_change < 0) && (prev_put_change_val < 0))
+								{
+									pe_per = ((total_put_change-prev_put_change_val)/-prev_put_change_val)*100;
+								}
+								else if((total_put_change > 0) && (prev_put_change_val < 0))
+								{
+									pe_per = ((total_put_change-prev_put_change_val)/-prev_put_change_val)*100;
+								}
+								else
+								{
+									pe_per = ((total_put_change-prev_put_change_val)/prev_put_change_val)*100;
+								}
+								if (pe_per <= 0)
+								{
+									cell_obj = newRow.insertCell(12);
+									cell_obj.style.backgroundColor="#ffcccb";
+									cell_obj.style.color="red";
+									cell_obj.style.textAlign = "center";
+									cell_obj.appendChild(document.createTextNode(pe_per.toFixed(2)+'%'));
+								}
+								else
+								{
+									cell_obj = newRow.insertCell(12);
+									cell_obj.style.backgroundColor="lightgreen";
+									cell_obj.style.color="black";
+									cell_obj.style.textAlign = "center";
+									cell_obj.appendChild(document.createTextNode(pe_per.toFixed(2)+'%'));
+								}
+							}
+							else
+							{
+								cell_obj = newRow.insertCell(11);
+								cell_obj.style.color="black";
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode('-'));
+							}
+							
+							first_record = 1;
+							$("#history_log_table tbody").prepend(newRow);
+							history_count = history_count + 1;
+							prev_call_change_val = total_call_change;
+							prev_put_change_val = total_put_change;
+							previous_call_oi = total_call_change;
+							previous_put_oi = total_put_change;
+							
+							call_oi_array.push(total_call_change);
+							put_oi_array.push(total_put_change);
+							lable_array.push(string_time);
+							<!-- ltp_array.push(value.col8); -->
+						}
+						else
+						{
+							history_count = history_count + 1;
+						}
+					});
+					<!-- create chart here -->
+					call_max_oi = Math.max.apply(Math,call_oi_array);
+					call_min_oi = Math.min.apply(Math,call_oi_array);
+				
+					put_max_oi = Math.max.apply(Math,put_oi_array);
+					put_min_oi = Math.min.apply(Math,put_oi_array);
+					
+					<!-- ltp_min = Math.max.apply(Math,ltp_array); -->
+					<!-- ltp_max = Math.min.apply(Math,ltp_array); -->
+					var send_max_oi;
+					var send_min_oi;
+					if (call_max_oi > put_max_oi)
+					{
+						send_max_oi = call_max_oi;
+					}
+					else
+					{
+						send_max_oi = put_max_oi;
+					}
+					if (call_min_oi > put_min_oi)
+					{
+						send_min_oi = put_min_oi;
+					}
+					else
+					{
+						send_min_oi = call_min_oi;
+					}
+					CreateChart(call_oi_array, put_oi_array, lable_array, send_min_oi, send_max_oi);
+					
+					var current_time = new Date();
+					
+					if ((current_time.getTime() < dateTime_after_close.getTime()) && (current_time.getTime() > dateTime_in_morning.getTime())) 
+					{
+						
+						three_strike_interval_time = parseInt($("#id_interval_select option:selected").val());
+						
+						intraday_analysis_add_time = parseInt($("#id_interval_select option:selected").text());
+						
+						three_strike_temp_date_and_time = new Date (new Date().toDateString() + ' ' + string_time);
+						three_strike_temp_date_and_time.setMinutes( three_strike_temp_date_and_time.getMinutes() + intraday_analysis_add_time );
+						
+						<!-- alert(three_strike_temp_date_and_time); -->
+						if (interval_flag == 0)
+						{
+							run1 = setInterval(request, three_strike_interval_time);
+							interval_flag = 1;
+						}
+						else
+						{
+							clearInterval(run1);
+							run1 = setInterval(request, three_strike_interval_time);
+						}
+					}
+					else
+					{
+						if (interval_flag == 1)
+						{
+							clearInterval(run1);
+						}
+					}
+				}
+				else
+				{
+				}
+			}
+			
+		});	
+	});
+}
+
+fetch_all($('#testing').val());
+
+
+<!-- interval function  -->
+
+function request()
+{
+	<!-- console.log('called'); -->
+	if(three_strike_temp_date_and_time.getMinutes() < 10)
+	{
+		total_log_time = three_strike_temp_date_and_time.getHours() + ":0" +three_strike_temp_date_and_time.getMinutes();
+	}
+	else
+	{
+		total_log_time = three_strike_temp_date_and_time.getHours() + ":" +three_strike_temp_date_and_time.getMinutes();
+	}
+	first_history = 'No';
+	symbol = $('#testing').val();
+	
+	if ($('#testing').val() == 'Nifty')
+	{
+		strike_price_1 = parseInt($('#id_nifty_strike_price_1').val());
+		strike_price_2 = parseInt($('#id_nifty_strike_price_2').val());
+		strike_price_3 = parseInt($('#id_nifty_strike_price_3').val());
+	}
+	else
+	{
+		strike_price_1 = parseInt($('#id_banknifty_strike_price_1').val());
+		strike_price_2 = parseInt($('#id_banknifty_strike_price_2').val());
+		strike_price_3 = parseInt($('#id_banknifty_strike_price_3').val());
+	}
+	
+	$.ajax({
+		method: "POST",
+		url: "/three_strike_oi_analysis_data/",
+		data: {
+			'first_history': first_history,
+			'symbol': symbol,
+			'strike_price_1':strike_price_1,
+			'strike_price_2':strike_price_2,
+			'strike_price_3':strike_price_3,
+			'log_time':total_log_time,
+		},
+		success: function (response) 
+		{			
+			if (response.status == '1')
+			{
+				var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+				
+				first_history = 'No';
+				
+				three_strike_temp_date_and_time.setMinutes( three_strike_temp_date_and_time.getMinutes() + total_add_time_arg );
+				
+				var total_call_change = 0;
+				var total_put_change = 0;
+				var total_oi_change = 0;
+				var first_record = 0;
+				var prev_call_change_val = 0;
+				var prev_put_change_val = 0;
+				
+				var tbodyRef = document.getElementById('history_log_table').getElementsByTagName('tbody')[0];
+				newRow = tbodyRef.insertRow();
+				response.data.forEach(function(value) 
+				{	
+					cell_obj = newRow.insertCell();
+					cell_obj.style.backgroundColor="#FADA5E";
+					cell_obj.appendChild(document.createTextNode(value.col1.slice(0, -7)));
+					
+					cell_obj = newRow.insertCell(1);
+					cell_obj.style.backgroundColor="#e8e8d6";
+					cell_obj.appendChild(document.createTextNode(indianRupee(value.col2)));
+					
+					cell_obj = newRow.insertCell(2);
+					cell_obj.style.backgroundColor="#e8e8d6";
+					cell_obj.appendChild(document.createTextNode(indianRupee(value.col3)));
+					
+					cell_obj = newRow.insertCell(3);
+					cell_obj.style.backgroundColor="#e8e8d6";
+					cell_obj.appendChild(document.createTextNode(indianRupee(value.col4)));
+					
+					
+					cell_obj = newRow.insertCell(4);
+					cell_obj.style.backgroundColor="#ffcccb";
+					cell_obj.style.color="red";
+					cell_obj.appendChild(document.createTextNode(indianRupee(value.col5)));
+					
+					cell_obj = newRow.insertCell(5);
+					cell_obj.style.backgroundColor="#ffcccb";
+					cell_obj.style.color="red";
+					cell_obj.appendChild(document.createTextNode(indianRupee(value.col6)));
+					
+					cell_obj = newRow.insertCell(6);
+					cell_obj.style.backgroundColor="#ffcccb";
+					cell_obj.style.color="red";
+					cell_obj.appendChild(document.createTextNode(indianRupee(value.col7)));
+					
+					cell_obj1 = newRow.insertCell(7);
+					cell_obj1.style.backgroundColor="#353935";
+					cell_obj1.style.textAlign = "center";
+					total_call_change = parseInt(value.col2) + parseInt(value.col3) + parseInt(value.col4)
+					cell_obj1.appendChild(document.createTextNode(indianRupee(total_call_change)));
+					
+					cell_obj2 = newRow.insertCell(8);
+					cell_obj2.style.backgroundColor="#353935";
+					cell_obj2.style.textAlign = "center";
+					total_put_change = parseInt(value.col5) + parseInt(value.col6) + parseInt(value.col7)
+					cell_obj2.appendChild(document.createTextNode(indianRupee(total_put_change)));
+					
+					if (total_call_change > total_put_change)
+					{
+						cell_obj1.style.color="#FF7276";
+						cell_obj2.style.color="#FF7276";
+					}
+					else
+					{
+						cell_obj2.style.color="lightgreen";
+						cell_obj1.style.color="#FF7276";
+					}
+					
+					
+					cell_obj = newRow.insertCell(9);
+					cell_obj.style.textAlign = "center";
+					if (parseFloat(value.col8) > global_last_spot_price)
+					{
+						cell_obj.style.background = "lightgreen";
+					}
+					else
+					{
+						cell_obj.style.background = "#ffcccb";
+						cell_obj.style.color = "red";
+					}
+					cell_obj.appendChild(document.createTextNode(value.col8));
+					
+					global_last_spot_price = parseFloat(value.col8);
+					
+
+					<!-- cell_obj = newRow.insertCell(9); -->
+					<!-- cell_obj.style.textAlign = "center"; -->
+					<!-- cell_obj.appendChild(document.createTextNode(value.col8)); -->
+					
+					total_oi_change = total_put_change - total_call_change;
+				
+					if (total_oi_change == 0)
+					{
+						cell_obj = newRow.insertCell(10);
+						cell_obj.style.backgroundColor="lightpink";
+						cell_obj.style.color="black";
+						cell_obj.style.textAlign = "center";
+						cell_obj.appendChild(document.createTextNode('No Data'));
+						i_market_view = "No Data";
+					}
+					else if(total_oi_change > 400000)
+					{
+						cell_obj = newRow.insertCell(10);
+						cell_obj.style.backgroundColor="lightgreen";
+						cell_obj.style.color="black";
+						cell_obj.style.textAlign = "center";
+						cell_obj.appendChild(document.createTextNode('BULLISH'));
+						i_market_view = "BULLISH";
+					}
+					else if(total_oi_change < 400000)
+					{
+						cell_obj = newRow.insertCell(10);
+						cell_obj.style.backgroundColor="#fd0e35";
+						cell_obj.style.color="black";
+						cell_obj.style.textAlign = "center";
+						cell_obj.appendChild(document.createTextNode('BEARISH'));
+						i_market_view = "BEARISH";
+					}
+					else if(total_oi_change < 100000)
+					{
+						cell_obj = newRow.insertCell(10);
+						cell_obj.style.backgroundColor="lightgrey";
+						cell_obj.style.color="black";
+						cell_obj.style.textAlign = "center";
+						cell_obj.appendChild(document.createTextNode('Wait'));
+						i_market_view = "Wait";
+					}
+					
+					var ce_per = 0;
+					if((total_call_change > 0) && (previous_call_oi > 0))
+					{
+						ce_per = ((total_call_change-previous_call_oi)/previous_call_oi)*100;
+					}
+					else if((total_call_change < 0) && (previous_call_oi < 0))
+					{
+						ce_per = ((total_call_change-previous_call_oi)/-previous_call_oi)*100;
+					}
+					else if((total_call_change > 0) && (previous_call_oi < 0))
+					{
+						ce_per = ((total_call_change-previous_call_oi)/-previous_call_oi)*100;
+					}
+					else
+					{
+						ce_per = ((total_call_change-previous_call_oi)/previous_call_oi)*100;
+					}
+					if (ce_per <= 0)
+					{
+						cell_obj = newRow.insertCell(11);
+						cell_obj.style.backgroundColor="#ffcccb";
+						cell_obj.style.color="red";
+						cell_obj.style.textAlign = "center";
+						cell_obj.appendChild(document.createTextNode(ce_per.toFixed(2)+'%'));
+					}
+					else
+					{
+						cell_obj = newRow.insertCell(11);
+						cell_obj.style.backgroundColor="lightgreen";
+						cell_obj.style.color="black";
+						cell_obj.style.textAlign = "center";
+						cell_obj.appendChild(document.createTextNode(ce_per.toFixed(2)+'%'));
+					}
+					
+					var pe_per = 0;
+					
+					if((total_put_change > 0) && (previous_put_oi > 0))
+					{
+						pe_per = ((total_put_change-previous_put_oi)/previous_put_oi)*100;
+					}
+					else if((total_put_change < 0) && (previous_put_oi < 0))
+					{
+						pe_per = ((total_put_change-previous_put_oi)/-previous_put_oi)*100;
+					}
+					else if((total_put_change > 0) && (previous_put_oi < 0))
+					{
+						pe_per = ((total_put_change-previous_put_oi)/-previous_put_oi)*100;
+					}
+					else
+					{
+						pe_per = ((total_put_change-previous_put_oi)/previous_put_oi)*100;
+					}
+					if (pe_per <= 0)
+					{
+						cell_obj = newRow.insertCell(12);
+						cell_obj.style.backgroundColor="#ffcccb";
+						cell_obj.style.color="red";
+						cell_obj.style.textAlign = "center";
+						cell_obj.appendChild(document.createTextNode(pe_per.toFixed(2)+'%'));
+					}
+					else
+					{
+						cell_obj = newRow.insertCell(12);
+						cell_obj.style.backgroundColor="lightgreen";
+						cell_obj.style.color="black";
+						cell_obj.style.textAlign = "center";
+						cell_obj.appendChild(document.createTextNode(pe_per.toFixed(2)+'%'));
+					}
+					
+					
+					first_record = 1;
+					call_oi_array.push(total_call_change);
+					put_oi_array.push(total_put_change);
+					lable_array.push(value.col1.slice(0, -7));
+					<!-- ltp_array.push(value.col8); -->
+					previous_call_oi = total_call_change;
+					previous_put_oi = total_put_change;
+				});
+				$("#history_log_table tbody").prepend(newRow);
+				call_max_oi = Math.max.apply(Math,call_oi_array);
+				call_min_oi = Math.min.apply(Math,call_oi_array);
+			
+				put_max_oi = Math.max.apply(Math,put_oi_array);
+				put_min_oi = Math.min.apply(Math,put_oi_array);
+				
+				<!-- ltp_min = Math.max.apply(Math,ltp_array); -->
+				<!-- ltp_max = Math.min.apply(Math,ltp_array); -->
+				var send_max_oi;
+				var send_min_oi;
+				if (call_max_oi > put_max_oi)
+				{
+					send_max_oi = call_max_oi;
+				}
+				else
+				{
+					send_max_oi = put_max_oi;
+				}
+				if (call_min_oi > put_min_oi)
+				{
+					send_min_oi = put_min_oi;
+				}
+				else
+				{
+					send_min_oi = call_min_oi;
+				}
+				CreateChart(call_oi_array, put_oi_array, lable_array, send_min_oi, send_max_oi);
+			}
+			else
+			{
+			}
+		}
+		
+	});	
+}
+
+<!-- end interval function  -->
+
+function chain_type()
+{
+	if ($('#testing').val() == 'Nifty')
+	{
+		if($('#id_nifty_strike_price:visible').length == 0)
+		{
+			$('#id_nifty_strike_price_1').show();
+			$('#id_nifty_strike_price_2').show();
+			$('#id_nifty_strike_price_3').show();
+			$('#id_banknifty_strike_price_1').hide();
+			$('#id_banknifty_strike_price_2').hide();
+			$('#id_banknifty_strike_price_3').hide();
+			<!-- fetch_all($('#testing').val(), $('#id_nifty_strike_price').val()); -->
+		}
+		else
+		{
+			$('#id_banknifty_strike_price_1').hide();
+			$('#id_banknifty_strike_price_2').hide();
+			$('#id_banknifty_strike_price_3').hide();
+		}
+	}
+	else
+	{
+		if($('#id_banknifty_strike_price:visible').length == 0)
+		{
+			$('#id_banknifty_strike_price_1').show();
+			$('#id_banknifty_strike_price_2').show();
+			$('#id_banknifty_strike_price_3').show();
+			$('#id_nifty_strike_price_1').hide();
+			$('#id_nifty_strike_price_2').hide();
+			$('#id_nifty_strike_price_3').hide();
+			<!-- fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val()); -->
+		}
+		else
+		{
+			$('#id_nifty_strike_price_1').hide();
+			$('#id_nifty_strike_price_2').hide();
+			$('#id_nifty_strike_price_3').hide();
+		}
+	}
+}
+
+function refreshChart()
+{
+	submit_chart();
+}
+
+function submit_chart()
+{
+	if($('#testing').val() == 'Nifty')
+	{
+		if (($('#id_nifty_strike_price_1').val() == $('#id_nifty_strike_price_2').val()) && ($('#id_nifty_strike_price_1').val()== $('#id_nifty_strike_price_3').val()))
+		{
+			$('#id_start_end_error').show();
+		}
+		else
+		{
+			$("#id_history_table_body").empty();
+			fetch_all($('#testing').val());
+			$('#id_start_end_error').hide();
+		}
+	}
+	else
+	{
+		if (($('#id_banknifty_strike_price_1').val() == $('#id_banknifty_strike_price_2').val()) && ($('#id_banknifty_strike_price_1').val() == $('#id_banknifty_strike_price_3').val()))
+		{
+			$('#id_start_end_error').show();
+		}
+		else
+		{
+			$("#id_history_table_body").empty();
+			fetch_all($('#testing').val());
+			$('#id_start_end_error').hide();
+		}
+	}
+	
+	
+}
+</script>
+
+<script>
+$(document ).ready(function() {
+	$("#threestrikeoianalysis").addClass("mm-show");
+});
+</script>
+{% include "Panel/footer.html" %}				 

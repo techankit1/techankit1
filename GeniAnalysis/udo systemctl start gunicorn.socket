@@ -1,0 +1,10 @@
+[0;1;31m●[0m gunicorn.service - gunicorn daemon
+     Loaded: loaded (/etc/systemd/system/gunicorn.service; enabled; vendor preset: enabled)
+     Active: [0;1;31mfailed[0m (Result: exit-code) since Mon 2022-01-31 12:06:39 UTC; 4s ago
+TriggeredBy: [0;1;32m●[0m gunicorn.socket
+    Process: 134995 ExecStart=/bin/gunicorn --access-logfile - -k uvicorn.workers.UvicornWorker --workers 3 --bind unix:/run/gunicorn.sock GeniAnalysis.asgi:application [0;1;31m(code=exited, status=203/EXEC)[0m
+   Main PID: 134995 (code=exited, status=203/EXEC)
+
+Jan 31 12:06:39 localhost systemd[1]: Started gunicorn daemon.
+Jan 31 12:06:39 localhost systemd[1]: [0;1;39m[0;1;31m[0;1;39mgunicorn.service: Main process exited, code=exited, status=203/EXEC[0m
+Jan 31 12:06:39 localhost systemd[1]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185mgunicorn.service: Failed with result 'exit-code'.[0m

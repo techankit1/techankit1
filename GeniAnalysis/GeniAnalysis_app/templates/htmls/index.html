@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<title>Tesing ASGI</title>
+		<!-- <script src="https://unpkg.com/vue@next"></script> -->
+		<script src="https://unpkg.com/vue@3.0.11/dist/vue.runtime.global.prod.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<label id="demo"></label>
+		</div>
+		
+		<script>
+			let { createApp } = Vue;
+
+			let CoinsApp = {
+				data(){
+					return {
+						coin: 'Just a text',
+						text: null,
+					}
+				},
+				created(){
+					try 
+					{
+						let socket = new WebSocket(`ws://${window.location.host}/ws/testing/`);
+						<!-- let socket = new WebSocket(`ws://172.105.57.86:8080/ws/testing/`); -->
+
+						let _this = this;
+
+						socket.onmessage = function(event){
+							_this.test = JSON.parse(event.data);
+							console.log(_this.test);
+							
+						}
+					}
+					catch(err) 
+					{
+					  document.getElementById("demo").innerHTML = err.message;
+					}
+				}
+			}
+
+			createApp(CoinsApp).mount('#app')
+		</script>
+
+	</body>
+</html>

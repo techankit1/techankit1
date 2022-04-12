@@ -1,0 +1,873 @@
+{% load static %}
+{% include "Panel/header.html" %}
+<style type="text/css">
+	.ribbon 
+	{
+	  width: 120px;
+	  height: 32px;
+	  font-size: 12px;
+	  text-align: center;
+	  color: #fff;
+	  font-weight: bold;
+	  box-shadow: 0px 2px 3px rgba(136, 136, 136, 0.25);
+	  background: #ffc107;
+	  transform: rotate(45deg);
+	  position: absolute;
+	  right: -10px;
+	  top: 10px;
+	  padding-top: 7px; 
+	  border-top-left-radius: 10px;
+	}
+	body{
+		color: black;
+	}
+    .table-bordered th , td , tr{
+        border: 1px solid #000!important;
+    }
+    .table{
+        width: 88% !important;
+        table-layout: auto;
+    }
+    .table-bordered td{
+        font-size: 12px;
+    }
+    .table-bordered th{
+        font-size: 12px;
+        padding: 4px;
+    }
+    .table-bordered td{
+        
+        padding: 3px;
+    }
+    .f-color{
+        color: #000;
+    }
+    .green-bg{
+        background-color: #79ee9b;
+    }
+    .red-bg{
+        background-color: #ff5f5f;
+    }
+    .f-c-red{
+        color: red;
+    }
+    .f-c-green{
+        color: green;
+    }
+    .f-c-white{
+        color: #fff;
+    }
+    .button-style{
+        height: 140px !important; 
+        border: 1px solid#000; 
+        background-color:#ffd966; 
+        width: 12%;
+        border-left:hidden; 
+        float:right;
+    }
+    .button-1{
+        margin-bottom: 10px; 
+        margin-left: 10px; 
+        margin-top: 8px;
+        background-color:white;
+    }
+    .button-2{
+        margin-bottom: 10px; 
+        margin-left: 10px;
+        background-color:white;
+    }
+    .button-3{
+        margin-left: 10px; 
+        background-color:white;
+    }
+    .bg-1{
+        background-color: #10b5f1;
+    }
+    .bg-2{
+        background-color:#ffd966;
+    }
+    .bg-3{
+        background-color: #d9e1f2;
+    }
+    .bg-4 {
+        background-color:#92ddf9;
+    }
+    .bg-5{
+        background-color:#ff4a4a;
+    }
+    .bg-6{
+        background-color:#ffff96;
+    }
+    .bg-7{
+        background-color:#c00000;
+    }
+    .bg-black{
+        background-color:#000;
+    }
+    .darkred-bg{
+        background-color:#ff0000;
+    }
+    .sl-bg{
+        background-color:#febaac;
+    } 
+    .buy-bg{
+        background-color:#305496;
+    }
+    .bg-yello{
+        background-color: #ffc000;
+    }
+    .light-red{
+        background-color:#fce4d6;
+    }
+	td{
+		text-align: center;
+	}
+	.app-main__inner{font-weight:750;}
+	
+	
+	.loader2{
+	  width: 100px;
+	  height: 100px;
+	  border-radius: 100%;
+	  position: relative;
+	  margin: 0 auto;
+	}
+
+
+	/* LOADER 6 */
+
+	#loader-6{
+	  top: 40px;
+	  left: -2.5px;
+	}
+
+	#loader-6 span{
+	  display: inline-block;
+	  width: 5px;
+	  height: 20px;
+	  background-color: #53a591;
+	}
+
+	#loader-6 span:nth-child(1){
+	  animation: grow 1s ease-in-out infinite;
+	}
+
+	#loader-6 span:nth-child(2){
+	  animation: grow 1s ease-in-out 0.15s infinite;
+	}
+
+	#loader-6 span:nth-child(3){
+	  animation: grow 1s ease-in-out 0.30s infinite;
+	}
+
+	#loader-6 span:nth-child(4){
+	  animation: grow 1s ease-in-out 0.45s infinite;
+	}
+
+	@keyframes grow{
+	  0%, 100%{
+		-webkit-transform: scaleY(1);
+		-ms-transform: scaleY(1);
+		-o-transform: scaleY(1);
+		transform: scaleY(1);
+	  }
+
+	  50%{
+		-webkit-transform: scaleY(1.8);
+		-ms-transform: scaleY(1.8);
+		-o-transform: scaleY(1.8);
+		transform: scaleY(1.8);
+	  }
+	}
+	<!-- #hideloader -->
+	<!-- { -->
+		<!-- display: none; -->
+	<!-- } -->
+	
+	.table-bordered th, td, tr {
+		border: none !important;
+		border-collapse: collapse;
+		font-weight: normal;
+		text-align: center;
+	}
+	.table {
+		width: 100% !important;
+		table-layout: auto;
+	}
+	#users-table_length
+	{
+		float: left;
+	}
+	#users-table_filter
+	{
+		float: right;
+	}
+	.modal-backdrop{
+	z-index: inherit;
+	}
+    .pac-container {
+        z-index: 10000 !important;
+    }
+	.modal-backdrop {
+	  display: none;
+	}
+	.text-name{
+		font-size: 16px; 
+		font-weight: bold;
+		color: black;
+	}
+	.text-data{
+		font-size: 15px;
+	}
+	.custom-file-upload {
+	  border: 1px solid #ccc;
+	  display: inline-block;
+	  padding: 6px 12px;
+	  cursor: pointer;
+	}
+</style>
+<div class="app-main__inner" style="padding: 15px 0px 0 !important;">             
+<div class="tabs-animation">
+                        
+<div class="col-lg-12">
+<row>
+<div class="main-card mb-3 card">
+<div class="card-body">
+<h5 class="card-title mb-5">Subscription History<button data-toggle="modal" data-target="#myModal" onclick="renewPlan()" style="float: right;" class="btn btn-primary">Renew</button></h5>
+	<div id="id_table_container">
+		{{string}}
+	</div>
+</div>
+</div>
+
+</row>
+
+</div>
+
+<div id='app'>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="modal fade" id="myModal" style="background: rgba(0,0,0,0.5) !important; ">
+    <div class="modal-dialog modal-lg" style="margin-top: 164px; z-index: 10000000000;">
+      <div class="modal-content" style="">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Add Subscription</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+			<div class="col-md-12 mx-auto">
+				<div class="row mx-auto details-container" id="id_div_info">
+					<div class="col-md-2 text-left">
+						<p class="mt-2" style="margin-bottom: 20px;"><span class="text-name">User Name: </span></p>
+						<p class="mt-4 mb-1" style="margin-bottom: 20px;"><span class="text-name mt-4">Plan Type:</span></p><br>
+						<p class="mt-2 mb-1" style="margin-bottom: 20px;"><span class="text-name mt-4">Start Date:</span></p><br>
+						<p class="mt-2 mb-4"><span class="text-name ">End Date:</span></p>
+						<p class="mt-3 mb-2"><span class="text-name ">Payment:</span></p>
+					</div>
+					<div class="col-md-4 text-left">
+						<input type="hidden" value="" id="id_user_id">
+						<p><span class="text-data"> <input type="text" id="id_user_name" value="{{user.name}}" class="form-control" readonly> </span></p>
+						<p><span class="text-data">
+							<select onchange="calculate_date_on_type()" id="id_plan_type_select" class="form-control">
+								<option value="Monthly">Monthly</option>
+								<option value="Yearly">Yearly</option>
+							</select>
+						</span></p>
+						<p><span class="text-data">
+							<input type="date" onclick="hide_start_date_error()" min="{% now 'Y-m-d' %}" class="form-control" id="id_start_date">
+							<span style="color: red; font-size: 12px; display: none;" id="id_start_date_error">Please select the date</span>
+						</span></p>
+						<p><span class="text-data">
+							<input type="date" onclick="hide_end_date_error()" class="form-control" id="id_end_date" readonly>
+							<span style="color: red; font-size: 12px; display: none;" id="id_end_date_error">Please select the date</span>
+						</span></p>
+						<p><span class="text-data">
+							<select onchange="change_payment_info()" id="id_payment_method_select" class="form-control">							
+								<option value="">Select Method</option>
+								<option value="dbt">Direct Bank Transfer</option>
+								<option value="cashfree">Cashfree</option>
+							</select>
+						</span></p>
+					</div>
+					<!-- #################### Monthly Plan Details ############## -->
+					
+					<div id="id_monthly_plan_details" style="border: 1px solid #ffc107; padding: 20px 15px 15px 20px;" class="col-md-6 mx-auto">
+						<div class="row details-container text-center" id="id_div_info">
+							<div class="col-md-12 text-left">
+								<!-- <div class="ribbon">Best Value</div> -->
+								<p><span class="text-name">Price: </span><span class="text-data" id="id_monthly_price"></span></p>
+								<p><span class="text-name">Discount</span> (<span class="text-data" id="id_monthly_discount"></span>): <span class="text-data" id="id_monthly_amount"></span></p>
+								<!-- <p><span class="text-name">Amount:</span>&emsp;<span class="text-data" id="id_monthly_amount"></span></p> -->
+								{% if not monthly_subscription.extra_discount_text %}
+								{% else %}
+									<p><span class="text-name" id="id_monthly_extra_discount_text">Extra Launching Discount</span>: <span class="text-data" id="id_monthly_extra_discount"></span></p>
+								{% endif %}
+								<p><span class="text-name">Net Amount:</span> <span class="text-data" id="id_monthly_net_amount"></span></p>
+								<p><span class="text-name">GST (18%):</span> <span class="text-data" id="id_monthly_gst_amount"></span></p>
+								<p><span class="text-name">Payble Amount: <span class="text-data" id="id_monthly_payble_text"></span></span></p>
+								
+								<input type="hidden" id="id_monthly_payble" value="">
+								<input type="hidden" id="id_monthly_sub_id" value="">
+							</div>
+						</div>
+					</div>
+					
+					<!-- #################### Yearly Plan Details ############## -->
+					
+					<div id="id_yearly_plan_details" style="display: none; border: 1px solid #ffc107; padding: 20px 15px 15px 20px;" class="col-md-6 mx-auto">
+						<div class="row details-container text-center" id="id_div_info">
+							<div class="col-md-12 text-left">
+								<p><span class="text-name">Price: </span><span class="text-data" id="id_yearly_price"></span></p>
+								<p><span class="text-name">Discount </span> (<span class="text-data" id="id_yearly_discount"></span>): <span class="text-data" id="id_yearly_amount"></span></p>
+								<!-- <p><span class="text-name">Amount:</span>&emsp;<span class="text-data" id="id_yearly_amount"></span></p> -->
+								{% if not yearly_subscription.extra_discount_text %}
+								{% else %}
+									<p><span class="text-name" id="id_yearly_extra_discount_text"></span> :<span class="text-data" id="id_yearly_extra_discount"></span></p>
+								{% endif %}
+								<p><span class="text-name">Net Amount:</span> <span class="text-data" id="id_yearly_net_amount"></span></p>
+								<p><span class="text-name">GST (18%):</span> <span class="text-data" id="id_yearly_gst_amount"></span></p>
+								<p><span class="text-name">Payble Amount: <span class="text-data" id="id_yearly_payble_text"></span>/-</span></p>
+								
+								<input type="hidden" id="id_yearly_payble" value="">
+								<input type="hidden" id="id_yearly_sub_id" value="">
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row mt-2">
+					<!-- ############# bank details ############# -->
+					<div id="id_bank_details" style="border: 1px solid #ffc107; padding: 15px; display: none;" class="col-md-11 mx-auto">
+						<div class="row details-container text-center" id="id_div_info">
+							<div class="col-md-4 text-left">
+								<p><span class="text-name">Account Holder Name:</span></p>
+							<p><span class="text-name">Account Number:</span></p>
+							<p><span class="text-name">IFSC Code:</span></p>
+							<p><span class="text-name">Branch Name:</span></p>
+							<p><span class="text-name">Account Type</span></p>
+								<p><span class="text-name">Upload Payment Receipt:</span></p>
+							</div>
+							<div class="col-md-4 text-left">
+								<p><span class="text-data">STOCKGENI</span></p>
+							<p><span class="text-data">50200060416605</span></p>
+							<p><span class="text-data">HDFC0000153</span></p>
+							<p><span class="text-data">RAJ NAGAR - GHAZIABAD</span></p>
+							<p><span class="text-data">UPI- 8375899800@UPI</span></p>
+								<p class="mt-1"><span class="text-data">
+									<label for="receipt" class="custom-file-upload">
+										<i class="fa fa-cloud-upload"></i> Upload Receipt
+									</label>
+									<input type="file" style="display:none;" class="" accept=".png, .jpg, .jpeg, .pdf" name="receipt" id="receipt">
+								</span><br>
+								<span style="color: red; font-size: 12px; margin-top: -30px;" id="id_receipt_error"></span>
+							</p>
+								
+							</div>
+							<div class="col-md-4 text-left">
+								<p class=""><img width="200px" height="200px" src="{% static 'Website/assets/images/stockGiniQrCode.png' %}" alt="qr_code_not_found"></p>
+							</div>
+							<p style="margin-left: 45%;"><span class="text-data mt-4">
+								<input type="button" class="btn btn-primary" onclick="directBank_payment_submit()" value="Submit" name="payment_btn" id="payment_btn">
+							</span></p><br>
+						</div>
+						
+					</div>
+					
+					<!-- ################ cashfree button ############# -->
+					
+					<div id="id_cashfree_page" style="border: 1px solid #ffc107; padding: 15px; display: none;" class="col-md-8 mx-auto">
+						<div class="row details-container text-center">
+							<div class="col-md-6 mx-auto">
+								<button type="button" onclick="cashFree_payment()" id="cashfree_btn" class="btn btn-primary">Go To Payment Page</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		  </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+ </div>
+
+<script>
+var file_size = 0;
+$('#receipt').bind('change', function() 
+{ 
+	 
+	$('#id_receipt_error').html('');
+	$('#id_receipt_error').html('');
+	
+	file_size = this.files[0].size; 
+	
+	var i = $('.custom-file-upload').clone(); 
+	var file = $('#receipt')[0].files[0].name;
+	
+	if (file.length > 20)
+	{
+		var file_name = file.substr(0,20) + '...';
+	}
+	else
+	{
+		var file_name = file; 
+	}
+	$('.custom-file-upload').text(file_name);
+});
+</script>
+<script>
+function indianRupee(x)
+{
+	var number = x;
+	return number.toLocaleString('en-IN', {
+		maximumFractionDigits: 2,
+		style: 'currency',
+		currency: 'INR'
+	});
+	<!-- x=x.toString(); -->
+	<!-- var lastThree = x.substring(x.length-3); -->
+	<!-- var otherNumbers = x.substring(0,x.length-3); -->
+	<!-- if(otherNumbers != '') -->
+		<!-- lastThree = ',' + lastThree; -->
+	<!-- var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; -->
+	
+	<!-- return res; -->
+}
+$('#id_monthly_price').html(indianRupee({{monthly_subscription.price}}) + "/-");
+$('#id_monthly_discount').html({{monthly_subscription.discount}} + "%");
+$('#id_monthly_amount').html(indianRupee({{monthly_subscription.amount}}) + "/-");
+
+{% if not monthly_subscription.extra_discount_text %}
+{% else %}
+	$('#id_monthly_extra_discount_text').html({{monthly_subscription.extra_discount_text}});
+	$('#id_monthly_extra_discount').html(indianRupee({{monthly_subscription.extra_discount}}));
+{% endif %}
+$('#id_monthly_payble_text').html(indianRupee({{monthly_subscription.payble_amount}}) + "/-");
+$('#id_monthly_net_amount').html(indianRupee({{monthly_subscription.net_amount}}) + "/-");
+$('#id_monthly_gst_amount').html(indianRupee({{monthly_subscription.gst_amount}}) + "/-");
+
+$('#id_monthly_payble').val({{monthly_subscription.payble_amount}});
+$('#id_monthly_sub_id').val({{monthly_subscription.id}});
+
+
+<!-- Yearly data -->
+$('#id_yearly_price').html(indianRupee({{yearly_subscription.price}}) + "/-");
+$('#id_yearly_discount').html(indianRupee({{yearly_subscription.discount}}) + "%");
+$('#id_yearly_amount').html(indianRupee({{yearly_subscription.amount}}) + "/-");
+$('#id_yearly_net_amount').html(indianRupee({{yearly_subscription.net_amount}}) + "/-");
+$('#id_yearly_gst_amount').html(indianRupee({{yearly_subscription.gst_amount}}) + "/-");
+
+{% if not yearly_subscription.extra_discount_text %}
+{% else %}
+	$('#id_yearly_extra_discount_text').html('{{yearly_subscription.extra_discount_text}}');
+	$('#id_yearly_extra_discount').html(indianRupee({{yearly_subscription.extra_discount}}) + "/-");
+{% endif %}
+$('#id_yearly_payble_text').html(indianRupee({{yearly_subscription.payble_amount}}));
+$('#id_yearly_payble').val({{yearly_subscription.payble_amount}});
+$('#id_yearly_sub_id').val({{yearly_subscription.id}});
+
+</script>
+
+<script>
+function change_payment_info()
+{
+	var payment_type = $('#id_payment_method_select').val();
+	
+	if (payment_type == 'dbt')
+	{
+		if($('#id_bank_details:visible').length == 0)
+		{
+			$('#id_bank_details').show(500);
+			$('#id_cashfree_page').hide(500);
+		}
+		else
+		{
+			$('#id_bank_details').hide(500);
+			$('#id_cashfree_page').hide(500);
+		}
+	}
+	else if(payment_type == 'cashfree')
+	{
+		if($('#id_cashfree_page :visible').length == 0)
+		{
+			$('#id_cashfree_page').show(500);
+			$('#id_bank_details').hide(500);
+		}
+		else
+		{
+			$('#id_cashfree_page').hide(500);
+			$('#id_bank_details').hide(500);
+		}
+	}
+	else
+	{
+		$('#id_cashfree_page').hide(500);
+		$('#id_bank_details').hide(500);
+	}
+}
+
+$(document.body).on('change','#id_start_date',function(){
+	var plan_type = $('#id_plan_type_select').val();
+	
+	if (plan_type == 'Monthly')
+	{
+		var s_date = new Date($('#id_start_date').val());
+		var nextMonth = new Date(s_date.getFullYear(), s_date.getMonth() + 1, s_date.getDate());
+		
+		nextMonth = nextMonth.getFullYear() + '-' + ((nextMonth.getMonth() + 1) <= 9 ? '0' + (nextMonth.getMonth() + 1) : (nextMonth.getMonth() + 1)) + '-' + ((nextMonth.getDate()) <= 9 ? '0' + (nextMonth.getDate()) : (nextMonth.getDate()));
+		
+		document.getElementById("id_end_date").value = nextMonth;
+	}
+	else if (plan_type == 'Yearly')
+	{
+		var s_date = new Date($('#id_start_date').val());
+		var nextYear = new Date(s_date.getFullYear(), s_date.getMonth() + 12, s_date.getDate());
+		
+		nextYear = nextYear.getFullYear() + '-' + ((nextYear.getMonth() + 1) <= 9 ? '0' + (nextYear.getMonth() + 1) : (nextYear.getMonth() + 1)) + '-' + ((nextYear.getDate()) <= 9 ? '0' + (nextYear.getDate()) : (nextYear.getDate()));
+		
+		document.getElementById("id_end_date").value = nextYear;
+	}
+});
+function calculate_date_on_type()
+{
+	var plan_type = $('#id_plan_type_select').val();
+	
+	if (plan_type == 'Monthly')
+	{
+		var s_date = new Date($('#id_start_date').val());
+		var nextMonth = new Date(s_date.getFullYear(), s_date.getMonth() + 1, s_date.getDate());
+		
+		nextMonth = nextMonth.getFullYear() + '-' + ((nextMonth.getMonth() + 1) <= 9 ? '0' + (nextMonth.getMonth() + 1) : (nextMonth.getMonth() + 1)) + '-' + ((nextMonth.getDate()) <= 9 ? '0' + (nextMonth.getDate()) : (nextMonth.getDate()));
+		
+		document.getElementById("id_end_date").value = nextMonth;
+		
+		if($('#id_monthly_plan_details:visible').length == 0)
+		{
+			$('#id_monthly_plan_details').show();
+			$('#id_yearly_plan_details').hide();
+		}
+		else
+		{
+			$('#id_monthly_plan_details').hide();
+			$('#id_yearly_plan_details').hide();
+		}
+	}
+	else if (plan_type == 'Yearly')
+	{
+		var s_date = new Date($('#id_start_date').val());
+		var nextYear = new Date(s_date.getFullYear(), s_date.getMonth() + 12, s_date.getDate());
+		
+		nextYear = nextYear.getFullYear() + '-' + ((nextYear.getMonth() + 1) <= 9 ? '0' + (nextYear.getMonth() + 1) : (nextYear.getMonth() + 1)) + '-' + ((nextYear.getDate()) <= 9 ? '0' + (nextYear.getDate()) : (nextYear.getDate()));
+		
+		document.getElementById("id_end_date").value = nextYear;
+		
+		if($('#id_yearly_plan_details:visible').length == 0)
+		{
+			$('#id_monthly_plan_details').hide();
+			$('#id_yearly_plan_details').show();
+		}
+		else
+		{
+			$('#id_monthly_plan_details').hide();
+			$('#id_yearly_plan_details').hide();
+		}
+	}
+	
+	
+}
+function hide_start_date_error()
+{
+	$('#id_start_date_error').hide();
+}
+function hide_end_date_error()
+{
+	$('#id_end_date_error').hide();
+}
+function renewPlan()
+{
+	$('#receipt').val('');
+	$('.custom-file-upload').html('<i class="fa fa-cloud-upload"></i> Upload Receipt');
+	$('#id_receipt_error').html('');
+	$('#id_bank_details').hide();
+	$('#id_cashfree_page').hide();
+	$("#id_payment_method_select").val($("#target option:first").text());
+	$("#id_plan_type_select option[value='Monthly']").prop("selected", true);
+	$('#id_yearly_plan_details').hide();
+	$('#id_monthly_plan_details').show();
+	
+	var today = new Date();
+	var nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+	
+	var today = today.getFullYear() + '-' + ((today.getMonth() + 1) <= 9 ? '0' + (today.getMonth() + 1) : (today.getMonth() + 1)) + '-' + ((today.getDate()) <= 9 ? '0' + (today.getDate()) : (today.getDate()));
+	var nextMonth = nextMonth.getFullYear() + '-' + ((nextMonth.getMonth() + 1) <= 9 ? '0' + (nextMonth.getMonth() + 1) : (nextMonth.getMonth() + 1)) + '-' + ((nextMonth.getDate()) <= 9 ? '0' + (nextMonth.getDate()) : (nextMonth.getDate()));
+	
+	document.getElementById("id_start_date").value = today;
+	document.getElementById("id_end_date").value = nextMonth;
+}
+
+</script>
+<script>
+function directBank_payment_submit()
+{
+	var plan_type = $('#id_plan_type_select').val();
+	var start_date = $('#id_start_date').val();
+	var end_date = $('#id_end_date').val();
+	
+	if (start_date == '')
+	{
+		$('#id_start_date_error').show();
+	}
+	else if(end_date == '')
+	{
+		$('#id_end_date_error').show();
+	}
+	else if ($('#receipt').val())
+	{
+		if (file_size > 2000000)
+		{
+			$('#id_receipt_error').html('File must be less than 2mb...');
+		}
+		else
+		{
+			{% if request.session.user_id and request.session.login_token %}
+				var user_id = {{request.session.user_id}};
+				var login_token = '{{request.session.login_token}}';
+			{% else %}
+				var user_id = null;
+				var login_token = null;
+			{% endif %}
+			
+			if (user_id != null)
+			{
+				var plan_id = null;
+				var plan_price = null;
+				if (plan_type == 'Monthly')
+				{
+					plan_id = $('#id_monthly_sub_id').val();
+					plan_price = $('#id_monthly_payble').val();
+				}
+				else if (plan_type == 'Yearly')
+				{
+					plan_id = $('#id_yearly_sub_id').val();
+					plan_price = $('#id_yearly_payble').val();
+				}
+				var payment_type = 'Direct Bank Transfer';
+				var receipt_file = $('#receipt')[0].files;
+				
+				
+				var fd = new FormData();
+				fd.append('receipt',receipt_file[0]);
+				fd.append('user_id',user_id);
+				fd.append('plan_type',plan_type);
+				fd.append('plan_id',plan_id); 
+				fd.append('payment_type',payment_type); 
+				fd.append('start_date',start_date);
+				fd.append('end_date',end_date);
+				
+				
+				$.ajax({
+                    method: "POST",
+                    url: "/renew_subscription_by_dbt/",
+                    enctype : "mutipart/form_data",
+                    processData : false,
+                    contentType : false,
+                    cache : false,
+                    data: fd,
+                    mode: 'same-origin',
+                    success: function (response) 
+                    {
+                        if (response.status == '1'){
+							$('#id_table_container').html(response.string);
+                            Swal.fire({
+							  icon: 'success',
+							  title: 'Your payment is under reveiew !!!',
+							  showConfirmButton: true,
+							})
+                        }
+                        else{
+                            Swal.fire(""+response.smg+"", {
+                            icon: "info",
+                            button: "Ok",
+                            closeOnClickOutside: true,
+                            });
+                        }
+						$( "#myModal" ).hide();
+                    }
+                });
+			}
+		}
+	}
+	else
+	{
+		$('#id_receipt_error').html('Please select the file...');
+	}
+}	
+</script>
+<script>
+	var payment_status = '{{request.session.payment_status}}';
+	<!-- alert(payment_status); -->
+	if (payment_status == 'success')
+	{
+		$.ajax({
+			method: "POST",
+			url: "/delete_payment_session/",
+			data: {},
+			success: function (response) 
+			{			   
+				if (response.status == '1')
+				{}
+				else
+				{}
+			}
+		});
+		Swal.fire({
+				title: "Success",
+				text: "Thank you for your payment! Your subscription has been activated, Have a great time with GeniAnalysis.",
+				icon: 'success',
+				type: "success",
+				buttons: ["OK"],
+		});
+	}
+	else if(payment_status == 'failed')
+	{
+		$.ajax({
+			method: "POST",
+			url: "/delete_payment_session/",
+			data: {},
+			success: function (response) 
+			{			   
+				if (response.status == '1')
+				{}
+				else
+				{}
+			}
+		});
+		Swal.fire({
+				title: "Fail",
+				text: "Unfortunately, the payment for this order has failed, Please try again.",
+				icon: 'error',
+				type: "warning",
+				buttons: ["OK"],
+		});
+	}
+	
+</script>
+<script>
+$(document).ready(function () {
+	dataTable = $("#users-table").DataTable({});
+});
+</script>
+<script>
+function cashFree_payment()
+{
+	var plan_type = $('#id_plan_type_select').val();
+	var start_date = $('#id_start_date').val();
+	var end_date = $('#id_end_date').val();
+	
+	if (start_date == '')
+	{
+		$('#id_start_date_error').show();
+	}
+	else if(end_date == '')
+	{
+		$('#id_end_date_error').show();
+	}
+	else
+	{
+		var plan_id = null;
+		var plan_price = null;
+		
+		if (plan_type == 'Monthly')
+		{
+			plan_id = $('#id_monthly_sub_id').val();
+			plan_price = $('#id_monthly_payble').val();
+		}
+		else if (plan_type == 'Yearly')
+		{
+			plan_id = $('#id_yearly_sub_id').val();
+			plan_price = $('#id_yearly_payble').val();
+		}
+		var user_id = '{{user.id}}';
+		var payment_type = 'CashFree';
+		if (user_id != null)
+		{
+			<!-- alert(start_date); -->
+			<!-- alert(end_date); -->
+			<!-- alert(plan_id); -->
+			<!-- alert(plan_price); -->
+			<!-- alert(payment_type); -->
+			<!-- alert('{{user.id}}'); -->
+			
+			$.ajax({
+				method: "POST",
+				url: "/test_cash_free_payment/",
+				data: {
+					'plan_type':plan_type,
+					'plan_price':plan_price,
+					'plan_id':plan_id,
+					'user_id':user_id,
+					'start_date':start_date,
+					'end_date':end_date,
+				},
+				success: function (response) 
+				{			   
+					if (response.status == '1')
+					{
+						window.location.href = response.msg;
+					}
+					else
+					{
+						alert(response.msg);
+					}
+				}
+			});
+		}
+	}
+}
+</script>
+<!-- <script> -->
+	<!-- {% if user.subscription_status == 'Inactive' or not user.subscription_status %} -->
+		<!-- let timerInterval; -->
+		<!-- Swal.fire({ -->
+		  <!-- title: 'Warning!', -->
+		  <!-- html: 'You Do Not Have Any Active Subscription', -->
+		  <!-- timer: 5000, -->
+		  <!-- buttons: false, -->
+		  <!-- timerProgressBar: true, -->
+		  <!-- didOpen: () => { -->
+			<!-- Swal.showLoading() -->
+			<!-- const b = Swal.getHtmlContainer().querySelector('b') -->
+			<!-- timerInterval = setInterval(() => { -->
+			  <!-- b.textContent = Swal.getTimerLeft() -->
+			<!-- }, 100) -->
+		  <!-- }, -->
+		  <!-- allowOutsideClick: false, -->
+		  <!-- willClose: () => { -->
+			<!-- clearInterval(timerInterval) -->
+		  <!-- }, -->
+		<!-- }).then((result) => { -->
+		  <!-- if (result.dismiss === Swal.DismissReason.timer)  -->
+		  <!-- { -->
+			<!-- location.href = "/#criptocurrency-price-section"; -->
+		  <!-- } -->
+		<!-- }) -->
+	<!-- {% endif %} -->
+
+<!-- </script> -->
+
+{% include "Panel/footer.html" %}				 

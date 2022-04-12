@@ -1,0 +1,526 @@
+{% load static %}
+{% include "Panel/header.html" %}
+<style type="text/css">
+    .table-bordered th , td , tr{
+        border: 1px solid #000!important;
+    }
+    .table{
+        width: 88% !important;
+        table-layout: auto;
+    }
+    .table-bordered td{
+        font-size: 12px;
+    }
+    .table-bordered th{
+        font-size: 12px;
+        padding: 4px;
+    }
+    .table-bordered td{
+        
+        padding: 3px;
+    }
+    .f-color{
+        color: #000;
+    }
+    .green-bg{
+        background-color: #79ee9b;
+    }
+    .red-bg{
+        background-color: #ff5f5f;
+    }
+    .f-c-red{
+        color: red;
+    }
+    .f-c-green{
+        color: green;
+    }
+    .f-c-white{
+        color: #fff;
+    }
+    .button-style{
+        height: 140px !important; 
+        border: 1px solid#000; 
+        background-color:#ffd966; 
+        width: 12%;
+        border-left:hidden; 
+        float:right;
+    }
+    .button-1{
+        margin-bottom: 10px; 
+        margin-left: 10px; 
+        margin-top: 8px;
+        background-color:white;
+    }
+    .button-2{
+        margin-bottom: 10px; 
+        margin-left: 10px;
+        background-color:white;
+    }
+    .button-3{
+        margin-left: 10px; 
+        background-color:white;
+    }
+    .bg-1{
+        background-color: #10b5f1;
+    }
+    .bg-2{
+        background-color:#ffd966;
+    }
+    .bg-3{
+        background-color: #d9e1f2;
+    }
+    .bg-4 {
+        background-color:#92ddf9;
+    }
+    .bg-5{
+        background-color:#ff4a4a;
+    }
+    .bg-6{
+        background-color:#ffff96;
+    }
+    .bg-7{
+        background-color:#c00000;
+    }
+    .bg-black{
+        background-color:#000;
+    }
+    .darkred-bg{
+        background-color:#ff0000;
+    }
+    .sl-bg{
+        background-color:#febaac;
+    } 
+    .buy-bg{
+        background-color:#305496;
+    }
+    .bg-yello{
+        background-color: #ffc000;
+    }
+    .light-red{
+        background-color:#fce4d6;
+    }
+	td{
+		text-align: center;
+	}
+	.app-main__inner{font-weight:750;}
+	
+	
+	.loader2{
+	  width: 100px;
+	  height: 100px;
+	  border-radius: 100%;
+	  position: relative;
+	  margin: 0 auto;
+	}
+
+
+	/* LOADER 6 */
+
+	#loader-6{
+	  top: 40px;
+	  left: -2.5px;
+	}
+
+	#loader-6 span{
+	  display: inline-block;
+	  width: 5px;
+	  height: 20px;
+	  background-color: #53a591;
+	}
+
+	#loader-6 span:nth-child(1){
+	  animation: grow 1s ease-in-out infinite;
+	}
+
+	#loader-6 span:nth-child(2){
+	  animation: grow 1s ease-in-out 0.15s infinite;
+	}
+
+	#loader-6 span:nth-child(3){
+	  animation: grow 1s ease-in-out 0.30s infinite;
+	}
+
+	#loader-6 span:nth-child(4){
+	  animation: grow 1s ease-in-out 0.45s infinite;
+	}
+
+	@keyframes grow{
+	  0%, 100%{
+		-webkit-transform: scaleY(1);
+		-ms-transform: scaleY(1);
+		-o-transform: scaleY(1);
+		transform: scaleY(1);
+	  }
+
+	  50%{
+		-webkit-transform: scaleY(1.8);
+		-ms-transform: scaleY(1.8);
+		-o-transform: scaleY(1.8);
+		transform: scaleY(1.8);
+	  }
+	}
+	
+	body{
+		color: black;
+	}
+	<!-- #hideloader -->
+	<!-- { -->
+		<!-- display: none; -->
+	<!-- } -->
+</style>
+<div class="app-main__inner" style="padding: 15px 0px 0 !important;">             
+<div class="tabs-animation">
+                        
+<div class="col-lg-12">
+<row>
+<div class="main-card mb-3 card">
+<div class="card-body">
+	<h5 class="card-title">Nifty Gann Angle Levels</h5>
+	<br>
+		<div class="row text-center">
+			<div id="time" class="col-md-5  mx-auto" style="background: #b3b3ff; border: 1px solid black;">
+				<!-- Wednesday, 23 February 11:24:20 AM -->
+			</div>
+		</div>
+	<br>
+
+	<table class="mb-0 table table-bordered" id="option_analysis_table" style="width: 100% !important;">
+		<tbody id="tbodyid">
+			<tr class="text-center">
+				<td rowspan="9" style="font-size: 14px; background: white; color: black;"><p>To Get the Market View for <b>Intraday</b><br> look for <b>45,90 and 135</b> degrees <br> anglevalues are imortant, and for <br><b>postional</b> enter <b>Daily High &amp; Low</b><br> values look for <b>45,180,225 and<br> 360</b> degree angle values to take <br>decesions.</p></td>
+				<th class="f-color bg-2">Angle</th>
+				<th style="background: lightgreen; color: black;">GL1</th>
+				<th style="background: lightgreen; color: black;">GL2</th>
+				<th class="f-color sl-bg">GL0</th>
+				<th style="background: red; color: white;">GS1</th>
+				<th style="background: lightgreen">GS2</th>
+				<th class="f-color sl-bg">GS0</th>
+			</tr>
+			<tr>
+				
+				<td style="background: #FADA5E;">45&#176;</td>
+				<td id="id_45_entry_long"></td>
+				<td id="id_45_entry_long_bf" style="color: 	#30cb00;"></td>
+				<td id="id_45_entry_long_sl" style="color: red;"></td>
+				<td id="id_45_entry_short"></td>
+				<td id="id_45_entry_short_bf" style="color: 	#30cb00;"></td>
+				<td id="id_45_entry_short_sl" style="color: red;"></td>
+			</tr>
+			<tr>
+				<td style="background: #FADA5E;">90&#176;</td>
+				<td id="id_90_entry_long"></td>
+				<td id="id_90_entry_long_bf" style="color: 	#30cb00;"></td>
+				<td id="id_90_entry_long_sl" style="color: red;"></td>
+				<td id="id_90_entry_short"></td>
+				<td id="id_90_entry_short_bf" style="color: #30cb00;"></td>
+				<td id="id_90_entry_short_sl" style="color: red;"></td>
+			</tr>
+			<tr>
+				<td style="background: #FADA5E;">135&#176;</td>
+				<td id="id_135_entry_long"></td>
+				<td id="id_135_entry_long_bf" style="color: #30cb00;"></td>
+				<td id="id_135_entry_long_sl" style="color: red;"></td>
+				<td id="id_135_entry_short"></td>
+				<td id="id_135_entry_short_bf" style="color: #30cb00;"></td>
+				<td id="id_135_entry_short_sl" style="color: red;"></td>
+			</tr>
+			<tr>
+				<td style="background: #FADA5E;">180&#176;</td>
+				<td id="id_180_entry_long"></td>
+				<td id="id_180_entry_long_bf" style="color: #30cb00;"></td>
+				<td id="id_180_entry_long_sl" style="color: red;"></td>
+				<td id="id_180_entry_short"></td>
+				<td id="id_180_entry_short_bf" style="color: #30cb00;;"></td>
+				<td id="id_180_entry_short_sl" style="color: red;"></td>
+			</tr>
+			<tr>
+				<td style="background: #FADA5E;">225&#176;</td>
+				<td id="id_225_entry_long"></td>
+				<td id="id_225_entry_long_bf" style="color: #30cb00;;"></td>
+				<td id="id_225_entry_long_sl" style="color: red;"></td>
+				<td id="id_225_entry_short"></td>
+				<td id="id_225_entry_short_bf" style="color: #30cb00;;"></td>
+				<td id="id_225_entry_short_sl" style="color: red;"></td>
+			</tr>
+			<tr>
+				<td style="background: #FADA5E;">270&#176;</td>
+				<td id="id_270_entry_long"></td>
+				<td id="id_270_entry_long_bf" style="color: #30cb00;;"></td>
+				<td id="id_270_entry_long_sl" style="color: red;"></td>
+				<td id="id_270_entry_short"></td>
+				<td id="id_270_entry_short_bf" style="color: #30cb00;;"></td>
+				<td id="id_270_entry_short_sl" style="color: red;"></td>
+			</tr>
+			<tr>
+				<td style="background: #FADA5E;">315&#176;</td>
+				<td id="id_315_entry_long"></td>
+				<td id="id_315_entry_long_bf" style="color: #30cb00;;"></td>
+				<td id="id_315_entry_long_sl" style="color: red;"></td>
+				<td id="id_315_entry_short"></td>
+				<td id="id_315_entry_short_bf" style="color: #30cb00;;"></td>
+				<td id="id_315_entry_short_sl" style="color: red;"></td>
+			</tr>
+			<tr>
+				<td style="background: #FADA5E;">360&#176;</td>
+				<td id="id_360_entry_long"></td>
+				<td id="id_360_entry_long_bf" style="color: #30cb00;;"></td>
+				<td id="id_360_entry_long_sl" style="color: red;"></td>
+				<td id="id_360_entry_short"></td>
+				<td id="id_360_entry_short_bf" style="color: #30cb00;;"></td>
+				<td id="id_360_entry_short_sl" style="color: red;"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</div>
+
+</row>
+
+</div>
+
+<div id='app'>
+
+</div>
+</div>
+</div>
+<!-- <script> -->
+	<!-- {% if user.subscription_status == 'Inactive' or not user.subscription_status %} -->
+		<!-- let timerInterval; -->
+		<!-- Swal.fire({ -->
+		  <!-- title: 'Warning!', -->
+		  <!-- html: 'You Do Not Have Any Active Subscription', -->
+		  <!-- timer: 5000, -->
+		  <!-- buttons: false, -->
+		  <!-- timerProgressBar: true, -->
+		  <!-- didOpen: () => { -->
+			<!-- Swal.showLoading() -->
+			<!-- const b = Swal.getHtmlContainer().querySelector('b') -->
+			<!-- timerInterval = setInterval(() => { -->
+			  <!-- b.textContent = Swal.getTimerLeft() -->
+			<!-- }, 100) -->
+		  <!-- }, -->
+		  <!-- allowOutsideClick: false, -->
+		  <!-- willClose: () => { -->
+			<!-- clearInterval(timerInterval) -->
+		  <!-- }, -->
+		<!-- }).then((result) => { -->
+		  <!-- if (result.dismiss === Swal.DismissReason.timer)  -->
+		  <!-- { -->
+			<!-- location.href = "/#criptocurrency-price-section"; -->
+		  <!-- } -->
+		<!-- }) -->
+	<!-- {% endif %} -->
+<!-- </script> -->
+<script>
+$(document ).ready(function() {
+	$("#gannlevelsmenu").addClass("mm-show");
+});
+</script>
+
+<script>
+
+function startTime()
+{
+    var today=new Date();
+	
+    var weekday = new Array(7);
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
+
+    var month = new Array(12);
+    month[0] = "January";
+    month[1] = "February";
+    month[2] = "March";
+    month[3] = "April";
+    month[4] = "May";
+    month[5] = "June";
+    month[6] = "July";
+    month[7] = "August";
+    month[8] = "September";
+    month[9] = "October";
+    month[10] = "November";
+    month[11] = "December";
+
+    document.getElementById('time').innerHTML=(weekday[today.getDay()] + ',' + " " + today.getDate() + " " + month[today.getMonth()] + " " + today.getFullYear() + ' ' + today.toLocaleTimeString());
+    t=setTimeout(function(){startTime()},500);
+}
+startTime();
+
+</script>
+
+<script>
+<!-- Gann Angle Caluculations -->
+
+	$.ajax({
+		method: "POST",
+		url: "/get_gann_values/",
+		data: {
+			'type': 'NIFTY',
+		},
+		success: function (response) 
+		{			   
+			if (response.status == "1")
+			{
+				var gann_high = parseFloat(response.data[0].high_val);
+				var gann_low = parseFloat(response.data[0].low_val);
+				
+				<!-- console.log(gann_high); -->
+				<!-- console.log(gann_low); -->
+				
+				<!-- var gann_high = parseFloat('17538'); -->
+				<!-- var gann_low = parseFloat('17474'); -->
+				
+				var gann_high_360 = ((Math.sqrt(parseFloat(gann_low)) + 2) * (Math.sqrt(parseFloat(gann_low)) + 2)).toFixed(2);
+				
+				<!-- Caluculation for long position  -->
+				
+					var gann_high_15_incr = ((gann_high_360-gann_low)/24).toFixed(2);
+					
+					<!-- var gann_high_360_incr = (gann_high_360-gann_low).toFixed(2); -->
+					
+					var gann_high_0 = gann_low;
+					
+					var gann_high_15 = parseFloat(gann_low) + parseFloat(gann_high_15_incr)
+					var gann_high_30 = parseFloat(gann_high_15) + parseFloat(gann_high_15_incr)
+					var gann_high_45 = parseFloat(gann_high_30) + parseFloat(gann_high_15_incr)
+					var gann_high_60 = parseFloat(gann_high_45) + parseFloat(gann_high_15_incr)
+					var gann_high_75 = parseFloat(gann_high_60) + parseFloat(gann_high_15_incr)
+					var gann_high_90 = parseFloat(gann_high_75) + parseFloat(gann_high_15_incr)
+					var gann_high_105 = parseFloat(gann_high_90) + parseFloat(gann_high_15_incr)
+					var gann_high_120 = parseFloat(gann_high_105) + parseFloat(gann_high_15_incr)
+					var gann_high_135 = parseFloat(gann_high_120) + parseFloat(gann_high_15_incr)
+					var gann_high_150 = parseFloat(gann_high_135) + parseFloat(gann_high_15_incr)
+					var gann_high_165 = parseFloat(gann_high_150) + parseFloat(gann_high_15_incr)
+					var gann_high_180 = parseFloat(gann_high_165) + parseFloat(gann_high_15_incr)
+					var gann_high_195 = parseFloat(gann_high_180) + parseFloat(gann_high_15_incr)
+					var gann_high_210 = parseFloat(gann_high_195) + parseFloat(gann_high_15_incr)
+					var gann_high_225 = parseFloat(gann_high_210) + parseFloat(gann_high_15_incr)
+					var gann_high_240 = parseFloat(gann_high_225) + parseFloat(gann_high_15_incr)
+					var gann_high_255 = parseFloat(gann_high_240) + parseFloat(gann_high_15_incr)
+					var gann_high_270 = parseFloat(gann_high_255) + parseFloat(gann_high_15_incr)
+					var gann_high_285 = parseFloat(gann_high_270) + parseFloat(gann_high_15_incr)
+					var gann_high_300 = parseFloat(gann_high_285) + parseFloat(gann_high_15_incr)
+					var gann_high_315 = parseFloat(gann_high_300) + parseFloat(gann_high_15_incr)
+					var gann_high_330 = parseFloat(gann_high_315) + parseFloat(gann_high_15_incr)
+					var gann_high_345 = parseFloat(gann_high_330) + parseFloat(gann_high_15_incr)
+					var gann_high_360_temp = parseFloat(gann_high_345) + parseFloat(gann_high_15_incr)
+					var gann_high_375 = parseFloat(gann_high_360_temp) + parseFloat(gann_high_15_incr)
+					var gann_high_390 = parseFloat(gann_high_375) + parseFloat(gann_high_15_incr)
+					var gann_high_405 = parseFloat(gann_high_390) + parseFloat(gann_high_15_incr)
+					
+					<!-- console.log((Math.round(gann_high_405 * 4) / 4).toFixed(2)); -->
+					
+					
+					
+					
+					$('#id_45_entry_long').html((Math.round(gann_high_45 * 4) / 4).toFixed(2));
+					$('#id_90_entry_long').html((Math.round(gann_high_90 * 4) / 4).toFixed(2));
+					$('#id_135_entry_long').html((Math.round(gann_high_135 * 4) / 4).toFixed(2));
+					$('#id_180_entry_long').html((Math.round(gann_high_180 * 4) / 4).toFixed(2));
+					$('#id_225_entry_long').html((Math.round(gann_high_225 * 4) / 4).toFixed(2));
+					$('#id_270_entry_long').html((Math.round(gann_high_270 * 4) / 4).toFixed(2));
+					$('#id_315_entry_long').html((Math.round(gann_high_315 * 4) / 4).toFixed(2));
+					$('#id_360_entry_long').html((Math.round(gann_high_360 * 4) / 4).toFixed(2));
+					
+					$('#id_45_entry_long_bf').html((Math.round(gann_high_90 * 4) / 4).toFixed(2));
+					$('#id_90_entry_long_bf').html((Math.round(gann_high_135 * 4) / 4).toFixed(2));
+					$('#id_135_entry_long_bf').html((Math.round(gann_high_180 * 4) / 4).toFixed(2));
+					$('#id_180_entry_long_bf').html((Math.round(gann_high_225 * 4) / 4).toFixed(2));
+					$('#id_225_entry_long_bf').html((Math.round(gann_high_270 * 4) / 4).toFixed(2));
+					$('#id_270_entry_long_bf').html((Math.round(gann_high_315 * 4) / 4).toFixed(2));
+					$('#id_315_entry_long_bf').html((Math.round(gann_high_360 * 4) / 4).toFixed(2));
+					$('#id_360_entry_long_bf').html((Math.round(gann_high_405 * 4) / 4).toFixed(2));
+					
+					$('#id_45_entry_long_sl').html((Math.round(gann_high_15 * 4) / 4).toFixed(2));
+					$('#id_90_entry_long_sl').html((Math.round(gann_high_45 * 4) / 4).toFixed(2));
+					$('#id_135_entry_long_sl').html((Math.round(gann_high_90 * 4) / 4).toFixed(2));
+					$('#id_180_entry_long_sl').html((Math.round(gann_high_135 * 4) / 4).toFixed(2));
+					$('#id_225_entry_long_sl').html((Math.round(gann_high_180 * 4) / 4).toFixed(2));
+					$('#id_270_entry_long_sl').html((Math.round(gann_high_225 * 4) / 4).toFixed(2));
+					$('#id_315_entry_long_sl').html((Math.round(gann_high_270 * 4) / 4).toFixed(2));
+					$('#id_360_entry_long_sl').html((Math.round(gann_high_315 * 4) / 4).toFixed(2));
+				
+				<!-- End Caluculation for long position  -->
+				
+				<!-- Caluculation for short position  -->
+				
+					var gann_low_360 = ((Math.sqrt(parseFloat(gann_high)) - 2) * (Math.sqrt(parseFloat(gann_high)) - 2)).toFixed(5);
+					
+					var gann_low_15_incr = ((gann_low_360-gann_high)/24).toFixed(2);
+					
+					var gann_low_0 = gann_high;
+					
+					var gann_low_15 = parseFloat(gann_high) + parseFloat(gann_low_15_incr)
+					var gann_low_30 = parseFloat(gann_low_15) + parseFloat(gann_low_15_incr)
+					var gann_low_45 = parseFloat(gann_low_30) + parseFloat(gann_low_15_incr)
+					var gann_low_60 = parseFloat(gann_low_45) + parseFloat(gann_low_15_incr)
+					var gann_low_75 = parseFloat(gann_low_60) + parseFloat(gann_low_15_incr)
+					var gann_low_90 = parseFloat(gann_low_75) + parseFloat(gann_low_15_incr)
+					var gann_low_105 = parseFloat(gann_low_90) + parseFloat(gann_low_15_incr)
+					var gann_low_120 = parseFloat(gann_low_105) + parseFloat(gann_low_15_incr)
+					var gann_low_135 = parseFloat(gann_low_120) + parseFloat(gann_low_15_incr)
+					var gann_low_150 = parseFloat(gann_low_135) + parseFloat(gann_low_15_incr)
+					var gann_low_165 = parseFloat(gann_low_150) + parseFloat(gann_low_15_incr)
+					var gann_low_180 = parseFloat(gann_low_165) + parseFloat(gann_low_15_incr)
+					var gann_low_195 = parseFloat(gann_low_180) + parseFloat(gann_low_15_incr)
+					var gann_low_210 = parseFloat(gann_low_195) + parseFloat(gann_low_15_incr)
+					var gann_low_225 = parseFloat(gann_low_210) + parseFloat(gann_low_15_incr)
+					var gann_low_240 = parseFloat(gann_low_225) + parseFloat(gann_low_15_incr)
+					var gann_low_255 = parseFloat(gann_low_240) + parseFloat(gann_low_15_incr)
+					var gann_low_270 = parseFloat(gann_low_255) + parseFloat(gann_low_15_incr)
+					var gann_low_285 = parseFloat(gann_low_270) + parseFloat(gann_low_15_incr)
+					var gann_low_300 = parseFloat(gann_low_285) + parseFloat(gann_low_15_incr)
+					var gann_low_315 = parseFloat(gann_low_300) + parseFloat(gann_low_15_incr)
+					var gann_low_330 = parseFloat(gann_low_315) + parseFloat(gann_low_15_incr)
+					var gann_low_345 = parseFloat(gann_low_330) + parseFloat(gann_low_15_incr)
+					var gann_low_360_temp = parseFloat(gann_low_345) + parseFloat(gann_low_15_incr)
+					var gann_low_375 = parseFloat(gann_low_360_temp) + parseFloat(gann_low_15_incr)
+					var gann_low_390 = parseFloat(gann_low_375) + parseFloat(gann_low_15_incr)
+					var gann_low_405 = parseFloat(gann_low_390) + parseFloat(gann_low_15_incr)
+					
+					
+					<!-- console.log((Math.round(gann_low_405 * 4) / 4).toFixed(2)); -->
+					
+					
+					$('#id_45_entry_short').html((Math.round(gann_low_45 * 4) / 4).toFixed(2));
+					$('#id_90_entry_short').html((Math.round(gann_low_90 * 4) / 4).toFixed(2));
+					$('#id_135_entry_short').html((Math.round(gann_low_135 * 4) / 4).toFixed(2));
+					$('#id_180_entry_short').html((Math.round(gann_low_180 * 4) / 4).toFixed(2));
+					$('#id_225_entry_short').html((Math.round(gann_low_225 * 4) / 4).toFixed(2));
+					$('#id_270_entry_short').html((Math.round(gann_low_270 * 4) / 4).toFixed(2));
+					$('#id_315_entry_short').html((Math.round(gann_low_315 * 4) / 4).toFixed(2));
+					$('#id_360_entry_short').html((Math.round(gann_low_360 * 4) / 4).toFixed(2));
+					
+					$('#id_45_entry_short_bf').html((Math.round(gann_low_90 * 4) / 4).toFixed(2));
+					$('#id_90_entry_short_bf').html((Math.round(gann_low_135 * 4) / 4).toFixed(2));
+					$('#id_135_entry_short_bf').html((Math.round(gann_low_180 * 4) / 4).toFixed(2));
+					$('#id_180_entry_short_bf').html((Math.round(gann_low_225 * 4) / 4).toFixed(2));
+					$('#id_225_entry_short_bf').html((Math.round(gann_low_270 * 4) / 4).toFixed(2));
+					$('#id_270_entry_short_bf').html((Math.round(gann_low_315 * 4) / 4).toFixed(2));
+					$('#id_315_entry_short_bf').html((Math.round(gann_low_360 * 4) / 4).toFixed(2));
+					$('#id_360_entry_short_bf').html((Math.round(gann_low_405 * 4) / 4).toFixed(2));
+					
+					$('#id_45_entry_short_sl').html((Math.round(gann_low_15 * 4) / 4).toFixed(2));
+					$('#id_90_entry_short_sl').html((Math.round(gann_low_45 * 4) / 4).toFixed(2));
+					$('#id_135_entry_short_sl').html((Math.round(gann_low_90 * 4) / 4).toFixed(2));
+					$('#id_180_entry_short_sl').html((Math.round(gann_low_135 * 4) / 4).toFixed(2));
+					$('#id_225_entry_short_sl').html((Math.round(gann_low_180 * 4) / 4).toFixed(2));
+					$('#id_270_entry_short_sl').html((Math.round(gann_low_225 * 4) / 4).toFixed(2));
+					$('#id_315_entry_short_sl').html((Math.round(gann_low_270 * 4) / 4).toFixed(2));
+					$('#id_360_entry_short_sl').html((Math.round(gann_low_315 * 4) / 4).toFixed(2));
+				
+				<!-- End Caluculation for short position  -->
+
+			<!-- Gann Angle Caluculations -->
+			}
+		}
+	});
+
+</script>
+
+{% include "Panel/footer.html" %}				 

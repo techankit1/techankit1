@@ -1,0 +1,1381 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Genianalysis - Home Page</title>
+<link rel="shortcut icon" href="{% static 'Website/assets/images/favicon.png' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/mdb.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/ionicons.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/font-awesome.min.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/owl.carousel.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/owl.theme.default.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/slick.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/slick-theme.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/export.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/magnific-popup.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/jquery.mCustomScrollbar.min.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Website/assets/css/responsive.css' %}">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+	
+</script>
+</head>
+
+
+<style type="text/css">
+	.pricing-table{
+  background-color: #eee;
+
+}
+
+.pricing-table .block-heading {
+  padding-top: 50px;
+  margin-bottom: 40px;
+  text-align: center; 
+}
+
+.pricing-table .block-heading h2 {
+  color: #3b99e0;
+}
+
+.pricing-table .block-heading p {
+  text-align: center;
+  max-width: 420px;
+  margin: auto;
+  opacity: 0.7; 
+}
+
+.pricing-table .heading {
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
+}
+
+.pricing-table .item {
+  background-color: #ffffff;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+  border-top: 3px solid #ffc107;
+  padding: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative; 
+}
+
+.pricing-table .col-md-5:not(:last-child) .item {
+  margin-bottom: 30px; 
+}
+
+.pricing-table .item button {
+  font-weight: 600; 
+}
+
+.pricing-table .ribbon {
+  width: 160px;
+  height: 32px;
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0px 2px 3px rgba(136, 136, 136, 0.25);
+  background: #ffc107;
+  transform: rotate(45deg);
+  position: absolute;
+  right: -42px;
+  top: 20px;
+  padding-top: 7px; 
+}
+
+.pricing-table .item p {
+  text-align: center;
+  margin-top: 20px;
+  opacity: 0.7; 
+}
+
+.pricing-table .features .feature {
+  font-weight: 600; }
+
+.pricing-table .features h4 {
+  text-align: center;
+  font-size: 18px;
+  padding: 5px; 
+}
+
+.pricing-table .price h4 {
+  margin: 15px 0;
+    font-size: 34px;
+    text-align: center;
+    color: #000;
+    font-weight: 600;
+}
+
+.pricing-table .buy-now button {
+  text-align: center;
+  margin: auto;
+  font-weight: 600;
+  padding: 9px 0; 
+}
+
+details-container{
+	font-size: 14px;
+	<!-- font-weight: bold; -->
+	line-spacing: 2rem;
+	line-height: 1.5rem;
+}
+.text-name{
+	font-size: 16px; 
+	font-weight: bold;
+	color: black;
+}
+#id_div_info{
+  overflow-wrap: break-word;
+}
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+</style>
+
+
+
+<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header" style="background: #ffc107">
+			<h5 class="modal-title" id="exampleModalCenterTitle">Select Payment Method</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		</div>
+		<div class="modal-body text-center">
+			<h5 style="font-size: 20px;" class="mb-1">Net Amount : <span id="id_net_text">11,250</span>/-</h5>
+			<h5 style="font-size: 20px;" class="mb-1">GST 18% : <span id="id_gst_amount"></span></h5>
+			<h5 style="font-size: 20px;" class="mb-2">Payble Amount : <span id="id_payble_text">1,125/-</span></h5>
+			
+			
+			<!-- <button type="button" onclick="directBank_payment()" class="btn btn-info">Direct Bank Transfer</button> -->
+			<button type="button" onclick="directBank_payment()" class="btn btn-info">Direct Bank Transfer</button>
+			<button type="button" onclick="cashFree_payment()" id="cashfree_btn" class="btn btn-info">Credit/Debit Card or Net banking</button>
+		</div>
+		<div class="container mb-4"> 
+			<div class="row">
+				<input type="hidden" value="" id="id_plan_type">
+				<input type="hidden" value="" id="id_plan_price">
+				<div id="id_bank_details" style="border: 1px solid #ffc107; padding: 15px; display:none;" class="col-md-8 mx-auto">
+					<div class="row details-container text-center" id="id_div_info">
+						<div class="col-md-6 text-left">
+							<p><span class="text-name">Account Holder Name:</span></p>
+							<p><span class="text-name">Account Number:</span></p>
+							<p><span class="text-name">IFSC Code:</span></p>
+							<p><span class="text-name">Branch Name:</span></p>
+							<p><span class="text-name">Account Type:</span></p>
+							<hr>
+							<p><span class="text-name">UPI ID:</span></p>
+							<hr>
+							<p><span class="text-name">Scan QR:</span></p>
+							<hr>
+							<p><span class="text-name">Upload Payment Receipt:</span></p>
+							<p class="mt-2"><span class="text-data">
+								<label for="receipt" class="custom-file-upload">
+									<i class="fa fa-cloud-upload"></i> Upload Receipt
+								</label> 
+								<input type="file" style="display:none;" class="" accept=".png, .jpg, .jpeg, .pdf" name="receipt" id="receipt">
+							</span></p>
+							<p class=""><span style="color: red; font-size: 12px;" id="id_receipt_error"></span></p>
+							<p style="margin-left: 5%; margin-top: -25px;"><span class="text-data mt-4">
+								<input type="button" class="btn btn-primary" onclick="directBank_payment_submit()" value="Submit" name="payment_btn" id="payment_btn">
+							</span></p>
+						</div>
+						<div class="col-md-6 text-left">
+							<p><span class="text-data">STOCKGENI</span></p>
+							<p><span class="text-data">50200060416605</span></p>
+							<p><span class="text-data">HDFC0000153</span></p>
+							<p><span class="text-data">RAJ NAGAR - GHAZIABAD</span></p>
+							<p><span class="text-data">Current</span></p>
+							<hr>
+							<p><span class="text-data">UPI- 8375899800@UPI</span></p>
+							<hr>
+							<p class="mx-auto"><img width="200px" height="200px" src="{% static 'Website/assets/images/stockGiniQrCode.png' %}" alt="qr_code_not_found"></p>
+							<hr>
+							
+						</div>
+					</div>
+				</div>
+				
+				<div id="id_cashfree_page" style="border: 1px solid #ffc107; padding: 15px; display:none;" class="col-md-8 mx-auto">
+					<div class="row details-container text-center">
+						<div class="col-md-6 mx-auto">
+							<button type="button" onclick="cashFree_payment()" id="cashfree_btn" class="btn btn-secondary">Go To Payment Page</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+		<!-- <button type="button" class="btn btn-warning" data-dismiss="modal">CLOSE</button> -->
+		</div>
+	</div>
+	</div>
+</div>
+		
+
+
+<body id="thetop" class="thetop">
+
+<div class='backtotop'>
+<a href="#" class='scroll'>
+<i class="ion-arrow-up-c"></i>
+</a>
+</div>
+
+<div id="preloader"></div>
+
+<header id="header-section" class="header-section cd-auto-hide-header clearfix">
+<div class="header-top">
+<div class="container">
+<div class="row">
+<div class="col-lg-5">
+<div class="site-intro">
+<p style="text-transform:capitalize;">Welcome to GeniAnalysis</p>
+</div>
+</div>
+
+<div class="col-lg-7">
+<div class="criptofy-user-area">
+<ul class="text-right">
+<!-- <li class="language-select">
+<i class="ion-android-globe"></i>
+<select class="mdb-select">
+<option value="" disabled selected>english</option>
+<option value="1">bangla</option>
+<option value="2">spanish</option>
+<option value="3">portuguese</option>
+</select>
+</li> -->
+<!--                      -->
+
+
+<li>
+<a href="/signup_page/">
+<i class="ion-android-exit"></i>
+Sign Up
+</a>
+</li>
+<li>
+<a href="/login/">
+<i class="ion-android-exit"></i>
+Login
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="header-bottom" style="background-image:red;">
+<div class="container">
+<div class="row">
+
+<div class="col-lg-3">
+<div class="brand-logo-area">
+<a href="/" class="brand-logo">
+<img src="{% static 'Website/assets/images/logo.png' %}" alt="brand logo not fond">
+</a>
+</div>
+</div>
+<div class="col-lg-9">
+<div class="mainmenu clearfix" style="margin: 15px;">
+<ul>
+<li class="active"><a href="/">home</a></li>
+<li><a href="#about-section">about us</a></li>
+<li class="dropdown-btn">
+<a href="#my-services">services</a>
+</li>
+<li><a href="#calculator-section"> Features</a></li>
+<li><a href="#criptocurrency-price-section"> Pricing</a></li>
+
+<li class="dropdown-btn">
+<a href="#Requestform-section">contact</a>
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+
+<div class="altranative-header">
+<div id="menu-container">
+<div class="menu-wrapper">
+<div class="row">
+<button type="button" class="alt-menu-btn float-left">
+<span class="hamburger-menu"></span>
+</button>
+<div class="logo-area">
+<a href="/">
+<img src="{% static 'Website/assets/images/logo.png' %}" alt="Logo_not_found">
+</a>
+</div>
+</div>
+</div>
+<ul class="menu-list accordion">
+<li class="card active"><a class="menu-link" href="/">Home</a></li>
+<li class="card"><a class="menu-link" href="#about-section">About us</a></li>
+<li class="card">
+<a class="menu-link" href="#service-section">Services</a>
+</li>
+<li class="card"><a class="menu-link" href="#calculator-section"> Features</a></li>
+<li class="card"><a class="menu-link" href="#criptocurrency-price-section"> Pricing</a></li>
+
+<li class="card">
+<a class="menu-link" href="#Requestform-section">Contact</a>
+
+</li>
+
+</ul>
+</div>
+</div>
+
+<!-- Slider Section Start -->
+
+<section id="slider-section" class="slider-section clearfix">
+<div class="slick-item" style="background-image: url({% static 'Website/assets/images/slider/slider-bg1.png' %});">
+<div class="overlay-black">
+<div class="container">
+<div class="row justify-content-center">
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+<div class="slider-contant text-center">
+<h1 class="mb-30">
+Make Habit of winning 
+<strong><span class="clr-yellow">Geni in Your Pocket</span></strong>
+</h1>
+<p class="slider-desc clr-white mb-30">
+Our GeniSetup tool track the market data and find the right opportunities by analysing the various data points of market in real time and gives you best possible direction as quick as Geni.With the power of automation and the best class analysis done by our geni can help you to catch the market sentiment and increase the probability of trade going in the right direction. 
+
+
+</p>
+
+<a href="#service-section2" class="custom-btn waves-effect">
+Know More
+<span><i class="ion-android-call"></i></span>
+</a>
+</a>
+</div>
+</div>
+</div>
+<span class="slider-number">01</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="slick-item" style="background-image: url({% static 'Website/assets/images/slider/slider-bg2.png' %});">
+<div class="overlay-black">
+<div class="container">
+<div class="row justify-content-center">
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+<div class="slider-contant text-center">
+<h1 class="mb-30">
+Easy Way to Read Option 
+<strong> <span class="clr-yellow">Chain Data</span></strong>
+</h1>
+<p class="slider-desc clr-white mb-30">
+Our GeniSetup tool track the market data and find the right opportunities by analysing the various data points of market in real time and gives you best possible direction as quick as Geni.With the power of automation and the best class analysis done by our geni can help you to catch the market sentiment and increase the probability of trade going in the right direction. 
+</p>
+<a href="#calculator-section" class="custom-btn waves-effect">
+Contact Us
+<span><i class="ion-android-call"></i></span>
+</a>
+</div>
+</div>
+</div>
+<span class="slider-number">02</span>
+</div>
+</div>
+</div>
+<div class="slick-item" style="background-image: url({% static 'Website/assets/images/slider/slider-bg3.png' %});">
+<div class="overlay-black">
+<div class="container">
+<div class="row justify-content-center">
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+<div class="slider-contant text-center">
+<h1 class="mb-30">
+Makes your analysis 
+<strong><span class="clr-yellow">simple and easy</span></strong>
+</h1>
+<p class="slider-desc clr-white mb-30">
+Our GeniSetup tool track the market data and find the right opportunities by analysing the various data points of market in real time and gives you best possible direction as quick as Geni.With the power of automation and the best class analysis done by our geni can help you to catch the market sentiment and increase the probability of trade going in the right direction. 
+</p>
+<a href="#service-section2" class="custom-btn waves-effect">
+Know More
+<span><i class="ion-android-call"></i></span>
+</a>
+</div>
+</div>
+
+</div>
+<span class="slider-number">03</span>
+</div>
+</div>
+</div>
+
+</section>
+
+
+<!-- --------------------About Us Start--------------- -->
+
+<section id="about-section" class="about-section sec-ptb-100 clearfix">
+<div class="container">
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12">
+<div class="section-title">
+<h3>About</h3>
+<h2>Genianalysis</h2>
+</div>
+</div>
+<div class="col-lg-5 col-md-12 col-sm-12">
+<div class="chart-img">
+<img src="{% static 'Website/assets/images/chart.png' %}" alt="chart_image_not_found">
+</div>
+</div>
+<div class="col-lg-7 col-md-12 col-sm-12">
+<div class="content">
+
+<p class="mb-2">
+GeniAnalysis the brand under StockGeni and StockGeni was stablished in Sep-2016 at Ghaziabad. StockGeni was formed by Ashish Singh, and he has been engaged in the same field since 2007. We are given best class experience to read the market data and its real interpretation and day to day we are making option chain data analysis better with the help of our various automated tools.
+</p>
+<p class="mb-4">
+We focus to help our students and clients by saving time and money as we offer proper tools/services and extremely competitive & unmatchable prices.when you are getting any educational service from GeniAnalysis you can be rest assure that you are at right place, and this is going to enhance your skills and taking your market knowledge one step ahead. 
+</p>
+
+<div class="text-left">
+<a href="#!" class="custom-btn waves-effect" tabindex="-1">
+join us now
+<span><i class="ion-plus-round"></i></span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+<section id="my-services" class="service sec-ptb-100 bg-offwhite clearfix">
+<div class="container">
+<div class="row">
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+<div class="section-title">
+<h3>Our</h3>
+<h2>Services</h2>
+<p>Learn from industry expert via pre-designed courses 
+Learn Market data analysis from basic to advance level.
+Course for everyone either you are just entering to the market or even matured in market but want to learn new way of doing analysis.
+</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+<section id="counttimer-section" class="counttimer-section clearfix" style="background-image: url({% static 'Website/assets/images/currency-wallets-trans-bgimage.png' %}); background-attachment: fixed;">
+<div class="overlay-white sec-ptb-100" style="padding: 44px 0px;">
+<div class="container">
+
+<div class="section-title">
+<h3 style="color:white;">Our</h3>
+<h2 style="color:white;">Brands</h2>
+</div>
+<div class="countdown clearfix">
+<ul>
+  <div class="row">
+     <div class="col-lg-4 col-md-6 col-sm-12">
+    <li class="days">
+<img src="{% static 'Website/assets/images/brand1.png' %}">
+</li>
+  </div>
+   <div class="col-lg-4 col-md-6 col-sm-12">
+    <li class="hours">
+<img src="{% static 'Website/assets/images/brand2.png' %}" style="width: 193px;">
+</li>
+  </div>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+    <li class="minutes">
+<img src="{% static 'Website/assets/images/brand3.png' %}" style="width: 264px;">
+</li>
+  </div>
+  </div>
+ 
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section id="service-section2" class="service-section2 sec-ptb-100  clearfix" style="background-color:#eeeeee;">
+<div class="container">
+<div class="row">
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+<div class="section-title">
+<h3>What</h3>
+<h2>Geni can do?</h2>
+
+</div>
+</div>
+
+<div class="col-lg-4 col-md-6 col-sm-12">
+<div class="service mb-30 text-center">
+<div class="icon">
+<i class="ion-social-usd"></i>
+</div>
+<a href="#!">Future Analysis</a>
+
+</div>
+</div>
+<div class="col-lg-4 col-md-6 col-sm-12">
+<div class="service mb-30 text-center">
+<div class="icon">
+<i class="ion-refresh"></i>
+</div>
+<a href="#!">Option Analysis</a>
+
+</div>
+</div>
+<div class="col-lg-4 col-md-6 col-sm-12">
+<div class="service mb-30 text-center">
+<div class="icon">
+<i class="ion-android-sync"></i>
+</div>
+<a href="#!">Price Action Analysis</a>
+
+</div>
+</div>
+
+<div class="col-lg-4 col-md-6 col-sm-12">
+<div class="service mb-30 text-center">
+<div class="icon">
+<i class="ion-link"></i>
+</div>
+<a href="#!">Option Chain Analysis</a>
+
+</div>
+</div>
+
+<div class="col-lg-4 col-md-6 col-sm-12">
+<div class="service mb-30 text-center">
+<div class="icon">
+<i class="ion-clipboard"></i>
+</div>
+<a href="#!">Important Data Analysis</a>
+
+</div>
+</div>
+<div class="col-lg-4 col-md-6 col-sm-12">
+<div class="service mb-30 text-center">
+<div class="icon">
+<i class="ion-stats-bars"></i>
+</div>
+<a href="#!">Track Market Sentiment</a>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<section id="calculator-section" class="calculator-section sec-ptb-100 clearfix">
+<div class="container">
+<div class="section-title">
+<h3>Our</h3>
+<h2>key features of GeniSetup</h2>
+</div>
+<div class="calculator-area">
+<div class="row">
+<div class="col-lg-6 col-md-6 col-sm-12">
+	<div class="resource-list mb-30">
+
+<ul>
+<li><a href="#!"><i class="ion-android-done-all"></i> Option Chain data analysis with automation for Index</a></li>
+<li><a href="#!"><i class="ion-android-done-all"></i> OI data calculation either combination of strike or single strike wise</a></li>
+<li><a href="#!"><i class="ion-android-done-all"></i> Multiple time frame wises OI data and its interpretation</a></li>
+<li><a href="#!"><i class="ion-android-done-all"></i> Important data at one place and organized</a></li>
+<li><a href="#!"><i class="ion-android-done-all"></i> Support and Resistance analysis</a></li>
+<li><a href="#!"><i class="ion-android-done-all"></i> Gann angle analysis</a></li>
+<li><a href="#!"><i class="ion-android-done-all"></i> Open high low analysis and many more…</a></li>
+</ul>
+</div>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-12">
+<div class="chart-img">
+<img src="{% static 'Website/assets/images/deal-ticket-update-170521.jpg' %}" alt="chart_image_not_found" style="border-radius: 10px;">
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="counttimer-section" class="counttimer-section clearfix">
+<!-- <div class="overlay-white sec-ptb-100" style="padding: 44px 0px;"> -->
+<div class="container">
+
+<div class="section-title">
+<h3>Videos</h3>
+<h2>Knowledge Base</h2>
+</div>
+<div class="countdown clearfix">
+<ul>
+  <div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="vid-bg" style="background: #fff;box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;height: 370px;width: 560px; border-radius: 10px;">
+       <iframe width="560" height="315" src="https://www.youtube.com/embed/AJ9H-ZqAElQ?start=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+       <p style="padding: 10px;">Complete trading set Up for Option Buyer | Option Buying decoded.
+
+</p>
+    </div>
+  </div>
+
+   <div class="col-lg-6 col-md-6 col-sm-12">
+<div class="vid-bg" style="background: #fff;box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;height: 370px;width: 560px; border-radius: 10px;">
+       <iframe width="560" height="315" src="https://www.youtube.com/embed/sKj_qbfaKaM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+       <p style="padding: 10px;">Why Should you Join StockGeni YouTube Membership ? 🤔</p>
+    </div>
+  </div>
+  
+  
+  </div>
+ 
+</ul>
+</div>
+</div>
+<!-- </div> -->
+</section>
+
+<section  id="criptocurrency-price-section" class="criptocurrency-price-section pricing-table  sec-ptb-100 bg-offwhite clearfix">
+<div class="container">
+	<div class="section-title">
+		<h3>Our</h3>
+		<h2>Pricing</h2>
+		</div>
+			<div class="row ">
+				<div class="col-lg-6 col-lg-4">
+					<div class="item">
+						{% if monthly_subscription.best_value %}
+							<div class="ribbon">Best Value</div>
+						{% endif %}
+						<div class="heading">
+							<h3 style="text-transform: uppercase; font-weight: 600;">{{monthly_subscription.subscription_type}}</h3>
+						</div>
+						<div class="features">
+							<h4><span class="feature">Price</span> : <span id="id_monthly_price" class="value"></span></h4>
+							<h4><span class="feature">Discount</span> (<span id="id_monthly_discount" class="value"></span>) : <span id="id_monthly_amount" class="value"></span> </h4>
+							<!-- <h4><span class="feature">Amount</span> : (excl gst)</h4> -->
+							<!-- <h4><span class="feature">GST 18%</span> : <span id="id_--------------------------monthly_gst_amount" class="value"></span></h4> -->
+							<!-- <h4><span class="feature">Extra Launching Discount</span> : <span class="value" >0</span></h4> -->
+							{% if not monthly_subscription.extra_discount_text %} 
+							{% else %}
+								<h4><span id="id_monthly_extra_discount_text" class="feature"></span> : <span id="id_monthly_extra_discount" class="value">2250/-</span></h4>
+							{% endif %}
+						<br>
+						</div>
+						<div class="price">
+							<!-- <h4 style="font-size: 20px;" >Net Amount : <span id="id_monthly_payble_text">1,125/-</span></h4> -->
+							<h4 style="font-size: 20px;" >Net Amount : <span id="id_monthly_net_text">1,125/-</span></h4>
+							<input type="hidden" id="id_monthly_payble" value="">
+							<input type="hidden" id="id_monthly_sub_id" value="">
+						</div>
+						<button class="btn btn-block btn-outline-primary"style="border: 2px solid #ffc107;color: #ffc107 !important;" onclick="monthly_plan('Monthly')" type="submit">BUY NOW</button>
+					</div>
+				</div>
+				<div class="col-lg-6 col-lg-4">
+					<div class="item">
+						{% if yearly_subscription.best_value %}
+							<div class="ribbon">Best Value</div>
+						{% endif %}
+						<div class="heading">
+							<h3 style="text-transform: uppercase; font-weight: 600;">Yearly</h3>
+						</div>
+						<div class="features">
+							<h4><span class="feature">Price</span> : <span id="id_yearly_price" class="value">26,400/-</span></h4>
+							<h4><span class="feature">Discount</span> (<span id="id_yearly_discount" class="value">50%</span>) : <span id="id_yearly_amount" class="value">13,500/-</span></h4>
+							{% if not yearly_subscription.extra_discount_text %}
+							{% else %}
+								<h4><span id="id_yearly_extra_discount_text" class="feature">Extra Launching Discount</span> : <span id="id_yearly_extra_discount" class="value">2250/-</span></h4>
+							{% endif %}
+						</div>
+						<div class="price">
+							<h4 style="font-size: 20px;">Net Amount : <span id="id_yearly_net_text">11,250</span>/-</h4>
+							<input type="hidden" id="id_yearly_payble" value="">
+							<input type="hidden" id="id_yearly_sub_id" value="">
+						</div>
+						<button class="btn btn-block btn-primary" style="background-color: #ffc107;" onclick="monthly_plan('Yearly')" type="submit">BUY NOW</button>
+					</div>
+				</div>
+			</div>
+		</div>
+</section>
+
+<section id="Requestform-section" class="Requestform-section clearfix">
+<div class="jarallax" style="background-image: url(https://media.istockphoto.com/photos/-picture-id1311934969?b=1&k=20&m=1311934969&s=170667a&w=0&h=UQ3F8CE5zam5mT5swIliZ9nO7dhX4ZzsALMufFdv6Ys=)">
+<div class="overlay-white sec-ptb-100">
+<div class="container">
+
+<div class="section-title">
+<h3 style="color:#fff;">Request A</h3>
+<h2 style="color:#fff;">Call Back</h2>
+</div>
+<div class="Requestform-contant">
+<div class="row">
+
+<div class="col-lg-7 col-md-7 col-sm-12">
+<div class="Request-form">
+<form action="#">
+<div class="row">
+<div class="col-lg-6">
+<div class="input-item">
+<input onkeyup="id_contact_name_keyup()" id="id_contact_name" type="text" placeholder="Your Name*">
+<label><i class="ion-ios-person-outline"></i></label>
+<span id="id_contact_name_error" style='color: orange; font-weight: 700; font-size: 12px; display: none !important; margin-top: -25px;'>Name is required</span>
+</div>
+
+</div>
+<div class="col-lg-6">
+<div class="input-item">
+<input onkeyup="id_contact_email_keyup()" id="id_contact_email" type="email" placeholder="Your Email*">
+<label><i class="ion-ios-email-outline"></i></label>
+<span id="id_contact_email_error" style='color:  orange; font-weight: 700; font-size: 12px; display: none !important; margin-top: -25px;'>Email is required</span>
+</div>
+</div>
+<div class="col-lg-6">
+<div class="input-item">
+<input maxlength="10" id="id_contact_phone" onkeyup="id_contact_phone_keyup()" type="tel" placeholder="Your Phone*">
+<label><i class="ion-ios-telephone-outline"></i></label>
+<span id="id_contact_phone_error" style='color:  orange; font-weight: 700; font-size: 12px; display: none !important; margin-top: -25px;'>Phone Number is required</span>
+</div>
+</div>
+<div class="col-lg-6">
+<div class="input-item">
+<input id="id_contact_subject" onkeyup="id_contact_subject_keyup()" type="text" placeholder="Subject*">
+<label><i class="ion-ios-paper-outline"></i></label>
+<span id="id_contact_subject_error" style='color:  orange; font-weight: 700; font-size: 12px; display: none !important; margin-top: -25px;'>Subject is required</span>
+</div>
+</div>
+<div class="col-lg-12">
+<textarea id="id_contact_message" onkeyup="id_contact_message_keyup()" style="border-radius: 8px;border: 1px solid orange;" placeholder="Message*"></textarea>
+<span class="mb-2" id="id_contact_message_error" style='color:  orange; font-weight: 700; font-size: 12px; display: none !important; margin-top: -25px;'>Message is required</span>
+<button type="button"  class="custom-btn waves-effect" onclick="contactFunction()"> 
+Submit Now
+</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+<div class="col-lg-5 col-md-5 col-sm-12">
+</div>
+<div class="peep-man-img">
+<img src="{% static 'Website/assets/images/presenter_man.png' %}" alt="image_not_found">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+
+<section id="newsletter-section" class="newsletter-section clearfix">
+<div class="container">
+<div class="row">
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+<div class="newsletter-contant">
+<h2 class="title-xlarge mb-15" style="text-align: center;">For any query contact us at support@genianalysis.com</h2>
+<!--  --> 
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+<footer id="footer-section" class="footer-section bg-black clearfix">
+
+<div class="footer-top sec-ptb-100 clearfix">
+<div class="container">
+<div class="row">
+
+<div class="col-md-3  col-sm-12">
+<div class="ftr-brand-area">
+<a href="/" class="brand-logo">
+<img src="{% static 'Website/assets/images/logo.png' %}" alt="brand logo not found">
+</a>
+<p class="text-justify clr-white">
+<p style="color:#fff;">GeniAnalysis the brand under StockGeni and StockGeni was stablished in Sep-2016 at Ghaziabad. StockGeni was formed by Ashish Singh, and he has been engaged in the same field since 2007. </p>
+</div>
+</div>
+
+
+<div class="col-md-3  col-sm-12">
+<div class="useful-links" style="margin-left: 55px;">
+<h2 class="title-small clr-white mb-50">useful link</h2>
+<ul>
+<li>
+<a href="#about-section"><i class="ion-ios-arrow-thin-right"></i> About Us</a>
+</li>
+<!-- <li> -->
+<!-- <a href="#!"><i class="ion-ios-arrow-thin-right"></i> Our Team</a> -->
+<!-- </li> -->
+<li>
+<a href="#my-services"><i class="ion-ios-arrow-thin-right"></i>Services</a>
+</li>
+<li>
+<a href="#calculator-section"><i class="ion-ios-arrow-thin-right"></i>Features</a>
+</li>
+<li>
+<a href="#criptocurrency-price-section"><i class="ion-ios-arrow-thin-right"></i>Pricing</a>
+</li>
+<li>
+<a href="#Requestform-section"><i class="ion-ios-arrow-thin-right"></i>Contact</a>
+</li>
+<li>
+<a href="/termsAndCondition/" target="_blank"><i class="ion-ios-arrow-thin-right"></i>Terms & Condition</a>
+</li>
+<li>
+<a href="/privacyPolicy/" target="_blank"><i class="ion-ios-arrow-thin-right"></i> Privacy Policy</a>
+</li>
+<!-- <li> -->
+<!-- <a href="#!"><i class="ion-ios-arrow-thin-right"></i> FAQ</a> -->
+<!-- </li> -->
+</ul>
+</div>
+</div>
+
+
+<div class="col-md-3  col-sm-12">
+<div class="recent-post">
+<h2 class="title-small clr-white mb-50">Registration Details</h2>
+<p class="text-justify clr-white">
+<p style="color:#fff; font-weight: 600;">NSE Registration Code : </p>
+<span style="color: white;">AP2513006831</span> 
+<br>
+<p style="color:#fff; font-weight: 600; margin-top: 20px;">AMFI Registration Code : </p>
+<span style="color: white;">ARN - 170897</span> 
+</p>
+</div>
+</div>
+
+
+<div class="col-md-3  col-sm-12">
+<div class="contact-info mb-30">
+<h2 class="title-small clr-white mb-50">contact us</h2>
+<ul>
+<li>
+<i class="ion-ios-location"></i>
+KH 206/2,Gali No 4 Raghunath Puri,Ghaziabad,UttarPradesh, 201009,India
+</li>
+<li>
+<i class="ion-android-call"></i>
++91 8375-899-800
+</li>
+<li>
+<i class="ion-email"></i>
+<a  class="__cf_email__" >info@stockgeni.com</a>
+</li>
+<li>
+<i class="ion-clock"></i>
+Mon - Fri :- 9:00 am - 19:00 pm
+</li>
+</ul>
+</div>
+<div class="social-list">
+<ul>
+<li class="social-link"><a href="https://www.youtube.com/stockgeni"><i class="ion-social-facebook"></i></a></li>
+<li class="social-link"><a href="https://twitter.com/GeniAnalysis"><i class="ion-social-twitter"></i></a></li>
+<li class="social-link"><a href="#!"><i class="ion-social-google"></i></a></li>
+<li class="social-link"><a href="#!"><i class="ion-social-linkedin"></i></a></li>
+<li class="social-link"><a href="#!"><i class="ion-social-instagram"></i></a></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<div class="footer-bottom clearfix">
+<div class="container">
+<p class="copyright text-center">
+<!-- © All Right Reserved. Designed by <a href="" style="color:orange;">Techquadra.com</a></a> -->
+© Copyright Genianalysis&#8482;</a>
+</p>
+</div>
+</div>
+
+</footer>
+
+
+<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="{% static 'Website/assets/js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'Website/assets/js/popper.min.js' %}"></script>
+<script src="{% static 'Website/assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'Website/assets/js/mdb.min.js' %}"></script>
+
+<script src="{% static 'Website/assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'Website/assets/js/slick.min.js' %}"></script>
+
+<script src="{% static 'Website/assets/js/amcharts.js' %}"></script>
+<script src="{% static 'Website/assets/js/serial.js' %}"></script>
+<script src="{% static 'Website/assets/js/export.min.js' %}"></script>
+<script src="{% static 'Website/assets/js/light.js' %}"></script>
+
+<script src="{% static 'Website/assets/js/gmap3.min.js' %}"></script>
+<script src="https://maps.google.com/maps/api/js?key=AIzaSyC61_QVqt9LAhwFdlQmsNwi5aUJy9B2SyA"></script>
+
+<script src="{% static 'Website/assets/js/wow.min.js' %}"></script>
+<script src="{% static 'Website/assets/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'Website/assets/js/jarallax.js' %}"></script>
+<script src="{% static 'Website/assets/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+
+<!-- <script src="{% static 'Website/assets/js/countdown.js' %}"></script> -->
+<script src="{% static 'Website/assets/js/alt-menu.js' %}"></script>
+<script src="{% static 'Website/assets/js/custom.js' %}"></script>
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+   <script type="text/javascript">$(document).on('click', 'a[href^="#"]', function (event) {
+    event.preventDefault();
+
+    $('html, body').animate({
+        scrollTop: $($.attr(this, 'href')).offset().top
+    }, 500);
+});</script>
+
+<script>
+function indianRupee(x)
+{
+	var number = x;
+	return number.toLocaleString('en-IN', {
+		maximumFractionDigits: 2,
+		style: 'currency',
+		currency: 'INR'
+	});
+	<!-- x=x.toString(); -->
+	<!-- var lastThree = x.substring(x.length-3); -->
+	<!-- var otherNumbers = x.substring(0,x.length-3); -->
+	<!-- if(otherNumbers != '') -->
+		<!-- lastThree = ',' + lastThree; -->
+	<!-- var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; -->
+	
+	<!-- return res; -->
+}
+$('#id_monthly_price').html(indianRupee({{monthly_subscription.price}}) + "/-");
+$('#id_monthly_discount').html({{monthly_subscription.discount}} + "%");
+$('#id_monthly_amount').html(indianRupee({{monthly_subscription.amount}}) + "/-");
+
+{% if not monthly_subscription.extra_discount_text %}
+{% else %}
+	$('#id_monthly_extra_discount_text').html({{monthly_subscription.extra_discount_text}});
+	$('#id_monthly_extra_discount').html(indianRupee({{monthly_subscription.extra_discount}}));
+{% endif %}
+<!-- $('#id_monthly_payble_text').html({{monthly_subscription.payble_amount}} + "/-"); -->
+$('#id_monthly_net_text').html(indianRupee({{monthly_subscription.net_amount}}) + "/-");
+<!-- $('#id_monthly_gst_amount').html({{monthly_subscription.gst_amount}} + "/-"); -->
+$('#id_monthly_payble').val({{monthly_subscription.payble_amount}});
+$('#id_monthly_sub_id').val({{monthly_subscription.id}});
+
+
+<!-- Yearly data -->
+$('#id_yearly_price').html(indianRupee({{yearly_subscription.price}}) + "/-");
+$('#id_yearly_discount').html({{yearly_subscription.discount}} + "%");
+$('#id_yearly_amount').html(indianRupee({{yearly_subscription.amount}}) + "/-");
+
+{% if not yearly_subscription.extra_discount_text %}
+{% else %}
+	$('#id_yearly_extra_discount_text').html('{{yearly_subscription.extra_discount_text}}');
+	$('#id_yearly_extra_discount').html(indianRupee({{yearly_subscription.extra_discount}}) + "/-");
+{% endif %}
+<!-- $('#id_yearly_payble_text').html({{yearly_subscription.payble_amount}}); -->
+$('#id_yearly_net_text').html(indianRupee({{yearly_subscription.net_amount}}));
+<!-- $('#id_yearly_gst_amount').html({{yearly_subscription.gst_amount}} + "/-"); -->
+$('#id_yearly_payble').val({{yearly_subscription.payble_amount}});
+$('#id_yearly_sub_id').val({{yearly_subscription.id}});
+
+</script>
+<script>
+function monthly_plan(plan_type)
+{
+	$('#id_bank_details').hide();
+	$('#id_cashfree_page').hide();
+	
+	$('#receipt').val('');
+	$('.custom-file-upload').html('<i class="fa fa-cloud-upload"></i> Upload Receipt');
+	$('#id_receipt_error').html('');
+	
+	{% if request.session.user_id and request.session.login_token %} 
+		var user_id = {{request.session.user_id}};
+		var login_token = '{{request.session.login_token}}';
+	{% else %}
+		var user_id = null;
+		var login_token = null;
+	{% endif %}
+	
+	if (user_id == null || login_token == null)
+	{	
+		$.ajax({
+			method: "POST",
+			url: "/set_buy_session/",
+			data: {},
+			success: function (response) 
+			{			   
+				if (response.status == '1')
+				{
+					swal("Sorry! You have to first login to your account for buying the subscription ...", {
+						icon: "info",
+						button: "Ok",
+						closeOnClickOutside: false,
+					}).then(function() {
+						location.href = "/login/";
+					});					
+				}
+				else
+				{}
+			}
+		});
+	} 
+	else
+	{
+		$('#id_plan_type').val(plan_type);
+		if(plan_type == "Monthly")
+		{
+			$('#id_plan_price').val($('#id_monthly_payble').val());
+			
+			$('#id_net_text').html(indianRupee({{monthly_subscription.net_amount}}));
+			$('#id_gst_amount').html(indianRupee({{monthly_subscription.gst_amount}}) + "/-");
+			$('#id_payble_text').html(indianRupee({{monthly_subscription.payble_amount}}) + "/-");
+		}
+		else if(plan_type == "Yearly")
+		{
+			$('#id_plan_price').val($('#id_yearly_payble').val());
+			
+			$('#id_net_text').html(indianRupee({{yearly_subscription.net_amount}}));
+			$('#id_gst_amount').html(indianRupee({{yearly_subscription.gst_amount}}) + "/-");
+			$('#id_payble_text').html(indianRupee({{yearly_subscription.payble_amount}}) + "/-");
+		} 
+		$("#exampleModalCenter").modal('show');
+	}
+}
+</script>
+<script>
+var file_size = 0;
+$('#receipt').bind('change', function() 
+{ 
+	 
+	$('#id_receipt_error').html('');
+	$('#id_receipt_error').html('');
+	
+	file_size = this.files[0].size; 
+	
+	var i = $('.custom-file-upload').clone(); 
+	var file = $('#receipt')[0].files[0].name;
+	
+	if (file.length > 20)
+	{
+		var file_name = file.substr(0,20) + '...';
+	}
+	else
+	{
+		var file_name = file; 
+	}
+	$('.custom-file-upload').text(file_name);
+});
+function directBank_payment_submit()
+{
+	var plan_type = $('#id_plan_type').val();
+	var plan_price = $('#id_plan_price').val();
+	
+	
+	if ($('#receipt').val())
+	{
+		if (file_size > 2000000)
+		{
+			$('#id_receipt_error').html('File must be less than 2mb...');
+		}
+		else
+		{
+			{% if request.session.user_id and request.session.login_token %}
+				var user_id = {{request.session.user_id}};
+				var login_token = '{{request.session.login_token}}';
+			{% else %}
+				var user_id = null;
+				var login_token = null;
+			{% endif %}
+			
+			if (user_id != null)
+			{
+				var plan_id = null;
+				if (plan_type == 'Monthly')
+				{
+					plan_id = $('#id_monthly_sub_id').val();
+				}
+				else if (plan_type == 'Yearly')
+				{
+					plan_id = $('#id_yearly_sub_id').val();
+				}
+				var payment_type = 'Direct Bank Transfer';
+				var receipt_file = $('#receipt')[0].files;
+				
+				var fd = new FormData();
+				fd.append('receipt',receipt_file[0]);
+				fd.append('user_id',user_id);
+				fd.append('plan_type',plan_type);
+				fd.append('plan_id',plan_id); 
+				fd.append('payment_type',payment_type); 
+				
+				$.ajax({
+                    method: "POST",
+                    url: "/buy_subscription_dbt/",
+                    enctype : "mutipart/form_data",
+                    processData : false,
+                    contentType : false,
+                    cache : false,
+                    data: fd,
+                    mode: 'same-origin',
+                    success: function (response) 
+                    {
+                        if (response.status == '1'){
+							$("#exampleModalCenter").modal('hide');
+                            swal("Thank you for your payment, We will activate the subscription as per your payment and plan selected, once the verification process completes.", {
+                                icon: "success",
+                                button: "Ok",
+                                closeOnClickOutside: false,
+                            });
+                        }
+                        else{
+                            swal(""+response.smg+"", {
+                            icon: "info",
+                            button: "Ok",
+                            closeOnClickOutside: true,
+                            });
+                        }
+                    }
+                });
+			}
+		}
+	}
+	else
+	{
+		$('#id_receipt_error').html('Please select the file...');
+	}
+}	
+</script>
+<script>
+function directBank_payment()
+{
+	if($('#id_bank_details:visible').length == 0)
+	{
+		$('#id_bank_details').show(500);
+		$('#id_cashfree_page').hide(500);
+	}
+	else
+	{
+		$('#id_bank_details').hide(500);
+		$('#id_cashfree_page').hide(500);
+	}
+}
+function cashFree_toggle()
+{
+	if($('#id_cashfree_page :visible').length == 0)
+	{
+		$('#id_cashfree_page').show(500);
+		$('#id_bank_details').hide(500);
+	}
+	else
+	{
+		$('#id_cashfree_page').hide(500);
+		$('#id_bank_details').hide(500);
+	}
+}
+</script>
+<script>
+function cashFree_payment()
+{
+	var plan_type = $('#id_plan_type').val();
+	var plan_price = $('#id_plan_price').val();
+	var plan_id = null;
+	
+	if (plan_type == 'Monthly')
+	{
+		plan_id = $('#id_monthly_sub_id').val();
+	}
+	else if (plan_type == 'Yearly')
+	{
+		plan_id = $('#id_yearly_sub_id').val();
+	}
+	{% if request.session.user_id and request.session.login_token %}
+		var user_id = {{request.session.user_id}};
+		var login_token = '{{request.session.login_token}}';
+	{% else %}
+		var user_id = null;
+		var login_token = null;
+	{% endif %}
+	
+	if (user_id != null)
+	{
+		$.ajax({
+			method: "POST",
+			url: "/test_cash_free_payment/",
+			data: {
+				'plan_type':plan_type,
+				'plan_price':plan_price,
+				'plan_id':plan_id,
+				'user_id':user_id,
+				'start_date':'None',
+				'end_date':'None', 
+			},
+			success: function (response) 
+			{			   
+				if (response.status == '1')
+				{
+					window.location.href = response.msg;
+				}
+				else
+				{
+					alert(response.msg);
+				}
+			}
+		});
+	}
+}
+</script>
+<script>
+	var payment_status = '{{request.session.payment_status}}';
+	if (payment_status == 'success')
+	{
+		$.ajax({
+			method: "POST",
+			url: "/delete_payment_session/",
+			data: {},
+			success: function (response) 
+			{			   
+				if (response.status == '1')
+				{}
+				else
+				{}
+			}
+		});
+		swal("Thank you for your payment! Your subscription has been activated, Have a great time with GeniAnalysis.", {
+			icon: "success",
+			button: "Ok",
+			closeOnClickOutside: false,
+		}).then(function() {
+			location.href = "/nifty_dashboard_page/";
+		});;
+	}
+	else if(payment_status == 'failed')
+	{
+		$.ajax({
+			method: "POST",
+			url: "/delete_payment_session/",
+			data: {},
+			success: function (response) 
+			{			   
+				if (response.status == '1')
+				{}
+				else
+				{}
+			}
+		});
+		swal("Unfortunately, the payment for this order has failed, Please try again.", {
+			icon: "warning",
+			button: "Ok",
+			closeOnClickOutside: false,
+		});
+	}
+</script>
+<script>
+<!-- function id_contact_name_keyup(){document.getElementById('id_contact_name_error').style.display = 'none';} -->
+<!-- function id_contact_email_keyup(){document.getElementById('id_contact_email_error').style.display = 'none';} -->
+<!-- function id_contact_phone_keyup(){document.getElementById('id_contact_phone_error').style.display = 'none';} -->
+<!-- function id_contact_subject_keyup(){document.getElementById('id_contact_subject_error').style.display = 'none';} -->
+<!-- function id_contact_message_keyup(){document.getElementById('id_contact_message_error').style.display = 'none';} -->
+<!-- function contactFunction() -->
+<!-- { -->
+	<!-- var name = $('#id_contact_name').val(); -->
+	<!-- var email = $('#id_contact_email').val(); -->
+	<!-- var phone = $('#id_contact_phone').val(); -->
+	<!-- var subject = $('#id_contact_subject').val(); -->
+	<!-- var message = $('#id_contact_message').val(); -->
+	
+	<!-- if(name == '' || name== null) -->
+	<!-- { -->
+		<!-- document.getElementById('id_contact_name_error').style.display = 'block'; -->
+	<!-- } -->
+	<!-- else if(email == '' || email== null) -->
+	<!-- { -->
+		<!-- document.getElementById('id_contact_email_error').innerHTML = 'Email is required'; -->
+		<!-- document.getElementById('id_contact_email_error').style.display = 'block'; -->
+	<!-- } -->
+	<!-- else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) -->
+	<!-- { -->
+		<!-- document.getElementById('id_contact_email_error').innerHTML = 'Invalid Email'; -->
+		<!-- document.getElementById('id_contact_email_error').style.display = 'block'; -->
+	<!-- } -->
+	<!-- else if(phone == '' || phone== null) -->
+	<!-- { -->
+		<!-- document.getElementById('id_contact_phone_error').innerHTML = 'Phone Number is required'; -->
+		<!-- document.getElementById('id_contact_phone_error').style.display = 'block'; -->
+	<!-- } -->
+	<!-- else if(!/^\d{10}$/.test(phone)) -->
+	<!-- { -->
+		<!-- document.getElementById('id_contact_phone_error').innerHTML = 'Invalid Number'; -->
+		<!-- document.getElementById('id_contact_phone_error').style.display = 'block'; -->
+	<!-- } -->
+	<!-- else if(subject == '' || subject== null) -->
+	<!-- { -->
+		<!-- document.getElementById('id_contact_subject_error').style.display = 'block'; -->
+	<!-- } -->
+	<!-- else if(message == '' || message== null) -->
+	<!-- { -->
+		<!-- document.getElementById('id_contact_message_error').style.display = 'block'; -->
+	<!-- } -->
+	<!-- else -->
+	<!-- { -->
+		<!-- alert('done'); -->
+	<!-- } -->
+<!-- } -->
+</script>
+</body>
+
+</html>

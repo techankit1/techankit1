@@ -1,0 +1,182 @@
+{% load static %}
+{% include "AdminPanel/header.html" %}
+<style type="text/css">
+	.content {
+		padding: 40px 0;
+	}
+
+	/*
+			.filter-wrapper{
+			padding: 30px 0;
+			}*/
+
+	.filter-checkbox {
+		margin-left: 30px
+	}
+
+	.filter-checkbox:first-child {
+		margin-left: 0
+	}
+	.users-container{
+		padding-bottom: 30px;
+	}
+	.button_span:hover{
+		cursor: pointer;
+	}
+	td{
+		text-align: center;
+	}
+	span{
+		font-size: 14px;
+	}
+	.action-btn
+	{
+		cursor: pointer;
+	}
+	#users-table_length
+	{
+		float: left;
+	}
+	#users-table_filter
+	{
+		float: right;
+	}
+	.table-bordered th, td, tr {
+		text-align: center;
+	}
+</style>
+
+<div class="app-main__inner" style="padding: 15px 0px 0 !important;">                    
+	<div class="tabs-animation">                    
+		<div class="col-lg-12" style="width: 100% !important";>
+			<row>
+				<div class="container card shadow users-container" style="width: 100% !important";>
+					<div class="content">
+						<div class="row">
+							<div class="col-4 mx-auto">
+								<div class="btn-group submitter-group float-right">
+									<div class="input-group-prepend">
+										<div class="input-group-text">Select Market Close Date </div>
+									</div>
+									<input onchange="change_date_function()" type="date" class="form-control" min="{% now 'Y-m-d' %}" id="id_close_date">
+									<div class="input-group-postpend ml-3">
+										<div onclick="save_close_date()" class="input-group-text btn btn-primary form-control">Add</div>
+									</div>
+								</div>
+								<p id="id_error" class="" style="display: none; margin-left: 35%; color: red; font-size: 12px;">Please select the close date...</p>
+							</div>
+						</div>
+					</div>
+					<div id="id_table_container">
+						{{string}}
+					</div>
+				</div>
+			</row>
+		</div>
+	</div>
+</div>
+<script>
+function change_date_function()
+{
+	$('#id_error').hide();
+}
+</script>
+
+<script>
+function save_close_date()
+{
+	var close_date = $('#id_close_date').val();
+	
+	if(close_date == "")
+	{
+		$('#id_error').show();
+	}
+	else
+	{
+		$.ajax({
+			method: "POST",
+			url: "/manual_add_market_close_dates/",
+			data: {
+				'date': close_date,
+			},
+			success: function (response) 
+			{
+				if (response.status == '1')
+				{
+					swal(""+response.msg+"", {
+						icon: "success",
+						button: "Ok",
+						closeOnClickOutside: false,
+					}).then(function () {
+					
+						$('#id_table_container').html(response.string);
+
+					});
+					$('#id_close_date').val('dd-mm-yyyy');
+				}
+				else
+				{
+					swal(""+response.smg+"", {
+						icon: "error",
+						button: "Ok",
+						closeOnClickOutside: true,
+					});
+				}
+			}
+		});
+	}
+}
+
+function deleteDate(id)
+{
+	swal({
+		title: "Delete ?",
+		text: "Are you sure to delete the selected date",
+		icon: "warning",
+
+		buttons: ["No", "Yes"],
+		closeOnClickOutside: false,
+		dangerMode: true,
+	})
+	.then((willUpdate) => {
+		if (willUpdate) {
+			$.ajax({
+				method: "POST",
+				url: "/delete_market_close_dates/",
+				data: {
+					'id': id,
+				},
+				success: function (response) 
+				{
+					if (response.status == '1'){
+						swal(""+response.msg+"", {
+							icon: "success",
+							button: "Ok",
+							closeOnClickOutside: false,
+						}).then(function () {
+						
+							$('#id_table_container').html(response.string);
+					});
+					}
+					else{
+						swal(""+response.msg+"", {
+						icon: "error",
+						button: "Ok",
+						closeOnClickOutside: true,
+						});
+					}
+				}
+			})
+		}	
+	});
+}
+</script>
+
+<script>
+	$(document).ready(function () {
+		
+		dataTable = $("#users-table").DataTable({});
+
+	});
+</script>
+{% include "AdminPanel/footer.html" %}				 

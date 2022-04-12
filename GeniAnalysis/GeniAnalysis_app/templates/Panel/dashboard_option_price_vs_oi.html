@@ -1,0 +1,1074 @@
+{% load static %}
+{% include "Panel/header.html" %}
+<style type="text/css">
+    .table-bordered th , td , tr{
+        border: 1px solid #000!important;
+    }
+    .table{
+        width: 88% !important;
+        table-layout: auto;
+    }
+    .table-bordered td{
+        font-size: 12px;
+    }
+    .table-bordered th{
+        font-size: 12px;
+        padding: 4px;
+    }
+    .table-bordered td{
+        padding: 3px;
+    }
+    .f-color{
+        color: #000;
+    }
+    .green-bg{
+        background-color: #79ee9b;
+    }
+    .red-bg{
+        background-color: #ff5f5f;
+    }
+    .f-c-red{
+        color: red;
+    }
+    .f-c-green{
+        color: green;
+    }
+    .f-c-white{
+        color: #fff;
+    }
+    .button-style{
+        height: 140px !important; 
+        border: 1px solid#000; 
+        background-color:#ffd966; 
+        width: 12%;
+        border-left:hidden; 
+        float:right;
+    }
+    .button-1{
+        margin-bottom: 10px; 
+        margin-left: 10px; 
+        margin-top: 8px;
+        background-color:white;
+    }
+    .button-2{
+        margin-bottom: 10px; 
+        margin-left: 10px;
+        background-color:white;
+    }
+    .button-3{
+        margin-left: 10px; 
+        background-color:white;
+    }
+    .bg-1{
+        background-color: #10b5f1;
+    }
+    .bg-2{
+        background-color:#ffd966;
+    }
+    .bg-3{
+        background-color: #d9e1f2;
+    }
+    .bg-4 {
+        background-color:#92ddf9;
+    }
+    .bg-5{
+        background-color:#ff4a4a;
+    }
+    .bg-6{
+        background-color:#ffff96;
+    }
+    .bg-7{
+        background-color:#c00000;
+    }
+    .bg-black{
+        background-color:#000;
+    }
+    .darkred-bg{
+        background-color:#ff0000;
+    }
+    .sl-bg{
+        background-color:#febaac;
+    } 
+    .buy-bg{
+        background-color:#305496;
+    }
+    .bg-yello{
+        background-color: #ffc000;
+    }
+    .light-red{
+        background-color:#fce4d6;
+    }
+	td{
+		text-align: center;
+	}
+	.app-main__inner{font-weight:750;}
+	
+	
+	.loader2{
+	  width: 100px;
+	  height: 100px;
+	  border-radius: 100%;
+	  position: relative;
+	  margin: 0 auto;
+	}
+
+
+	/* LOADER 6 */
+
+	#loader-6{
+	  top: 40px;
+	  left: -2.5px;
+	}
+
+	#loader-6 span{
+	  display: inline-block;
+	  width: 5px;
+	  height: 20px;
+	  background-color: #53a591;
+	}
+
+	#loader-6 span:nth-child(1){
+	  animation: grow 1s ease-in-out infinite;
+	}
+
+	#loader-6 span:nth-child(2){
+	  animation: grow 1s ease-in-out 0.15s infinite;
+	}
+
+	#loader-6 span:nth-child(3){
+	  animation: grow 1s ease-in-out 0.30s infinite;
+	}
+
+	#loader-6 span:nth-child(4){
+	  animation: grow 1s ease-in-out 0.45s infinite;
+	}
+
+	@keyframes grow{
+	  0%, 100%{
+		-webkit-transform: scaleY(1);
+		-ms-transform: scaleY(1);
+		-o-transform: scaleY(1);
+		transform: scaleY(1);
+	  }
+
+	  50%{
+		-webkit-transform: scaleY(1.8);
+		-ms-transform: scaleY(1.8);
+		-o-transform: scaleY(1.8);
+		transform: scaleY(1.8);
+	  }
+	}
+	<!-- #hideloader -->
+	<!-- { -->
+		<!-- display: none; -->
+	<!-- } -->
+	.tug_of_war{
+		background-color: #FDFD96;
+	}
+	.mild_support{
+		background-color:#96b85d;
+		color: white;
+	}
+	.mild_resistence{
+		background-color: #ffcccb;
+		color: red;
+	}
+	.strong_support{
+		background-color: lightgreen;
+	}
+	.strong_resistence{
+		background-color: #fe5a1d;
+		color: white;
+	}
+	.select_support_resistence{
+		width: 100%;
+		font-size: 14px;
+		font-weight: 700;
+		test-align: center;
+		text-align-last: center;
+
+	
+}	
+	<!-- .card-body{ -->
+		<!-- widht: 1510px !important; -->
+	<!-- } -->
+	#myChartCE{
+		height: 400px !important; width: 1253px !important;
+	}
+	#myChartPE{
+		height: 400px !important; width: 1253px !important;
+	}
+</style>
+<div class="app-main__inner" style="padding: 15px 0px 0 !important;">             
+<div class="tabs-animation">
+                        
+<div class="col-lg-12">
+<row>
+<div class="main-card mb-3 card">
+<div class="card-body">
+<h5 class="card-title">Option price vs oi</h5>
+
+	<div class="row mb-3">
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Select Script:</label>
+			<select class="form-control" onchange="chain_type()" name="testing" id="testing">
+				<option value="Nifty">NIFTY</option>
+				<option value="BankNifty">BANKNIFTY</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Strike Price:</label>
+			<select class="form-control" onchange="strike_price()" name="testing" id="id_nifty_strike_price">
+				{% for strike_price in Nifty_strike_price %}
+					<option value="{{strike_price.strike_price}}">{{strike_price.strike_price}}</option>
+				{% endfor %}
+			</select>
+			<select style="display:none;" class="form-control" onchange="strike_price1()" name="id_nifty_strike_price" id="id_banknifty_strike_price">
+				{% for sp in BankNifty_strike_price %}
+					<option value="{{sp.strike_price}}">{{sp.strike_price}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Interval:</label>
+			<select class="form-control" onchange="interval()" name="expiry" id="id_interval_select">
+				<!-- <option value="60000" {% if interval_obj.interval == 1 %} selected {% endif %}>1</option> -->
+				<option value="180000" {% if interval_obj.interval == 3 %} selected {% endif %}>3</option>
+				<option {% if interval_obj.interval == 5 %} selected {% endif %} value="300000">5</option>
+				<option {% if interval_obj.interval == 15 %} selected {% endif %} value="900000">15</option>
+				<option {% if interval_obj.interval == 30 %} selected {% endif %} value="1800000">30</option>
+				<option {% if interval_obj.interval == 60 %} selected {% endif %} value="3600000">60</option>
+			</select>
+		</div>
+		
+		<div class="col-md-1" style="margin-top: 30px;">
+			<button class="btn btn-warning" style="color: white;" onclick="refreshChart()">Refresh</button>
+		</div>
+	</div>
+	<div class="mt-5" >
+		<h6 id="id_title_ce" class="text-uppercase" style="font-weight: bold;">NIFTY 17400CE PRICE VS OI</h6>
+		<canvas id="myChartCE"></canvas>
+	</div>
+	<div class="mt-5" >
+		<h6 id="id_title_pe" class="text-uppercase" style="font-weight: bold;">NIFTY 17400PE PRICE VS OI</h6>
+		<canvas id="myChartPE"></canvas>
+	</div>
+</div>
+</div>
+
+
+
+</row>
+
+</div>
+<div id='app'>
+
+</div>
+</div>
+</div>
+
+<script>
+
+<!-- testing adding code for 9:15 maintain last date pending -->
+
+var myChartCE;
+function CreateChart(price_val, oi_val, label_val, min_price, max_price, min_oi, max_oi)
+{
+	if (myChartCE) {
+		myChartCE.destroy();
+	  }
+	const context = document.getElementById("myChartCE").getContext('2d');
+
+	context.clearRect(0, 0, document.getElementById("myChartCE").width, document.getElementById("myChartCE").height);
+	
+	var data = {
+		"datasets": [
+		  {
+			"backgroundColor": "red",
+			"borderColor": "red",
+			"fill": false,
+			"data": price_val,
+			"id": "amount",
+			"label": "PREMIUM",
+					"yAxisID":"left"
+		  },
+		  {
+			"backgroundColor": "lightblue",
+			"borderColor": "lightblue",
+			"fill": false,
+			"data": oi_val,
+			"id": "amount",
+			"label": "OI",
+					"yAxisID":"right"
+
+		  }
+		],
+		"labels": label_val,
+	  };
+
+	var type = "line";
+	myChartCE = new Chart(document.getElementById("myChartCE").getContext('2d'), {
+		options: {
+			<!-- events: [], -->
+			animation: {
+				duration: 0, // general animation time
+			},
+			legend: {
+			display: false
+			},
+			scales: {
+				yAxes: [
+					{
+						"scaleLabel": {
+							"display": true,
+							"labelString": "PREMIUM"
+						},
+						"id": "left",
+						"stacked": false,
+						"ticks": {
+							"beginAtZero": false,
+							suggestedMin: min_price,
+							suggestedMax: max_price,
+						}
+					},
+					{
+						"scaleLabel": {
+							"display": true,
+							"labelString": "OI"
+						},
+						"id": "right",
+						"position": "right",
+						"stacked": false,
+						"ticks": {
+							"beginAtZero": false,
+							suggestedMin: min_oi,
+							suggestedMax: max_oi
+						}
+					}
+				],
+				 xAxes: [{
+					ticks: {
+						autoSkip: false,
+						maxRotation: 85,
+						minRotation: 85
+					}
+				}]
+			}
+		},
+		data,
+		type
+	});
+}
+	
+var myChartPE;
+function CreateChartPE(price_val, oi_val, label_val, min_price, max_price, min_oi, max_oi)
+{
+	if (myChartPE) {
+		myChartPE.destroy();
+	  }
+	const context = document.getElementById("myChartPE").getContext('2d');
+
+	context.clearRect(0, 0, document.getElementById("myChartPE").width, document.getElementById("myChartPE").height);
+	
+	var data = {
+		"datasets": [
+		  {
+			"backgroundColor": "red",
+			"borderColor": "red",
+			"fill": false,
+			"data": price_val,
+			"id": "amount",
+			"label": "PREMIUM",
+					"yAxisID":"left"
+		  },
+		  {
+			"backgroundColor": "lightblue",
+			"borderColor": "lightblue",
+			"fill": false,
+			"data": oi_val,
+			"id": "amount",
+			"label": "OI",
+					"yAxisID":"right"
+
+		  }
+		],
+		"labels": label_val,
+	  };
+
+	var type = "line";
+	myChartPE = new Chart(document.getElementById("myChartPE").getContext('2d'), {
+		options: {
+			<!-- events: [], -->
+			animation: {
+				duration: 0, // general animation time
+			},
+			legend: {
+			display: false
+			},
+			scales: {
+				yAxes: [
+					{
+						"scaleLabel": {
+							"display": true,
+							"labelString": "PREMIUM"
+						},
+						"id": "left",
+						"stacked": false,
+						"ticks": {
+							"beginAtZero": false,
+							suggestedMin: min_price,
+							suggestedMax: max_price,
+						}
+					},
+					{
+						"scaleLabel": {
+							"display": true,
+							"labelString": "OI"
+						},
+						"id": "right",
+						"position": "right",
+						"stacked": false,
+						"ticks": {
+							"beginAtZero": false,
+							suggestedMin: min_oi,
+							suggestedMax: max_oi
+						}
+					}
+				],
+				 xAxes: [{
+					ticks: {
+						autoSkip: false,
+						maxRotation: 85,
+						minRotation: 85
+					}
+				}]
+			}
+		},
+		data,
+		type
+	});
+}	
+	
+var now_after_close = new Date();
+var dateTime_after_close = new Date (new Date().toDateString() + ' ' + '15:30');
+var dateTime_in_morning = new Date (new Date().toDateString() + ' ' + '09:15');
+
+if ((now_after_close.getTime() > dateTime_after_close.getTime()) || (now_after_close.getTime() < dateTime_in_morning.getTime())) 
+{
+	if (now_after_close.getTime() > dateTime_after_close.getTime())
+	{
+		var interval_flag = 0;
+
+		function indianRupee(x)
+		{
+			var number = parseFloat(x);
+			return number.toLocaleString("en-IN", {minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'INR'})
+		}
+		<!-- creating table on first page load  -->
+		var call_price_array = new Array();
+		var call_oi_array = new Array();
+		var put_price_array = new Array();
+		var put_oi_array = new Array();
+		var lable_array = new Array();
+
+		var call_min_price = null;
+		var call_min_oi = null;
+		var call_max_price = null;
+		var call_max_oi = null;
+		
+		var put_min_price = null;
+		var put_min_oi = null;
+		var put_max_price = null;
+		var put_max_oi = null;
+
+
+		function fetch_all(symbol, strike_price)
+		{
+			call_price_array = [];
+			call_oi_array = [];
+			
+			put_price_array = [];
+			put_oi_array = [];
+			
+			
+			lable_array = [];
+			
+			var first_history = 'Yes';
+
+			$( document ).ready(function() 
+			{
+				$.ajax({
+					method: "POST",
+					url: "/option_price_vs_oi_data/",
+					data: {
+						'first_history': first_history,
+						'symbol': symbol,
+						'strike_price':strike_price,
+					},
+					success: function (response) 
+					{			   
+						if (response.status == '1')
+						{
+							first_history = 'No';
+							
+							var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+							<!-- console.log(total_add_time_arg); -->
+							var totalhistory_count = 0;
+							var total_first_record = 0;
+							
+							var string_time = null;
+							
+							response.data.forEach(function(value) 
+							{	
+								if (totalhistory_count == total_add_time_arg)
+								{
+									totalhistory_count = 0;
+								}
+								if (totalhistory_count==0)
+								{
+									call_price_array.push(parseFloat(value.call_ltp));
+									call_oi_array.push(parseFloat(value.call_oi));
+									
+									put_price_array.push(parseFloat(value.put_ltp));
+									put_oi_array.push(parseFloat(value.put_oi));
+									
+									lable_array.push(value.today_time.slice(0, -7));
+									totalhistory_count = 1;	
+								}
+								else
+								{
+									totalhistory_count = totalhistory_count + 1;
+								}
+							});
+							console.log(call_oi_array);
+							call_max_price = Math.max.apply(Math,call_price_array);
+							call_min_price = Math.min.apply(Math,call_price_array);
+							call_max_oi = Math.max.apply(Math,call_oi_array);
+							call_min_oi = Math.min.apply(Math,call_oi_array);
+							
+							put_max_price = Math.max.apply(Math,put_price_array);
+							put_min_price = Math.min.apply(Math,put_price_array);
+							put_max_oi = Math.max.apply(Math,put_oi_array);
+							put_min_oi = Math.min.apply(Math,put_oi_array);
+							
+							<!-- console.log(lable_array); -->
+							
+							CreateChart(call_price_array, call_oi_array, lable_array, call_min_price, call_max_price, call_min_oi, call_max_oi);
+							CreateChartPE(put_price_array, put_oi_array, lable_array, put_min_price, put_max_price, put_min_oi, put_max_oi);
+						}
+						else
+						{
+							<!-- console.log(response.msg); -->
+						}
+					}
+					
+				});	
+			});
+		}
+
+		if ($('#testing').val() == 'Nifty')
+		{
+			fetch_all($('#testing').val(), $('#id_nifty_strike_price').val());
+		}
+		else
+		{
+			fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val());
+		}
+
+
+		<!-- ending table on first page load  -->
+
+		function chain_type()
+		{
+			<!-- alert($('#testing').text()); -->
+			
+			if ($('#testing').val() == 'Nifty')
+			{
+				$('#id_title_ce').html($('#testing').val()+" "+ $('#id_nifty_strike_price').val()+" CE PRICE VS OI");
+				$('#id_title_pe').html($('#testing').val()+" "+ $('#id_nifty_strike_price').val()+" PE PRICE VS OI");
+				if($('#id_nifty_strike_price:visible').length == 0)
+				{
+					$('#id_nifty_strike_price').show();
+					$('#id_banknifty_strike_price').hide();
+					fetch_all($('#testing').val(), $('#id_nifty_strike_price').val());
+				}
+				else
+				{
+					$('#id_banknifty_strike_price').hide();
+				}
+			}
+			else
+			{
+				$('#id_title_ce').html($('#testing').val()+" "+ $('#id_banknifty_strike_price').val()+" CE PRICE VS OI");
+				$('#id_title_pe').html($('#testing').val()+" "+ $('#id_banknifty_strike_price').val()+" PE PRICE VS OI");
+				if($('#id_banknifty_strike_price:visible').length == 0)
+				{
+					<!-- alert($('#id_banknifty_strike_price:visible').length == 0); -->
+					$('#id_banknifty_strike_price').show();
+					$('#id_nifty_strike_price').hide();
+					fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val());
+				}
+				else
+				{
+					$('#id_nifty_strike_price').hide();
+				}
+			}
+			
+			<!-- fetch_all(); -->
+		}
+
+
+		function strike_price()
+		{
+			$('#id_title_ce').html($('#testing').val()+" "+ $('#id_nifty_strike_price').val()+" CE PRICE VS OI");
+			$('#id_title_pe').html($('#testing').val()+" "+ $('#id_nifty_strike_price').val()+" PE PRICE VS OI");
+			fetch_all($('#testing').val(), $('#id_nifty_strike_price').val());
+		}
+		function strike_price1()
+		{
+			$('#id_title_ce').html($('#testing').val()+" "+ $('#id_banknifty_strike_price').val()+" CE PRICE VS OI");
+			$('#id_title_pe').html($('#testing').val()+" "+ $('#id_banknifty_strike_price').val()+" PE PRICE VS OI");
+			fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val());
+		}
+		function interval()
+		{
+			if ($('#testing').val() == 'Nifty')
+			{
+				fetch_all($('#testing').val(), $('#id_nifty_strike_price').val());
+			}
+			else
+			{
+				fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val());
+			}
+		}
+
+		function refreshChart()
+		{
+			if ($('#testing').val() == 'Nifty')
+			{
+				fetch_all($('#testing').val(), $('#id_nifty_strike_price').val());
+			}
+			else
+			{
+				fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val());
+			}
+		}
+	}
+	else if (now_after_close.getTime() < dateTime_in_morning.getTime())
+	{
+		var interval_flag = 0;
+
+		function indianRupee(x)
+		{
+			var number = parseFloat(x);
+			return number.toLocaleString("en-IN", {minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'INR'})
+		}
+		<!-- creating table on first page load  -->
+		var price_array = new Array();
+		var oi_array = new Array();
+		var lable_array = new Array();
+
+		var min_price = null;
+		var min_oi = null;
+		var max_price = null;
+		var max_oi = null;
+
+		function fetch_all()
+		{
+			price_array = [];
+			oi_array = [];
+			lable_array = [];
+			
+			var first_history = 'Yes';
+
+			$( document ).ready(function() 
+			{ 
+				$.ajax({
+					method: "POST",
+					url: "/get_yesterday_intraday_data_log/",
+					data: {
+						'symbol': $('#testing').val(),
+					},
+					success: function (response) 
+					{			   
+						if (response.status == '1')
+						{
+							first_history = 'No';
+							
+							var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+							<!-- console.log(total_add_time_arg); -->
+							var totalhistory_count = 0;
+							var total_first_record = 0;
+							
+							var string_time = null;
+							
+							response.data.forEach(function(value) 
+							{	
+								if (totalhistory_count == total_add_time_arg)
+								{
+									totalhistory_count = 0;
+								}
+								if (totalhistory_count==0)
+								{
+									price_array.push(parseFloat(value.last_price));
+									oi_array.push(parseFloat(value.oi));
+									lable_array.push(value.today_time.slice(0, -7));
+									totalhistory_count = 1;	
+								}
+								else
+								{
+									totalhistory_count = totalhistory_count + 1;
+								}
+							});
+							max_price = Math.max.apply(Math,price_array);
+							min_price = Math.min.apply(Math,price_array);
+							max_oi = Math.max.apply(Math,oi_array);
+							min_oi = Math.min.apply(Math,oi_array);
+							
+							<!-- console.log(lable_array); -->
+							
+							CreateChart(price_array, oi_array, lable_array, min_price, max_price, min_oi, max_oi);
+						}
+						else
+						{
+							<!-- console.log(response.msg); -->
+						}
+					}
+					
+				});	
+			});
+		}
+
+		fetch_all();	
+
+
+		<!-- ending table on first page load  -->
+
+		function chain_type()
+		{
+			fetch_all();
+		}
+
+
+		function interval()
+		{
+			fetch_all();
+		}
+
+		function refreshChart()
+		{
+			fetch_all();
+		}
+	}
+}
+else
+{	
+	<!-- alert('hello'); -->
+	var interval_flag = 0;
+
+	function indianRupee(x)
+	{
+		var number = parseFloat(x);
+		return number.toLocaleString("en-IN", {minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'INR'})
+	}
+	<!-- creating table on first page load  -->
+	var call_price_array = new Array();
+	var call_oi_array = new Array();
+	var put_price_array = new Array();
+	var put_oi_array = new Array();
+	var lable_array = new Array();
+
+	var call_min_price = null;
+	var call_min_oi = null;
+	var call_max_price = null;
+	var call_max_oi = null;
+	
+	var put_min_price = null;
+	var put_min_oi = null;
+	var put_max_price = null;
+	var put_max_oi = null;
+	var intraday_temp_date_time;
+	function fetch_all(symbol, strike_price)
+	{
+		call_price_array = [];
+		call_oi_array = [];
+		
+		put_price_array = [];
+		put_oi_array = [];
+		
+		
+		lable_array = [];
+		
+		var first_history = 'Yes';
+
+		$( document ).ready(function() 
+		{
+			$.ajax({
+				method: "POST",
+				url: "/option_price_vs_oi_data/",
+				data: {
+					'first_history': first_history,
+					'symbol': symbol,
+					'strike_price':strike_price,
+				},
+				success: function (response) 
+				{			   
+					if (response.status == '1')
+					{
+						first_history = 'No';
+						
+						var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+						<!-- console.log(total_add_time_arg); -->
+						var totalhistory_count = 0;
+						var total_first_record = 0;
+						
+						var string_time = null;
+						
+						response.data.forEach(function(value) 
+						{	
+							if (totalhistory_count == total_add_time_arg)
+							{
+								totalhistory_count = 0;
+							}
+							if (totalhistory_count==0)
+							{
+								call_price_array.push(parseFloat(value.call_ltp));
+								call_oi_array.push(parseFloat(value.call_oi));
+								
+								put_price_array.push(parseFloat(value.put_ltp));
+								put_oi_array.push(parseFloat(value.put_oi));
+								
+								lable_array.push(value.today_time.slice(0, -7));
+								
+								string_time = value.today_time.slice(0, -7);
+								totalhistory_count = 1;	
+							}
+							else
+							{
+								totalhistory_count = totalhistory_count + 1;
+							}
+						});
+						<!-- console.log(call_oi_array); -->
+						call_max_price = Math.max.apply(Math,call_price_array);
+						call_min_price = Math.min.apply(Math,call_price_array);
+						call_max_oi = Math.max.apply(Math,call_oi_array);
+						call_min_oi = Math.min.apply(Math,call_oi_array);
+						
+						put_max_price = Math.max.apply(Math,put_price_array);
+						put_min_price = Math.min.apply(Math,put_price_array);
+						put_max_oi = Math.max.apply(Math,put_oi_array);
+						put_min_oi = Math.min.apply(Math,put_oi_array);
+						
+						<!-- console.log(lable_array); -->
+						
+						CreateChart(call_price_array, call_oi_array, lable_array, call_min_price, call_max_price, call_min_oi, call_max_oi);
+						CreateChartPE(put_price_array, put_oi_array, lable_array, put_min_price, put_max_price, put_min_oi, put_max_oi);
+						
+						intraday_analysis_interval_time = parseInt($("#id_interval_select option:selected").val());
+						
+						intraday_analysis_add_time = parseInt($("#id_interval_select option:selected").text());
+						
+						intraday_temp_date_time = new Date (new Date().toDateString() + ' ' + string_time);
+						intraday_temp_date_time.setMinutes( intraday_temp_date_time.getMinutes() + intraday_analysis_add_time );
+						
+						<!-- alert(intraday_temp_date_time); -->
+						if (interval_flag == 0)
+						{
+							run1 = setInterval(request, intraday_analysis_interval_time);
+							interval_flag = 1;
+						}
+						else
+						{
+							clearInterval(run1);
+							run1 = setInterval(request, intraday_analysis_interval_time);
+						}
+					}
+					else
+					{
+						<!-- console.log(response.msg); -->
+					}
+				}
+				
+			});	
+		});
+	}
+
+	if ($('#testing').val() == 'Nifty')
+	{
+		fetch_all($('#testing').val(), $('#id_nifty_strike_price').val());
+	}
+	else
+	{
+		fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val());
+	}
+
+
+	<!-- ending table on first page load  -->
+
+	<!-- adding one row as selected interval  -->
+
+	async function request() 
+	{ 
+		if(intraday_temp_date_time.getMinutes() < 10)
+		{
+			total_log_time = intraday_temp_date_time.getHours() + ":0" +intraday_temp_date_time.getMinutes();
+		}
+		else
+		{
+			total_log_time = intraday_temp_date_time.getHours() + ":" +intraday_temp_date_time.getMinutes();
+		}
+		
+		var strike_price;
+		first_history = 'No';
+		if ($('#testing').val() == 'Nifty')
+		{
+			strike_price = $('#id_nifty_strike_price').val();
+		}
+		else
+		{
+			strike_price = $('#id_banknifty_strike_price').val();
+		}
+		<!-- console.log('called'); -->
+		<!-- console.log(strike_price); -->
+		<!-- console.log(total_log_time); -->
+		$.ajax({
+			method: "POST",
+			url: "/option_price_vs_oi_data/",
+			data: {
+				'first_history': first_history,
+				'symbol': $('#testing').val(),
+				'strike_price': strike_price,
+				'total_log_time': total_log_time,
+			},
+			success: function (response) 
+			{			   
+				if (response.status == '1')
+				{
+					first_history = 'No';
+					
+					var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+					var string_time = null;
+					
+					intraday_temp_date_time.setMinutes( intraday_temp_date_time.getMinutes() + total_add_time_arg );
+					
+					response.data.forEach(function(value) 
+					{	
+						call_price_array.push(parseFloat(value.call_ltp));
+						call_oi_array.push(parseFloat(value.call_oi));
+						
+						put_price_array.push(parseFloat(value.put_ltp));
+						put_oi_array.push(parseFloat(value.put_oi));
+						
+						lable_array.push(value.today_time.slice(0, -7));
+						
+						call_max_price = Math.max.apply(Math,call_price_array);
+						call_min_price = Math.min.apply(Math,call_price_array);
+						call_max_oi = Math.max.apply(Math,call_oi_array);
+						call_min_oi = Math.min.apply(Math,call_oi_array);
+						
+						put_max_price = Math.max.apply(Math,put_price_array);
+						put_min_price = Math.min.apply(Math,put_price_array);
+						put_max_oi = Math.max.apply(Math,put_oi_array);
+						put_min_oi = Math.min.apply(Math,put_oi_array);
+						
+						<!-- console.log(lable_array); -->
+						
+						CreateChart(call_price_array, call_oi_array, lable_array, call_min_price, call_max_price, call_min_oi, call_max_oi);
+						CreateChartPE(put_price_array, put_oi_array, lable_array, put_min_price, put_max_price, put_min_oi, put_max_oi);
+					});
+				}
+				else
+				{
+					<!-- console.log(response.msg); -->
+				}
+			}
+		});	
+	};
+
+
+	<!-- End adding one row as selected interval  -->
+	
+
+
+	function chain_type()
+	{
+		<!-- alert($('#testing').text()); -->
+		
+		if ($('#testing').val() == 'Nifty')
+		{
+			$('#id_title_ce').html($('#testing').val()+" "+ $('#id_nifty_strike_price').val()+" CE PRICE VS OI");
+			$('#id_title_pe').html($('#testing').val()+" "+ $('#id_nifty_strike_price').val()+" PE PRICE VS OI");
+			if($('#id_nifty_strike_price:visible').length == 0)
+			{
+				$('#id_nifty_strike_price').show();
+				$('#id_banknifty_strike_price').hide();
+				fetch_all($('#testing').val(), $('#id_nifty_strike_price').val());
+			}
+			else
+			{
+				$('#id_banknifty_strike_price').hide();
+			}
+		}
+		else
+		{
+			$('#id_title_ce').html($('#testing').val()+" "+ $('#id_banknifty_strike_price').val()+" CE PRICE VS OI");
+			$('#id_title_pe').html($('#testing').val()+" "+ $('#id_banknifty_strike_price').val()+" PE PRICE VS OI");
+			if($('#id_banknifty_strike_price:visible').length == 0)
+			{
+				<!-- alert($('#id_banknifty_strike_price:visible').length == 0); -->
+				$('#id_banknifty_strike_price').show();
+				$('#id_nifty_strike_price').hide();
+				fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val());
+			}
+			else
+			{
+				$('#id_nifty_strike_price').hide();
+			}
+		}
+		
+		<!-- fetch_all(); -->
+	}
+
+
+	function strike_price()
+	{
+		$('#id_title_ce').html($('#testing').val()+" "+ $('#id_nifty_strike_price').val()+" CE PRICE VS OI");
+		$('#id_title_pe').html($('#testing').val()+" "+ $('#id_nifty_strike_price').val()+" PE PRICE VS OI");
+		fetch_all($('#testing').val(), $('#id_nifty_strike_price').val());
+	}
+	function strike_price1()
+	{
+		$('#id_title_ce').html($('#testing').val()+" "+ $('#id_banknifty_strike_price').val()+" CE PRICE VS OI");
+		$('#id_title_pe').html($('#testing').val()+" "+ $('#id_banknifty_strike_price').val()+" PE PRICE VS OI");
+		fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val());
+	}
+	function interval()
+	{
+		if ($('#testing').val() == 'Nifty')
+		{
+			fetch_all($('#testing').val(), $('#id_nifty_strike_price').val());
+		}
+		else
+		{
+			fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val());
+		}
+	}
+
+	function refreshChart()
+	{
+		if ($('#testing').val() == 'Nifty')
+		{
+			fetch_all($('#testing').val(), $('#id_nifty_strike_price').val());
+		}
+		else
+		{
+			fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val());
+		}
+	}
+}
+</script>
+
+<script>
+
+</script>
+{% include "Panel/footer.html" %}				 

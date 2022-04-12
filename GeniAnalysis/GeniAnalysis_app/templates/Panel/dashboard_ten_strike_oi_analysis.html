@@ -1,0 +1,975 @@
+{% load static %}
+{% include "Panel/header.html" %}
+<style type="text/css">
+    .table-bordered th , td , tr{
+        border: 1px solid #000!important;
+    }
+    .table{
+        width: 88% !important;
+        table-layout: auto;
+    }
+    .table-bordered td{
+        font-size: 12px;
+    }
+    .table-bordered th{
+        font-size: 12px;
+        padding: 4px;
+    }
+    .table-bordered td{
+        padding: 3px;
+    }
+    .f-color{
+        color: #000;
+    }
+    .green-bg{
+        background-color: #79ee9b;
+    }
+    .red-bg{
+        background-color: #ff5f5f;
+    }
+    .f-c-red{
+        color: red;
+    }
+    .f-c-green{
+        color: green;
+    }
+    .f-c-white{
+        color: #fff;
+    }
+    .button-style{
+        height: 140px !important; 
+        border: 1px solid#000; 
+        background-color:#ffd966; 
+        width: 12%;
+        border-left:hidden; 
+        float:right;
+    }
+    .button-1{
+        margin-bottom: 10px; 
+        margin-left: 10px; 
+        margin-top: 8px;
+        background-color:white;
+    }
+    .button-2{
+        margin-bottom: 10px; 
+        margin-left: 10px;
+        background-color:white;
+    }
+    .button-3{
+        margin-left: 10px; 
+        background-color:white;
+    }
+    .bg-1{
+        background-color: #10b5f1;
+    }
+    .bg-2{
+        background-color:#ffd966;
+    }
+    .bg-3{
+        background-color: #d9e1f2;
+    }
+    .bg-4 {
+        background-color:#92ddf9;
+    }
+    .bg-5{
+        background-color:#ff4a4a;
+    }
+    .bg-6{
+        background-color:#ffff96;
+    }
+    .bg-7{
+        background-color:#c00000;
+    }
+    .bg-black{
+        background-color:#000;
+    }
+    .darkred-bg{
+        background-color:#ff0000;
+    }
+    .sl-bg{
+        background-color:#febaac;
+    } 
+    .buy-bg{
+        background-color:#305496;
+    }
+    .bg-yello{
+        background-color: #ffc000;
+    }
+    .light-red{
+        background-color:#fce4d6;
+    }
+	td{
+		text-align: center;
+	}
+	.app-main__inner{font-weight:750;}
+	
+	
+	.loader2{
+	  width: 100px;
+	  height: 100px;
+	  border-radius: 100%;
+	  position: relative;
+	  margin: 0 auto;
+	}
+
+
+	/* LOADER 6 */
+
+	#loader-6{
+	  top: 40px;
+	  left: -2.5px;
+	}
+
+	#loader-6 span{
+	  display: inline-block;
+	  width: 5px;
+	  height: 20px;
+	  background-color: #53a591;
+	}
+
+	#loader-6 span:nth-child(1){
+	  animation: grow 1s ease-in-out infinite;
+	}
+
+	#loader-6 span:nth-child(2){
+	  animation: grow 1s ease-in-out 0.15s infinite;
+	}
+
+	#loader-6 span:nth-child(3){
+	  animation: grow 1s ease-in-out 0.30s infinite;
+	}
+
+	#loader-6 span:nth-child(4){
+	  animation: grow 1s ease-in-out 0.45s infinite;
+	}
+
+	@keyframes grow{
+	  0%, 100%{
+		-webkit-transform: scaleY(1);
+		-ms-transform: scaleY(1);
+		-o-transform: scaleY(1);
+		transform: scaleY(1);
+	  }
+
+	  50%{
+		-webkit-transform: scaleY(1.8);
+		-ms-transform: scaleY(1.8);
+		-o-transform: scaleY(1.8);
+		transform: scaleY(1.8);
+	  }
+	}
+	<!-- #hideloader -->
+	<!-- { -->
+		<!-- display: none; -->
+	<!-- } -->
+	.tug_of_war{
+		background-color: #FDFD96;
+	}
+	.mild_support{
+		background-color:#96b85d;
+		color: white;
+	}
+	.mild_resistence{
+		background-color: #ffcccb;
+		color: red;
+	}
+	.strong_support{
+		background-color: lightgreen;
+	}
+	.strong_resistence{
+		background-color: #fe5a1d;
+		color: white;
+	}
+	.select_support_resistence{
+		width: 100%;
+		font-size: 14px;
+		font-weight: 700;
+		test-align: center;
+		text-align-last: center;
+
+	
+}	
+	<!-- .card-body{ -->
+		<!-- widht: 1510px !important; -->
+	<!-- } -->
+	<!-- #myChartCE{ -->
+		<!-- height: 700px !important; width: 1253px !important; -->
+	<!-- } -->
+</style>
+<div class="app-main__inner" style="padding: 15px 0px 0 !important;">             
+<div class="tabs-animation">
+                        
+<div class="col-lg-12">
+<row>
+<div class="main-card mb-3 card">
+<div class="card-body">
+<h5 class="card-title">oi chart</h5>
+
+	<div class="row mb-3">
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Select Script:</label>
+			<select class="form-control" onchange="chain_type()" name="testing" id="testing">
+				<option value="Nifty">NIFTY</option>
+				<option value="BankNifty">BANKNIFTY</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Form:</label>
+			<label id="id_nifty_form" class="form-control" >{{nifty_start}}</label>
+			<label style="display:none;" id="id_bank_nifty_form" class="form-control" >{{Banknifty_start}}</label>
+		</div>
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">To:</label>
+			<label id="id_nifty_to" class="form-control" >{{nifty_end}}</label>
+			<label style="display:none;" id="id_bank_nifty_to" class="form-control" >{{Banknifty_end}}</label>
+		</div>
+		<div class="col-md-1">
+			<label class="fw-bold text-uppercase">Interval:</label>
+			<select class="form-control" onchange="" name="expiry" id="id_interval_select">
+				<!-- <option value="60000" {% if interval_obj.interval == 1 %} selected {% endif %}>1</option> -->
+				<option value="180000" {% if interval_obj.interval == 3 %} selected {% endif %}>3</option>
+				<option {% if interval_obj.interval == 5 %} selected {% endif %} value="300000">5</option>
+				<option {% if interval_obj.interval == 15 %} selected {% endif %} value="900000">15</option>
+				<option {% if interval_obj.interval == 30 %} selected {% endif %} value="1800000">30</option>
+				<!-- <option {% if interval_obj.interval == 60 %} selected {% endif %} value="3600000">60</option> -->
+			</select>
+		</div>
+		
+		<div class="col-md-1" style="margin-top: 30px; margin-left:-10px;">
+			<button  class="btn btn-primary mb-1" style="color: white;" onclick="submit_chart()">Submit</button>
+		</div>
+		<div class="col-md-1" style="margin-top: 30px; margin-left: -25px;">
+				<button class="btn btn-warning" style="color: white;" onclick="refreshChart()">Refresh</button>
+		</div>
+	</div>
+	<div class="mt-5" >
+		<canvas id="myChartCE"></canvas>
+	</div>
+	
+	<div style="max-height: 500px; overflow-y: auto">
+		<table style="width: 100% !important; max-height:500px !important;"; class="mb-0 mt-3 table table-bordered  scrolldown" id="history_log_table" style="width: 100% !important; max-height:500px !important;">
+			<thead>
+				<tr class="text-center">
+					<th rowspan="2" style="background: #FAFA33; color: black;">Time</th>
+					<th style="background: lightgreen; color: black;">CALL Change OI</th>
+					<th style="background: red; color: white;">PUT Change OI</th>
+					<th rowspan="2" style="background: lightgreen; color: black;">Diff</th>
+					<th rowspan="2" style="background: #87ceeb; color: white;">TREND</th>
+					<th rowspan="2" style="background: #ffcccb; color: red;">% Change</th>
+				</tr>
+			</thead>
+			<tbody id="id_history_table_body">
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+
+
+
+</row>
+
+</div>
+<div id='app'>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+<!-- testing adding code for 9:15 maintain last date pending -->
+
+var myChartCE;
+function CreateChart(ce_val, pe_val, label_val, min_oi, max_oi)
+{
+	<!-- console.log('max_oi' + max_oi); -->
+	<!-- console.log('min_oi' + min_oi); -->
+	if (myChartCE) {
+		myChartCE.destroy();
+	  }
+	const context = document.getElementById("myChartCE").getContext('2d');
+
+	context.clearRect(0, 0, document.getElementById("myChartCE").width, document.getElementById("myChartCE").height);
+	
+	var data = {
+		"datasets": [
+		  
+		  {
+			"backgroundColor": "green",
+			"borderColor": "green",
+			"fill": false,
+			"data": ce_val,
+			"id": "amount",
+			"label": "CE",
+			"yAxisID":"left"
+
+		  },
+		  {
+			"backgroundColor": "red",
+			"borderColor": "red",
+			"fill": false,
+			"data": pe_val,
+			"id": "amount",
+			"label": "PE",
+			"yAxisID":"left"
+		  },
+		  <!-- { -->
+			<!-- "backgroundColor": "red", -->
+			<!-- "borderColor": "red", -->
+			<!-- "fill": false, -->
+			<!-- "data": pe_val, -->
+			<!-- "id": "amount", -->
+			<!-- "label": "PE", -->
+			<!-- "yAxisID":"left" -->
+		  <!-- }, -->
+		],
+		"labels": label_val,
+	  };
+
+	var type = "line";
+	myChartCE = new Chart(document.getElementById("myChartCE").getContext('2d'), {
+		options: {
+			<!-- events: [], -->
+			animation: {
+				duration: 0, // general animation time
+			},
+			legend: {
+				 onClick: (e) => e.stopPropagation()
+			},
+			scales: {
+				yAxes: [
+					{
+						"scaleLabel": {
+							"display": true,
+							"labelString": "OI"
+						},
+						"id": "left",
+						"stacked": false,
+						"ticks": {
+							"beginAtZero": true,
+							suggestedMin: min_oi,
+							suggestedMax: max_oi,
+						}
+					},
+					<!-- { -->
+						<!-- "scaleLabel": { -->
+							<!-- "display": true, -->
+							<!-- "labelString": "Price" -->
+						<!-- }, -->
+						<!-- "id": "right", -->
+						<!-- "position": "right", -->
+						<!-- "stacked": false, -->
+						<!-- "ticks": { -->
+							<!-- "beginAtZero": false, -->
+							<!-- suggestedMin: min_ltp, -->
+							<!-- suggestedMax: max_ltp -->
+						<!-- } -->
+					<!-- } -->
+				],
+				 xAxes: [{
+					ticks: {
+						autoSkip: false,
+						maxRotation: 85,
+						minRotation: 85
+					}
+				}]
+			}
+		},
+		data,
+		type
+	});
+}
+
+var interval_flag = 0;
+
+function indianRupee(x)
+{
+	var number = parseFloat(x);
+	return number.toLocaleString("en-IN", {minimumFractionDigits: 0, maximumFractionDigits: 0, currency: 'INR'})
+}
+
+var call_oi_array = new Array(); 
+var put_oi_array = new Array();
+var ltp_array = new Array();
+var lable_array = new Array(); 
+
+var call_min_oi = null; 
+var call_max_oi = null; 
+
+var put_min_oi = null;
+var put_max_oi = null;
+
+var ten_strike_interval_time;
+var ten_strike_temp_date_and_time;
+var global_previous_difference;
+
+
+function fetch_all(symbol)
+{
+	var strike_price_1;
+	var strike_price_2;
+	
+	if ($('#testing').val() == 'Nifty')
+	{
+		strike_price_1 = parseInt($('#id_nifty_form').html());
+		strike_price_2 = parseInt($('#id_nifty_to').html());
+	}
+	else
+	{
+		strike_price_1 = parseInt($('#id_bank_nifty_form').html());
+		strike_price_2 = parseInt($('#id_bank_nifty_to').html());
+	}
+	call_oi_array = [];
+	ltp_array = [];
+	put_oi_array = [];
+	lable_array = [];
+	
+	var first_history = 'Yes';
+	
+	var dt = new Date();
+	var date_check;
+	var dateTime_after_close = new Date (new Date().toDateString() + ' ' + '15:30');
+	var dateTime_in_morning = new Date (new Date().toDateString() + ' ' + '09:15');
+	<!-- check data is coming or not  -->
+	$( document ).ready(function() 
+	{
+		$.ajax({
+			method: "POST",
+			url: "/ten_strike_oi_analysis_data/",
+			data: {
+				'first_history': first_history,
+				'symbol': symbol,
+				'strike_price_1':strike_price_1,
+				'strike_price_2':strike_price_2,
+			},
+			success: function (response) 
+			{			
+				console.log(response.data);
+				if (response.status == '1')
+				{
+					first_history = 'No';					
+					var add_time_arg = parseInt($("#id_interval_select option:selected").text());
+					<!-- alert(add_time_arg); -->
+					var history_count = 0;
+					var total_first_record = 0;
+					var total_call_oi = 0;
+					var total_put_oi = 0;
+					var ltp_val = 0;
+					var label_time;
+					var string_time = null;
+					var first_record = 0;
+					var tbodyRef = document.getElementById('history_log_table').getElementsByTagName('tbody')[0];
+					response.data.forEach(function(value) 
+					{	
+						if (history_count == add_time_arg)
+						{
+							history_count = 0;
+						}
+						if (history_count==0)
+						{
+							newRow = tbodyRef.insertRow();
+							
+							if(parseInt(value.today_time__hour) < 10 && parseInt(value.today_time__minute) < 10)
+							{
+								string_time = "0" + value.today_time__hour + ":0" + value.today_time__minute;
+							}
+							else if(parseInt(value.today_time__hour) < 10)
+							{
+								string_time = "0" + value.today_time__hour + ":" + value.today_time__minute;
+							}
+							else if(parseInt(value.today_time__minute) < 10)
+							{
+								string_time = value.today_time__hour + ":0" + value.today_time__minute;
+							}
+							else
+							{
+								string_time = value.today_time__hour + ":" + value.today_time__minute;
+							}
+							
+							cell_obj = newRow.insertCell();
+							cell_obj.style.backgroundColor="#FADA5E";
+							cell_obj.appendChild(document.createTextNode(string_time));
+							
+							
+							
+							cell_obj = newRow.insertCell(1);
+							cell_obj.style.backgroundColor="#e8e8d6";
+							cell_obj.appendChild(document.createTextNode(indianRupee(value.call_oi_sum)));
+							
+							cell_obj = newRow.insertCell(2);
+							cell_obj.style.backgroundColor="#e8e8d6";
+							cell_obj.appendChild(document.createTextNode(indianRupee(value.put_oi_sum)));
+							
+							var call_oi_sum = parseFloat(value.call_oi_sum);
+							var put_oi_sum = parseFloat(value.put_oi_sum);
+							
+							cell_obj = newRow.insertCell(3);
+							cell_obj.style.backgroundColor="#e8e8d6";
+							cell_obj.appendChild(document.createTextNode(indianRupee(put_oi_sum - call_oi_sum)));
+							
+							var difference = put_oi_sum - call_oi_sum;
+							if (difference == 0)
+							{
+								cell_obj = newRow.insertCell(4);
+								cell_obj.style.backgroundColor="lightpink";
+								cell_obj.style.color="black";
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode('No Data'));
+								t_change_trend = 'No Data';
+							}
+							else if (difference >= 1000000)
+							{
+								cell_obj = newRow.insertCell(4);
+								cell_obj.style.backgroundColor="lightgreen";
+								cell_obj.style.color="black";
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode('BULLISH'));
+								t_change_trend = 'BULLISH';
+							}
+							else if(difference <= -500000)
+							{
+								cell_obj = newRow.insertCell(4);
+								cell_obj.style.backgroundColor="#fd0e35";
+								cell_obj.style.color="black";
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode('BEARISH'));
+								t_change_trend = 'BEARISH';
+							}
+							else if (difference >= 500001)
+							{
+								cell_obj = newRow.insertCell(4);
+								cell_obj.style.backgroundColor="lightgrey";
+								cell_obj.style.color="black";
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode('Wait'));
+								t_change_trend = 'Wait';
+							}
+							else if(difference >= -499999)
+							{
+								cell_obj = newRow.insertCell(4);
+								cell_obj.style.backgroundColor="lightgrey";
+								cell_obj.style.color="black";
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode('Wait'));
+								t_change_trend = 'Wait';
+							}
+							
+							if (first_record == 0)
+							{
+								cell_obj = newRow.insertCell(5);
+								cell_obj.style.backgroundColor="lightgrey";
+								cell_obj.style.color="black";
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode('-'));
+								first_record = 1;	
+							}
+							else
+							{		
+								var change_per = 0;
+								if(difference > 0 && global_previous_difference > 0)
+								{
+									change_per = (difference - global_previous_difference)/global_previous_difference;
+								}
+								else if(difference < 0 && global_previous_difference < 0)
+								{
+									change_per = (difference - global_previous_difference)/-global_previous_difference;
+								}
+								else if(difference > 0 && global_previous_difference < 0)
+								{
+									change_per = (difference - global_previous_difference)/-global_previous_difference;
+								}
+								else
+								{
+									change_per = (difference - global_previous_difference)/global_previous_difference;
+								}
+								change_per = change_per * 100;
+								cell_obj = newRow.insertCell(5);
+								cell_obj.style.backgroundColor="lightgrey";
+								cell_obj.style.color="black";
+								cell_obj.style.textAlign = "center";
+								cell_obj.appendChild(document.createTextNode(change_per.toFixed(2) + "%"));
+							}
+							
+							
+							first_record = 1;
+							$("#history_log_table tbody").prepend(newRow);
+							history_count = history_count + 1;
+							global_previous_difference = difference;
+							call_oi_array.push(value.call_oi_sum);
+							put_oi_array.push(value.put_oi_sum);
+							lable_array.push(string_time);
+						}
+						else
+						{
+							history_count = history_count + 1;
+						}
+					});
+					<!-- create chart here -->
+					call_max_oi = Math.max.apply(Math,call_oi_array);
+					call_min_oi = Math.min.apply(Math,call_oi_array);
+				
+					put_max_oi = Math.max.apply(Math,put_oi_array);
+					put_min_oi = Math.min.apply(Math,put_oi_array);
+					
+					<!-- ltp_min = Math.max.apply(Math,ltp_array); -->
+					<!-- ltp_max = Math.min.apply(Math,ltp_array); -->
+					var send_max_oi;
+					var send_min_oi;
+					if (call_max_oi > put_max_oi)
+					{
+						send_max_oi = call_max_oi;
+					}
+					else
+					{
+						send_max_oi = put_max_oi;
+					}
+					if (call_min_oi > put_min_oi)
+					{
+						send_min_oi = put_min_oi;
+					}
+					else
+					{
+						send_min_oi = call_min_oi;
+					}
+					CreateChart(call_oi_array, put_oi_array, lable_array, send_min_oi, send_max_oi);
+					
+					var current_time = new Date();
+					
+					if ((current_time.getTime() < dateTime_after_close.getTime()) && (current_time.getTime() > dateTime_in_morning.getTime())) 
+					{
+						
+						ten_strike_interval_time = parseInt($("#id_interval_select option:selected").val());
+						
+						intraday_analysis_add_time = parseInt($("#id_interval_select option:selected").text());
+						
+						ten_strike_temp_date_and_time = new Date (new Date().toDateString() + ' ' + string_time);
+						ten_strike_temp_date_and_time.setMinutes( ten_strike_temp_date_and_time.getMinutes() + intraday_analysis_add_time );
+						
+						<!-- alert(ten_strike_temp_date_and_time); -->
+						if (interval_flag == 0)
+						{
+							run1 = setInterval(request, ten_strike_interval_time);
+							interval_flag = 1;
+						}
+						else
+						{
+							clearInterval(run1);
+							run1 = setInterval(request, ten_strike_interval_time);
+						}
+					}
+					else
+					{
+						if (interval_flag == 1)
+						{
+							clearInterval(run1);
+						}
+					}
+				}
+				else
+				{
+				}
+			}
+			
+		});	
+	});
+}
+
+fetch_all($('#testing').val());
+
+
+<!-- interval function  -->
+
+function request()
+{
+	<!-- console.log('called'); -->
+	if(ten_strike_temp_date_and_time.getMinutes() < 10)
+	{
+		total_log_time = ten_strike_temp_date_and_time.getHours() + ":0" +ten_strike_temp_date_and_time.getMinutes();
+	}
+	else
+	{
+		total_log_time = ten_strike_temp_date_and_time.getHours() + ":" +ten_strike_temp_date_and_time.getMinutes();
+	}
+	<!-- alert(total_log_time); -->
+	first_history = 'No';
+	symbol = $('#testing').val();
+	
+	var strike_price_1;
+	var strike_price_2;
+	
+	if ($('#testing').val() == 'Nifty')
+	{
+		strike_price_1 = parseInt($('#id_nifty_form').html());
+		strike_price_2 = parseInt($('#id_nifty_to').html());
+	}
+	else
+	{
+		strike_price_1 = parseInt($('#id_bank_nifty_form').html());
+		strike_price_2 = parseInt($('#id_bank_nifty_to').html());
+	}
+	
+	$.ajax({
+		method: "POST",
+		url: "/ten_strike_oi_analysis_data/",
+		data: {
+			'first_history': first_history,
+			'symbol': symbol,
+			'strike_price_1':strike_price_1,
+			'strike_price_2':strike_price_2,
+			'total_log_time':total_log_time,
+		},
+		success: function (response) 
+		{			
+			if (response.status == '1')
+			{
+				var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+				
+				first_history = 'No';
+				
+				ten_strike_temp_date_and_time.setMinutes( ten_strike_temp_date_and_time.getMinutes() + total_add_time_arg );
+				
+				var total_call_change = 0;
+				var total_put_change = 0;
+				var total_oi_change = 0;
+				var first_record = 0;
+				var prev_call_change_val = 0;
+				var prev_put_change_val = 0;
+				
+				var tbodyRef = document.getElementById('history_log_table').getElementsByTagName('tbody')[0];
+				newRow = tbodyRef.insertRow();
+				response.data.forEach(function(value) 
+				{	
+					if(parseInt(value.today_time__hour) < 10 && parseInt(value.today_time__minute) < 10)
+					{
+						string_time = "0" + value.today_time__hour + ":0" + value.today_time__minute;
+					}
+					else if(parseInt(value.today_time__hour) < 10)
+					{
+						string_time = "0" + value.today_time__hour + ":" + value.today_time__minute;
+					}
+					else if(parseInt(value.today_time__minute) < 10)
+					{
+						string_time = value.today_time__hour + ":0" + value.today_time__minute;
+					}
+					else
+					{
+						string_time = value.today_time__hour + ":" + value.today_time__minute;
+					}
+					
+					cell_obj = newRow.insertCell();
+					cell_obj.style.backgroundColor="#FADA5E";
+					cell_obj.appendChild(document.createTextNode(string_time));
+					
+					
+					
+					cell_obj = newRow.insertCell(1);
+					cell_obj.style.backgroundColor="#e8e8d6";
+					cell_obj.appendChild(document.createTextNode(indianRupee(value.call_oi_sum)));
+					
+					cell_obj = newRow.insertCell(2);
+					cell_obj.style.backgroundColor="#e8e8d6";
+					cell_obj.appendChild(document.createTextNode(indianRupee(value.put_oi_sum)));
+					
+					var call_oi_sum = parseFloat(value.call_oi_sum);
+					var put_oi_sum = parseFloat(value.put_oi_sum);
+					
+					cell_obj = newRow.insertCell(3);
+					cell_obj.style.backgroundColor="#e8e8d6";
+					cell_obj.appendChild(document.createTextNode(indianRupee(put_oi_sum - call_oi_sum)));
+					
+					var difference = put_oi_sum - call_oi_sum;
+					if (difference == 0)
+					{
+						cell_obj = newRow.insertCell(4);
+						cell_obj.style.backgroundColor="lightpink";
+						cell_obj.style.color="black";
+						cell_obj.style.textAlign = "center";
+						cell_obj.appendChild(document.createTextNode('No Data'));
+						t_change_trend = 'No Data';
+					}
+					else if (difference >= 1000000)
+					{
+						cell_obj = newRow.insertCell(4);
+						cell_obj.style.backgroundColor="lightgreen";
+						cell_obj.style.color="black";
+						cell_obj.style.textAlign = "center";
+						cell_obj.appendChild(document.createTextNode('BULLISH'));
+						t_change_trend = 'BULLISH';
+					}
+					else if(difference <= -500000)
+					{
+						cell_obj = newRow.insertCell(4);
+						cell_obj.style.backgroundColor="#fd0e35";
+						cell_obj.style.color="black";
+						cell_obj.style.textAlign = "center";
+						cell_obj.appendChild(document.createTextNode('BEARISH'));
+						t_change_trend = 'BEARISH';
+					}
+					else if (difference >= 500001)
+					{
+						cell_obj = newRow.insertCell(4);
+						cell_obj.style.backgroundColor="lightgrey";
+						cell_obj.style.color="black";
+						cell_obj.style.textAlign = "center";
+						cell_obj.appendChild(document.createTextNode('Wait'));
+						t_change_trend = 'Wait';
+					}
+					else if(difference >= -499999)
+					{
+						cell_obj = newRow.insertCell(4);
+						cell_obj.style.backgroundColor="lightgrey";
+						cell_obj.style.color="black";
+						cell_obj.style.textAlign = "center";
+						cell_obj.appendChild(document.createTextNode('Wait'));
+						t_change_trend = 'Wait';
+					}
+					
+					
+					var change_per = 0;
+					if(difference > 0 && global_previous_difference > 0)
+					{
+						change_per = (difference - global_previous_difference)/global_previous_difference;
+					}
+					else if(difference < 0 && global_previous_difference < 0)
+					{
+						change_per = (difference - global_previous_difference)/-global_previous_difference;
+					}
+					else if(difference > 0 && global_previous_difference < 0)
+					{
+						change_per = (difference - global_previous_difference)/-global_previous_difference;
+					}
+					else
+					{
+						change_per = (difference - global_previous_difference)/global_previous_difference;
+					}
+					change_per = change_per * 100;
+					cell_obj = newRow.insertCell(5);
+					cell_obj.style.backgroundColor="lightgrey";
+					cell_obj.style.color="black";
+					cell_obj.style.textAlign = "center";
+					cell_obj.appendChild(document.createTextNode(change_per.toFixed(2) + "%"));
+				
+					
+					
+					first_record = 1;
+					call_oi_array.push(call_oi_sum)	;
+					put_oi_array.push(put_oi_sum);
+					lable_array.push(string_time);
+					global_previous_difference = difference;
+				});
+				$("#history_log_table tbody").prepend(newRow);
+				call_max_oi = Math.max.apply(Math,call_oi_array);
+				call_min_oi = Math.min.apply(Math,call_oi_array);
+			
+				put_max_oi = Math.max.apply(Math,put_oi_array);
+				put_min_oi = Math.min.apply(Math,put_oi_array);
+				
+				<!-- ltp_min = Math.max.apply(Math,ltp_array); -->
+				<!-- ltp_max = Math.min.apply(Math,ltp_array); -->
+				var send_max_oi;
+				var send_min_oi;
+				if (call_max_oi > put_max_oi)
+				{
+					send_max_oi = call_max_oi;
+				}
+				else
+				{
+					send_max_oi = put_max_oi;
+				}
+				if (call_min_oi > put_min_oi)
+				{
+					send_min_oi = put_min_oi;
+				}
+				else
+				{
+					send_min_oi = call_min_oi;
+				}
+				CreateChart(call_oi_array, put_oi_array, lable_array, send_min_oi, send_max_oi);
+			}
+			else
+			{
+			}
+		}
+		
+	});	
+}
+
+<!-- end interval function  -->
+
+function chain_type()
+{
+	if ($('#testing').val() == 'Nifty')
+	{
+		if($('#id_nifty_form:visible').length == 0)
+		{
+			$('#id_nifty_form').show();
+			$('#id_nifty_to').show();
+			$('#id_bank_nifty_form').hide();
+			$('#id_bank_nifty_to').hide();			
+		}
+		else
+		{
+			$('#id_bank_nifty_form').hide();
+			$('#id_bank_nifty_to').hide();	
+		}
+	}
+	else
+	{
+		if($('#id_bank_nifty_form:visible').length == 0)
+		{
+			$('#id_nifty_form').hide();
+			$('#id_nifty_to').hide();
+			$('#id_bank_nifty_form').show();
+			$('#id_bank_nifty_to').show();		
+		}
+		else
+		{
+			$('#id_nifty_form').hide();
+			$('#id_nifty_to').hide();
+		}
+	}
+}
+
+function refreshChart()
+{
+	submit_chart();
+}
+
+function submit_chart()
+{
+	
+	if($('#testing').val() == 'Nifty')
+	{
+		$("#id_history_table_body").empty();
+		fetch_all($('#testing').val());
+		$('#id_start_end_error').hide();		
+	}
+	else
+	{
+		$("#id_history_table_body").empty();
+		fetch_all($('#testing').val());
+		$('#id_start_end_error').hide();
+	}
+	
+	
+}
+</script>
+
+<script>
+$(document ).ready(function() {
+	$("#threestrikeoianalysis").addClass("mm-show");
+});
+</script>
+{% include "Panel/footer.html" %}				 

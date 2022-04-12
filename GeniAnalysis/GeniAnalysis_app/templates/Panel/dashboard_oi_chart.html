@@ -1,0 +1,1131 @@
+{% load static %}
+{% include "Panel/header.html" %}
+<style type="text/css">
+    .table-bordered th , td , tr{
+        border: 1px solid #000!important;
+    }
+    .table{
+        width: 88% !important;
+        table-layout: auto;
+    }
+    .table-bordered td{
+        font-size: 12px;
+    }
+    .table-bordered th{
+        font-size: 12px;
+        padding: 4px;
+    }
+    .table-bordered td{
+        padding: 3px;
+    }
+    .f-color{
+        color: #000;
+    }
+    .green-bg{
+        background-color: #79ee9b;
+    }
+    .red-bg{
+        background-color: #ff5f5f;
+    }
+    .f-c-red{
+        color: red;
+    }
+    .f-c-green{
+        color: green;
+    }
+    .f-c-white{
+        color: #fff;
+    }
+    .button-style{
+        height: 140px !important; 
+        border: 1px solid#000; 
+        background-color:#ffd966; 
+        width: 12%;
+        border-left:hidden; 
+        float:right;
+    }
+    .button-1{
+        margin-bottom: 10px; 
+        margin-left: 10px; 
+        margin-top: 8px;
+        background-color:white;
+    }
+    .button-2{
+        margin-bottom: 10px; 
+        margin-left: 10px;
+        background-color:white;
+    }
+    .button-3{
+        margin-left: 10px; 
+        background-color:white;
+    }
+    .bg-1{
+        background-color: #10b5f1;
+    }
+    .bg-2{
+        background-color:#ffd966;
+    }
+    .bg-3{
+        background-color: #d9e1f2;
+    }
+    .bg-4 {
+        background-color:#92ddf9;
+    }
+    .bg-5{
+        background-color:#ff4a4a;
+    }
+    .bg-6{
+        background-color:#ffff96;
+    }
+    .bg-7{
+        background-color:#c00000;
+    }
+    .bg-black{
+        background-color:#000;
+    }
+    .darkred-bg{
+        background-color:#ff0000;
+    }
+    .sl-bg{
+        background-color:#febaac;
+    } 
+    .buy-bg{
+        background-color:#305496;
+    }
+    .bg-yello{
+        background-color: #ffc000;
+    }
+    .light-red{
+        background-color:#fce4d6;
+    }
+	td{
+		text-align: center;
+	}
+	.app-main__inner{font-weight:750;}
+	
+	
+	.loader2{
+	  width: 100px;
+	  height: 100px;
+	  border-radius: 100%;
+	  position: relative;
+	  margin: 0 auto;
+	}
+
+
+	/* LOADER 6 */
+
+	#loader-6{
+	  top: 40px;
+	  left: -2.5px;
+	}
+
+	#loader-6 span{
+	  display: inline-block;
+	  width: 5px;
+	  height: 20px;
+	  background-color: #53a591;
+	}
+
+	#loader-6 span:nth-child(1){
+	  animation: grow 1s ease-in-out infinite;
+	}
+
+	#loader-6 span:nth-child(2){
+	  animation: grow 1s ease-in-out 0.15s infinite;
+	}
+
+	#loader-6 span:nth-child(3){
+	  animation: grow 1s ease-in-out 0.30s infinite;
+	}
+
+	#loader-6 span:nth-child(4){
+	  animation: grow 1s ease-in-out 0.45s infinite;
+	}
+
+	@keyframes grow{
+	  0%, 100%{
+		-webkit-transform: scaleY(1);
+		-ms-transform: scaleY(1);
+		-o-transform: scaleY(1);
+		transform: scaleY(1);
+	  }
+
+	  50%{
+		-webkit-transform: scaleY(1.8);
+		-ms-transform: scaleY(1.8);
+		-o-transform: scaleY(1.8);
+		transform: scaleY(1.8);
+	  }
+	}
+	<!-- #hideloader -->
+	<!-- { -->
+		<!-- display: none; -->
+	<!-- } -->
+	.tug_of_war{
+		background-color: #FDFD96;
+	}
+	.mild_support{
+		background-color:#96b85d;
+		color: white;
+	}
+	.mild_resistence{
+		background-color: #ffcccb;
+		color: red;
+	}
+	.strong_support{
+		background-color: lightgreen;
+	}
+	.strong_resistence{
+		background-color: #fe5a1d;
+		color: white;
+	}
+	.select_support_resistence{
+		width: 100%;
+		font-size: 14px;
+		font-weight: 700;
+		test-align: center;
+		text-align-last: center;
+
+	
+}	
+	<!-- .card-body{ -->
+		<!-- widht: 1510px !important; -->
+	<!-- } -->
+	<!-- #myChartCE{ -->
+		<!-- height: 700px !important; width: 1253px !important; -->
+	<!-- } -->
+</style>
+<div class="app-main__inner" style="padding: 15px 0px 0 !important;">             
+<div class="tabs-animation">
+                        
+<div class="col-lg-12">
+<row>
+<div class="main-card mb-3 card">
+<div class="card-body">
+<h5 class="card-title">oi chart</h5>
+
+	<div class="row mb-3">
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Select Script:</label>
+			<select class="form-control" onchange="chain_type()" name="testing" id="testing">
+				<option value="Nifty">NIFTY</option>
+				<option value="BankNifty">BANKNIFTY</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Select Type:</label>
+			<select class="form-control" onchange="" name="testing" id="graph_type">
+				<option value="oi_ce_pe">TOTAL OI CE&PE</option>
+				<option value="oi_change_ce_pe">TOTAL OI CHANGE CE&PE</option>
+				<option value="ce_pe_difference">CE&PE DIFFERENCE</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Start:</label>
+			<select class="form-control" onchange="$('#id_start_end_error').hide();" name="testing" id="id_nifty_strike_price">
+				{% for strike_price in Nifty_strike_price %}
+					<option value="{{strike_price.strike_price}}">{{strike_price.strike_price}}</option>
+				{% endfor %}
+			</select>
+			<select style="display:none;" class="form-control" onchange="$('#id_start_end_error').hide();" name="id_nifty_strike_price" id="id_banknifty_strike_price">
+				{% for sp in BankNifty_strike_price %}
+					<option value="{{sp.strike_price}}">{{sp.strike_price}}</option>
+				{% endfor %}
+			</select>
+			<span id="id_start_end_error" style="display: none; float: right; color: red; font-size: 12px;">Please select the end value greater than start value</span>
+		</div>
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">End:</label>
+			<select class="form-control" onchange="$('#id_start_end_error').hide();" name="testing" id="id_nifty_strike_price_end">
+				{% for strike_price in Nifty_strike_price %}
+					<option value="{{strike_price.strike_price}}">{{strike_price.strike_price}}</option>
+				{% endfor %}
+			</select>
+			<select style="display:none;" class="form-control" onchange="$('#id_start_end_error').hide();" name="id_nifty_strike_price" id="id_banknifty_strike_price_end">
+				{% for sp in BankNifty_strike_price %}
+					<option value="{{sp.strike_price}}">{{sp.strike_price}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label class="fw-bold text-uppercase">Select Date:</label>
+			<select class="form-control" onchange="" name="testing" id="id_history_date_select">
+				<!-- <option value="oi_ce_pe">TOTAL OI CE&PE</option> -->
+			</select>
+		</div>
+		<div class="col-md-1">
+			<label class="fw-bold text-uppercase">Interval:</label>
+			<select class="form-control" onchange="" name="expiry" id="id_interval_select">
+				<!-- <option value="60000" {% if interval_obj.interval == 1 %} selected {% endif %}>1</option> -->
+				<option value="180000" {% if interval_obj.interval == 3 %} selected {% endif %}>3</option>
+				<option {% if interval_obj.interval == 5 %} selected {% endif %} value="300000">5</option>
+				<option {% if interval_obj.interval == 15 %} selected {% endif %} value="900000">15</option>
+				<option {% if interval_obj.interval == 30 %} selected {% endif %} value="1800000">30</option>
+				<option {% if interval_obj.interval == 60 %} selected {% endif %} value="3600000">60</option>
+			</select>
+		</div>
+		
+		<div class="col-md-1" style="margin-top: -5px; margin-left:-10px;">
+			<button  class="btn btn-primary mb-1" style="color: white;" onclick="submit_chart()">Submit</button>
+			
+			<button class="btn btn-warning" style="color: white;" onclick="refreshChart()">Refresh</button>
+		</div>
+		<!-- <div class="col-md-1" style="margin-top: 30px; margin-left: -25px;"> -->
+			
+		<!-- </div> -->
+	</div>
+	<div class="mt-5" >
+		<canvas id="myChartCE"></canvas>
+	</div>
+</div>
+</div>
+
+
+
+</row>
+
+</div>
+<div id='app'>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+<script>
+function formatDate(date){
+
+    var dd = date.getDate();
+    var mm = date.getMonth()+1;
+    var yyyy = date.getFullYear();
+    if(dd<10) {dd='0'+dd}
+    if(mm<10) {mm='0'+mm}
+    <!-- date = mm+'/'+dd+'/'+yyyy; -->
+	date = yyyy + "-" + mm + "-" + dd;
+    return date
+}
+function Last7Days () {
+    var result = [];
+    for (var i=0; i<7; i++) {
+        var d = new Date();
+        d.setDate(d.getDate() - i);
+		<!-- alert(formatDate(d)); -->
+		var opt = document.createElement('option');
+		opt.value = formatDate(d);
+		opt.innerHTML = formatDate(d);
+		select = document.getElementById('id_history_date_select').appendChild(opt);
+        <!-- result.push( formatDate(d) ) -->
+    }
+
+    <!-- return(result.join(',')); -->
+}
+Last7Days();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+
+<!-- testing adding code for 9:15 maintain last date pending -->
+
+var myChartCE;
+function CreateChart(pe_val, ce_val, label_val, ltp_val, max_oi, min_oi, max_ltp, min_ltp)
+{
+	<!-- console.log('max_oi' + max_oi); -->
+	<!-- console.log('min_oi' + min_oi); -->
+	if (myChartCE) {
+		myChartCE.destroy();
+	  }
+	const context = document.getElementById("myChartCE").getContext('2d');
+
+	context.clearRect(0, 0, document.getElementById("myChartCE").width, document.getElementById("myChartCE").height);
+	
+	var data = {
+		"datasets": [
+		  
+		  {
+			"backgroundColor": "grey",
+			"borderColor": "grey",
+			"fill": false,
+			"data": ltp_val,
+			"id": "amount",
+			"label": "Price",
+			"yAxisID":"right"
+
+		  },{
+			"backgroundColor": "lightblue",
+			"borderColor": "lightblue",
+			"fill": false,
+			"data": ce_val,
+			"id": "amount",
+			"label": "CE",
+			"yAxisID":"left"
+		  },
+		  {
+			"backgroundColor": "red",
+			"borderColor": "red",
+			"fill": false,
+			"data": pe_val,
+			"id": "amount",
+			"label": "PE",
+			"yAxisID":"left"
+		  },
+		],
+		"labels": label_val,
+	  };
+
+	var type = "line";
+	myChartCE = new Chart(document.getElementById("myChartCE").getContext('2d'), {
+		options: {
+			<!-- events: [], -->
+			animation: {
+				duration: 0, // general animation time
+			},
+			legend: {
+				 onClick: (e) => e.stopPropagation()
+			},
+			scales: {
+				yAxes: [
+					{
+						"scaleLabel": {
+							"display": true,
+							"labelString": "OI"
+						},
+						"id": "left",
+						"stacked": false,
+						"ticks": {
+							"beginAtZero": true,
+							suggestedMin: min_oi,
+							suggestedMax: max_oi,
+						}
+					},
+					{
+						"scaleLabel": {
+							"display": true,
+							"labelString": "Price"
+						},
+						"id": "right",
+						"position": "right",
+						"stacked": false,
+						"ticks": {
+							"beginAtZero": false,
+							suggestedMin: min_ltp,
+							suggestedMax: max_ltp
+						}
+					}
+				],
+				 xAxes: [{
+					ticks: {
+						autoSkip: false,
+						maxRotation: 85,
+						minRotation: 85
+					}
+				}]
+			}
+		},
+		data,
+		type
+	});
+}
+
+function CreateChartDiff(diff_val, ltp_val, max_oi, min_oi, max_ltp, min_ltp, label_val)
+{
+	<!-- console.log('max_oi' + max_oi); -->
+	<!-- console.log('min_oi' + min_oi); -->
+	if (myChartCE) {
+		myChartCE.destroy();
+	  }
+	const context = document.getElementById("myChartCE").getContext('2d');
+
+	context.clearRect(0, 0, document.getElementById("myChartCE").width, document.getElementById("myChartCE").height);
+	
+	var data = {
+		"datasets": [
+		  
+		  {
+			"backgroundColor": "grey",
+			"borderColor": "grey",
+			"fill": false,
+			"data": ltp_val,
+			"id": "amount",
+			"label": "Price",
+			"yAxisID":"right"
+
+		  },{
+			"backgroundColor": "red",
+			"borderColor": "red",
+			"fill": false,
+			"data": diff_val,
+			"id": "amount",
+			"label": "Difference",
+			"yAxisID":"left"
+		  },
+		],
+		"labels": label_val,
+	  };
+
+	var type = "line";
+	myChartCE = new Chart(document.getElementById("myChartCE").getContext('2d'), {
+		options: {
+			<!-- events: [], -->
+			animation: {
+				duration: 0, // general animation time
+			},
+			legend: {
+				 onClick: (e) => e.stopPropagation()
+			},
+			scales: {
+				yAxes: [
+					{
+						"scaleLabel": {
+							"display": true,
+							"labelString": "Difference"
+						},
+						"id": "left",
+						"stacked": false,
+						"ticks": {
+							"beginAtZero": true,
+							suggestedMin: min_oi,
+							suggestedMax: max_oi,
+						}
+					},
+					{
+						"scaleLabel": {
+							"display": true,
+							"labelString": "Price"
+						},
+						"id": "right",
+						"position": "right",
+						"stacked": false,
+						"ticks": {
+							"beginAtZero": false,
+							suggestedMin: min_ltp,
+							suggestedMax: max_ltp
+						}
+					}
+				],
+				 xAxes: [{
+					ticks: {
+						autoSkip: false,
+						maxRotation: 85,
+						minRotation: 85
+					}
+				}]
+			}
+		},
+		data,
+		type
+	});
+}
+
+var interval_flag = 0;
+
+function indianRupee(x)
+{
+	var number = parseFloat(x);
+	return number.toLocaleString("en-IN", {minimumFractionDigits: 0, maximumFractionDigits: 0, currency: 'INR'})
+}
+
+var call_oi_array = new Array(); 
+var put_oi_array = new Array();
+var ltp_array = new Array();
+var lable_array = new Array(); 
+var difference_array = new Array();
+
+var call_min_price = null;
+var call_min_oi = null; 
+var call_max_price = null;
+var call_max_oi = null; 
+
+var put_min_price = null; 
+var put_min_oi = null;
+var put_max_price = null;
+var put_max_oi = null;
+var intraday_analysis_interval_time;
+
+
+function fetch_all(symbol, strike_price_start, strike_price_end)
+{
+	call_oi_array = [];
+	ltp_array = [];
+	put_oi_array = [];
+	
+	
+	lable_array = [];
+	
+	var first_history = 'Yes';
+	
+	var dt = new Date($('#id_history_date_select').val());
+	var date_check;
+	var dateTime_after_close = new Date (new Date().toDateString() + ' ' + '15:30');
+	var dateTime_in_morning = new Date (new Date().toDateString() + ' ' + '09:15');
+
+	if(dt.getDay() == 6)
+	{
+		date_check = 'saturday';
+	}
+	else if(dt.getDay() == 0)
+	{
+		date_check = 'sunday';
+	}
+	else
+	{
+		date_check = 'today'
+	}
+	
+	date_selected = $("#id_history_date_select option:selected").text();
+	<!-- alert(date_check); -->
+	$( document ).ready(function() 
+	{
+		$.ajax({
+			method: "POST",
+			url: "/oi_chart_data/",
+			data: {
+				'first_history': first_history,
+				'symbol': symbol,
+				'strike_price_start':strike_price_start,
+				'strike_price_end':strike_price_end,
+				'day_argument':date_check,
+				'date_selected': date_selected,
+			},
+			success: function (response) 
+			{			
+				<!-- console.log(response.msg); -->
+				if (response.status == '1')
+				{
+					first_history = 'No';
+					
+					var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+					<!-- console.log(total_add_time_arg); -->
+					var totalhistory_count = 0;
+					var total_first_record = 0;
+					var total_call_oi = 0;
+					var total_put_oi = 0;
+					var ltp_val = 0;
+					var label_time;
+					var string_time = null;
+					var time_match;
+					var time_match_count ;
+					response.data.forEach(function(value) 
+					{	
+						<!-- console.log(value); -->
+						if (total_first_record == 0)
+						{
+							time_match = value.today_time.substring(0, 5);
+							total_first_record = 1;
+						}
+						<!-- console.log(time_match + ' ' + value.today_time.substring(0, 5)); -->
+						if ($('#graph_type').val() == 'oi_ce_pe')
+						{
+							if (time_match == value.today_time.substring(0, 5))
+							{
+								total_call_oi = total_call_oi + parseInt(value.call_oi);
+								total_put_oi = total_put_oi + parseInt(value.put_oi);
+								ltp_val = parseFloat(value.ltp);
+								<!-- console.log(value.today_date); -->
+								label_time = value.today_time.substring(0, 5);
+								time_match_count = 0;
+							}
+							else
+							{
+								if (time_match_count == 0)
+								{
+									call_oi_array.push(total_call_oi);
+									put_oi_array.push(total_put_oi);
+									ltp_array.push(ltp_val);
+									lable_array.push(label_time);
+									
+									total_call_oi = 0;
+									total_put_oi = 0;
+									ltp_val = 0;
+									
+									var converted_time = new Date (new Date().toDateString() + ' ' + value.today_time.substring(0, 5));
+									
+									converted_time.setMinutes( converted_time.getMinutes() + (parseInt($("#id_interval_select option:selected").text())-1) );
+									
+									if(converted_time.getMinutes() < 10 && converted_time.getHours() < 10)
+									{
+										time_match = "0" + converted_time.getHours() + ":0" +converted_time.getMinutes();
+									}
+									else if(converted_time.getMinutes() < 10)
+									{
+										time_match = converted_time.getHours() + ":0" +converted_time.getMinutes();
+									}
+									else if(converted_time.getHours() < 10)
+									{
+										time_match = "0" + converted_time.getHours() + ":" +converted_time.getMinutes();
+									}
+									else
+									{
+										time_match = converted_time.getHours() + ":" +converted_time.getMinutes();
+									}
+									time_match_count = 1;
+									<!-- console.log(converted_time.getHours()); -->
+								}
+							}
+						}
+						else if ($('#graph_type').val() == 'oi_change_ce_pe')
+						{
+							if (time_match == value.today_time.substring(0, 5))
+							{
+								total_call_oi = total_call_oi + parseInt(value.call_change_oi);
+								total_put_oi = total_put_oi + parseInt(value.put_change_oi);
+								ltp_val = parseFloat(value.ltp);
+								label_time = value.today_time.substring(0, 5);
+								time_match_count = 0;
+							}
+							else
+							{
+								if (time_match_count == 0)
+								{
+									call_oi_array.push(total_call_oi);
+									put_oi_array.push(total_put_oi);
+									ltp_array.push(ltp_val);
+									lable_array.push(label_time);
+									
+									total_call_oi = 0;
+									total_put_oi = 0;
+									ltp_val = 0;
+									
+									var converted_time = new Date (new Date().toDateString() + ' ' + value.today_time.substring(0, 5));
+									
+									converted_time.setMinutes( converted_time.getMinutes() + (parseInt($("#id_interval_select option:selected").text())-1) );
+									
+									if(converted_time.getMinutes() < 10 && converted_time.getHours() < 10)
+									{
+										time_match = "0" + converted_time.getHours() + ":0" +converted_time.getMinutes();
+									}
+									else if(converted_time.getMinutes() < 10)
+									{
+										time_match = converted_time.getHours() + ":0" +converted_time.getMinutes();
+									}
+									else if(converted_time.getHours() < 10)
+									{
+										time_match = "0" + converted_time.getHours() + ":" +converted_time.getMinutes();
+									}
+									else
+									{
+										time_match = converted_time.getHours() + ":" +converted_time.getMinutes();
+									}
+									time_match_count = 1;
+								}
+							}
+						}
+						else if ($('#graph_type').val() == 'ce_pe_difference')
+						{
+							if (time_match == value.today_time.substring(0, 5))
+							{
+								total_call_oi = total_call_oi + parseInt(value.call_oi);
+								total_put_oi = total_put_oi + parseInt(value.put_oi);
+								ltp_val = parseFloat(value.ltp);
+								label_time = value.today_time.substring(0, 5);
+								time_match_count = 0;
+							}
+							else
+							{
+								if (time_match_count == 0)
+								{
+									<!-- console.log(total_put_oi); -->
+									<!-- console.log(total_call_oi); -->
+									difference_array.push(total_put_oi - total_call_oi);
+									ltp_array.push(ltp_val);
+									lable_array.push(label_time);
+									
+									total_call_oi = 0;
+									total_put_oi = 0;
+									ltp_val = 0;
+									
+									var converted_time = new Date (new Date().toDateString() + ' ' + value.today_time.substring(0, 5));
+									
+									converted_time.setMinutes( converted_time.getMinutes() + (parseInt($("#id_interval_select option:selected").text())-1) );
+									
+									if(converted_time.getMinutes() < 10 && converted_time.getHours() < 10)
+									{
+										time_match = "0" + converted_time.getHours() + ":0" +converted_time.getMinutes();
+									}
+									else if(converted_time.getMinutes() < 10)
+									{
+										time_match = converted_time.getHours() + ":0" +converted_time.getMinutes();
+									}
+									else if(converted_time.getHours() < 10)
+									{
+										time_match = "0" + converted_time.getHours() + ":" +converted_time.getMinutes();
+									}
+									else
+									{
+										time_match = converted_time.getHours() + ":" +converted_time.getMinutes();
+									}
+									time_match_count = 1;
+								}
+							}
+						}
+						
+						
+					});
+					<!-- console.log(call_oi_array); -->
+					if ($('#graph_type').val() == 'oi_ce_pe' || $('#graph_type').val() == 'oi_change_ce_pe')
+					{
+						call_max_oi = Math.max.apply(Math,call_oi_array);
+						call_min_oi = Math.min.apply(Math,call_oi_array);
+					
+						put_max_oi = Math.max.apply(Math,put_oi_array);
+						put_min_oi = Math.min.apply(Math,put_oi_array);
+						
+						ltp_min = Math.max.apply(Math,ltp_array);
+						ltp_max = Math.min.apply(Math,ltp_array);
+						var send_max_oi;
+						var send_min_oi;
+						if (call_max_oi > put_max_oi)
+						{
+							send_max_oi = call_max_oi;
+						}
+						else
+						{
+							send_max_oi = put_max_oi;
+						}
+						if (call_min_oi > put_min_oi)
+						{
+							send_min_oi = put_min_oi;
+						}
+						else
+						{
+							send_min_oi = call_min_oi;
+						}
+						CreateChart(put_oi_array, call_oi_array, lable_array, ltp_array, send_max_oi, send_min_oi, ltp_max, ltp_min);
+					}
+					else
+					{
+						call_max_oi = Math.max.apply(Math,difference_array);
+						call_min_oi = Math.min.apply(Math,difference_array);
+						
+						ltp_min = Math.max.apply(Math,ltp_array);
+						ltp_max = Math.min.apply(Math,ltp_array);
+						
+						<!-- CreateChartDiff(diff_val, ltp_val, max_oi, min_oi, max_ltp, min_ltp) -->
+						CreateChartDiff(difference_array, ltp_array, call_max_oi, call_min_oi, ltp_max, ltp_min, lable_array);
+					}
+					
+					if (dt.getDay() == 6 || dt.getDay == 0)
+					{
+						
+					}
+					else
+					{
+						var current_time = new Date();
+						
+						if ((current_time.getTime() < dateTime_after_close.getTime()) && (current_time.getTime() > dateTime_in_morning.getTime())) 
+						{
+							
+							intraday_analysis_interval_time = parseInt($("#id_interval_select option:selected").val());
+							
+							intraday_analysis_add_time = parseInt($("#id_interval_select option:selected").text());
+							
+							intraday_temp_date_time = new Date (new Date().toDateString() + ' ' + lable_array[lable_array.length - 1]);
+							intraday_temp_date_time.setMinutes( intraday_temp_date_time.getMinutes() + intraday_analysis_add_time );
+							
+							<!-- alert(intraday_analysis_interval_time); -->
+							if (interval_flag == 0)
+							{
+								run1 = setInterval(request, intraday_analysis_interval_time);
+								interval_flag = 1;
+							}
+							else
+							{
+								clearInterval(run1);
+								run1 = setInterval(request, intraday_analysis_interval_time);
+							}
+						}
+						else
+						{
+							if (interval_flag == 1)
+							{
+								clearInterval(run1);
+							}
+						}
+					}
+				}
+				else
+				{
+				}
+			}
+			
+		});	
+	});
+}
+if ($('#testing').val() == 'Nifty')
+{
+	fetch_all($('#testing').val(), $('#id_nifty_strike_price').val(), $('#id_nifty_strike_price_end').val());
+}
+else
+{
+	fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val(), $('#id_banknifty_strike_price_end').val());
+}
+
+<!-- interval function  -->
+
+function request()
+{
+	if(intraday_temp_date_time.getMinutes() < 10)
+	{
+		total_log_time = intraday_temp_date_time.getHours() + ":0" +intraday_temp_date_time.getMinutes();
+	}
+	else
+	{
+		total_log_time = intraday_temp_date_time.getHours() + ":" +intraday_temp_date_time.getMinutes();
+	}
+	first_history = 'No';
+	symbol = $('#testing').val();
+	var strike_price_start;
+	var strike_price_end;
+	if ($('#testing').val() == 'Nifty')
+	{
+		strike_price_start = parseInt($('#id_nifty_strike_price').val());
+		strike_price_end = parseInt($('#id_nifty_strike_price_end').val());
+	}
+	else
+	{
+		strike_price_start = parseInt($('#id_banknifty_strike_price').val());
+		strike_price_end = parseInt($('#id_banknifty_strike_price_end').val());
+	}
+	<!-- alert(total_log_time); -->
+	var dt = new Date($('#id_history_date_select').val());
+	var date_check;
+
+	if(dt.getDay() == 6)
+	{
+		date_check = 'saturday';
+	}
+	else if(dt.getDay() == 0)
+	{
+		date_check = 'sunday';
+	}
+	else
+	{
+		date_check = 'today'
+	}
+	
+	date_selected = $("#id_history_date_select option:selected").text();
+	
+	
+	$.ajax({
+		method: "POST",
+		url: "/oi_chart_data/",
+		data: {
+			'first_history': first_history,
+			'symbol': symbol,
+			'strike_price_start':strike_price_start,
+			'strike_price_end':strike_price_end,
+			'day_argument':date_check,
+			'date_selected': date_selected,
+			'total_log_time':total_log_time,
+		},
+		success: function (response) 
+		{			
+			<!-- console.log(response.data); -->
+			if (response.status == '1')
+			{
+				first_history = 'No';
+				
+				var total_add_time_arg = parseInt($("#id_interval_select option:selected").text());
+				
+				first_history = 'No';
+				
+				intraday_temp_date_time.setMinutes( intraday_temp_date_time.getMinutes() + total_add_time_arg );
+				
+				var totalhistory_count = 0;
+				var total_first_record = 0;
+				var total_call_oi = 0;
+				var total_put_oi = 0;
+				var ltp_val = 0;
+				var label_time;
+				var string_time = null;
+				var time_match;
+				var time_match_count ;
+				response.data.forEach(function(value) 
+				{	
+					if ($('#graph_type').val() == 'oi_ce_pe')
+					{
+						total_call_oi = total_call_oi + parseInt(value.call_oi);
+						total_put_oi = total_put_oi + parseInt(value.put_oi);
+						ltp_val = parseFloat(value.ltp);
+						label_time = value.today_time.substring(0, 5);
+					}
+					else if ($('#graph_type').val() == 'oi_change_ce_pe')
+					{
+						total_call_oi = total_call_oi + parseInt(value.call_change_oi);
+						total_put_oi = total_put_oi + parseInt(value.put_change_oi);
+						ltp_val = parseFloat(value.ltp);
+						label_time = value.today_time.substring(0, 5);
+					}
+					else if ($('#graph_type').val() == 'ce_pe_difference')
+					{
+						total_call_oi = total_call_oi + parseInt(value.call_oi);
+						total_put_oi = total_put_oi + parseInt(value.put_oi);
+						ltp_val = parseFloat(value.ltp);
+						label_time = value.today_time.substring(0, 5);
+					}
+				});
+				if ($('#graph_type').val() == 'oi_ce_pe')
+				{
+					call_oi_array.push(total_call_oi);
+					put_oi_array.push(total_put_oi);
+					ltp_array.push(ltp_val);
+					lable_array.push(label_time);
+				}
+				else if ($('#graph_type').val() == 'oi_change_ce_pe')
+				{
+					call_oi_array.push(total_call_oi);
+					put_oi_array.push(total_put_oi);
+					ltp_array.push(ltp_val);
+					lable_array.push(label_time);
+				}
+				else
+				{
+					difference_array.push(total_put_oi - total_call_oi);
+					ltp_array.push(ltp_val);
+					lable_array.push(label_time);
+				}
+				if ($('#graph_type').val() == 'oi_ce_pe' || $('#graph_type').val() == 'oi_change_ce_pe')
+				{
+					call_max_oi = Math.max.apply(Math,call_oi_array);
+					call_min_oi = Math.min.apply(Math,call_oi_array);
+				
+					put_max_oi = Math.max.apply(Math,put_oi_array);
+					put_min_oi = Math.min.apply(Math,put_oi_array);
+					
+					ltp_min = Math.max.apply(Math,ltp_array);
+					ltp_max = Math.min.apply(Math,ltp_array);
+					var send_max_oi;
+					var send_min_oi;
+					if (call_max_oi > put_max_oi)
+					{
+						send_max_oi = call_max_oi;
+					}
+					else
+					{
+						send_max_oi = put_max_oi;
+					}
+					if (call_min_oi > put_min_oi)
+					{
+						send_min_oi = put_min_oi;
+					}
+					else
+					{
+						send_min_oi = call_min_oi;
+					}
+					CreateChart(put_oi_array, call_oi_array, lable_array, ltp_array, send_max_oi, send_min_oi, ltp_max, ltp_min);
+				}
+				else
+				{
+					call_max_oi = Math.max.apply(Math,difference_array);
+					call_min_oi = Math.min.apply(Math,difference_array);
+					
+					ltp_min = Math.max.apply(Math,ltp_array);
+					ltp_max = Math.min.apply(Math,ltp_array);
+					
+					<!-- CreateChartDiff(diff_val, ltp_val, max_oi, min_oi, max_ltp, min_ltp) -->
+					CreateChartDiff(difference_array, ltp_array, call_max_oi, call_min_oi, ltp_max, ltp_min, lable_array);
+				}
+			}
+			else
+			{
+			}
+		}
+		
+	});	
+}
+
+<!-- end interval function  -->
+
+function chain_type()
+{
+	if ($('#testing').val() == 'Nifty')
+	{
+		if($('#id_nifty_strike_price:visible').length == 0)
+		{
+			$('#id_nifty_strike_price').show();
+			$('#id_nifty_strike_price_end').show();
+			$('#id_banknifty_strike_price').hide();
+			$('#id_banknifty_strike_price_end').hide();
+			<!-- fetch_all($('#testing').val(), $('#id_nifty_strike_price').val()); -->
+		}
+		else
+		{
+			$('#id_banknifty_strike_price').hide();
+			$('#id_banknifty_strike_price_end').hide();
+		}
+	}
+	else
+	{
+		if($('#id_banknifty_strike_price:visible').length == 0)
+		{
+			$('#id_banknifty_strike_price').show();
+			$('#id_banknifty_strike_price_end').show();
+			$('#id_nifty_strike_price').hide();
+			$('#id_nifty_strike_price_end').hide();
+			<!-- fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val()); -->
+		}
+		else
+		{
+			$('#id_nifty_strike_price').hide();
+			$('#id_nifty_strike_price_end').hide();
+		}
+	}
+}
+
+function refreshChart()
+{
+	submit_chart();
+}
+
+function submit_chart()
+{
+	var start_strike_price;
+	var end_strike_price;
+	
+	if ($('#testing').val() == 'Nifty')
+	{
+		start_strike_price = parseInt($('#id_nifty_strike_price').val());
+		end_strike_price = parseInt($('#id_nifty_strike_price_end').val());
+	}
+	else
+	{
+		start_strike_price = parseInt($('#id_banknifty_strike_price').val());
+		end_strike_price = parseInt($('#id_banknifty_strike_price_end').val());
+	}
+	
+	if (start_strike_price > end_strike_price)
+	{
+		<!-- alert('please select the end value greater than start value'); -->
+		$('#id_start_end_error').show();
+	}
+	else
+	{
+		if ($('#testing').val() == 'Nifty')
+		{
+			fetch_all($('#testing').val(), $('#id_nifty_strike_price').val(), $('#id_nifty_strike_price_end').val());
+		}
+		else
+		{
+			fetch_all($('#testing').val(), $('#id_banknifty_strike_price').val(), $('#id_banknifty_strike_price_end').val());
+		}
+	}
+}
+</script>
+
+<script>
+
+</script>
+{% include "Panel/footer.html" %}				 

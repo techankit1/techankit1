@@ -1,0 +1,97 @@
+<table id="users-table" class="table">
+	<thead>
+		<tr>
+			<th style="width: 1%;">Sr.No.</th>
+			<th>UserName</th>
+			<th>Date</th>
+			<!-- <th>Time</th> -->
+			<th>Plan Type</th>
+			<th>Plan Price</th>
+			<th>Payment Type</th>
+			<th>Start Date</th>
+			<th>End Date</th>
+			<th>Status</th>
+			<th style="text-align: center; width: 120px;">Action</th>
+			<!-- <th>Receipt</th> -->
+		</tr>
+	</thead>
+	<tbody>
+		{% for subscription in subscriptions %}
+			<tr>
+                <td>{{forloop.counter}}</td>
+				<td>{{subscription.user.name}}</td>
+				<td>{{subscription.date_time.date}}</td>
+				<!-- <td>{{subscription.date_time.time}}</td> -->
+				<td>{{subscription.plan_type}}</td>
+				<td>{{subscription.fk_subscription_plan.payble_amount}}</td>
+				<td>{{subscription.payment_type}}</td>
+				<td>
+					{% if subscription.start_date %}
+						{{subscription.start_date}}
+					{% else %}
+						---
+					{% endif %}
+				</td>
+				<td>
+					{% if subscription.end_date %}
+						{{subscription.end_date}}
+					{% else %}
+						---
+					{% endif %}
+				</td>
+				{% if subscription.status == 'Approved' %}
+					<td>Approved</td>
+					<td style="text-align: center;">
+						<!-- <div onclick="approveDisapprove('{{subscription.id}}','Rejected')" class="badge status-badge badge-info bg-danger action-btn" data-toggle="tooltip" data-placement="top" title="Reject"> -->
+							<!-- <span class="button_span" ><i class="fas fa-thumbs-down"></i></span> -->
+						<!-- </div> -->
+						{% if subscription.receipt %}
+							<a target="_blank" href="{{subscription.receipt.url}}" data-toggle="tooltip" data-placement="top" title="View Receipt">
+								<div class="badge status-badge badge-info bg-primary">
+									<span class="button_span"><i class="fas fa-eye"></i></span>
+								</div>
+							</a>
+						{% else %}
+							---
+						{% endif %}
+					</td>
+				{% elif subscription.status == 'Rejected' %}
+					<td>Rejected</td>
+					<td style="text-align: center;">
+						<div onclick="approveDisapprove('{{subscription.id}}','Approved')" class="action-btn badge status-badge badge-info bg-success" data-toggle="tooltip" data-placement="top" title="Approve">
+							<span class="button_span" ><i class="fas fa-thumbs-up"></i></span>
+						</div>
+						{% if subscription.receipt %}
+							<a target="_blank" href="{{subscription.receipt.url}}" data-toggle="tooltip" data-placement="top" title="View Receipt">
+								<div class="badge status-badge badge-info bg-primary">
+									<span class="button_span"><i class="fas fa-eye"></i></span>
+								</div>
+							</a>
+						{% endif %}
+					</td>
+				{% else %}
+					<td>Pending</td>
+					<td style="text-align: center;">
+						<div onclick="approveDisapprove('{{subscription.id}}','Approved')" class="action-btn badge status-badge badge-info bg-success" data-toggle="tooltip" data-placement="top" title="Approve">
+							<span class="button_span" ><i class="fas fa-thumbs-up"></i></span>
+						</div>
+						<div onclick="approveDisapprove('{{subscription.id}}','Rejected')" class="action-btn badge status-badge badge-info bg-danger" data-toggle="tooltip" data-placement="top" title="Reject">
+							<span class="button_span" ><i class="fas fa-thumbs-down"></i></span>
+						</div>
+						
+						{% if subscription.receipt %}
+							<a target="_blank" href="{{subscription.receipt.url}}" data-toggle="tooltip" data-placement="top" title="View Receipt">
+								<div class="badge status-badge badge-info bg-primary">
+									<span class="button_span"><i class="fas fa-eye"></i></span>
+								</div>
+							</a>
+						{% endif %}
+					</td>
+				{% endif %}
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<script>
+	dataTable = $("#users-table").DataTable({});
+</script>

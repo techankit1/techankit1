@@ -1,0 +1,1669 @@
+{% load static %}
+{% include "Panel/header.html" %}
+<style type="text/css">
+    .table-bordered th , td , tr{
+        border: 1px solid #000!important;
+    }
+    .table{
+        width: 88% !important;
+        table-layout: auto;
+    }
+    .table-bordered td{
+        font-size: 12px;
+    }
+    .table-bordered th{
+        font-size: 12px;
+        padding: 4px;
+    }
+    .table-bordered td{
+        padding: 3px;
+    }
+    .f-color{
+        color: #000;
+    }
+    .green-bg{
+        background-color: #79ee9b;
+    }
+    .red-bg{
+        background-color: #ff5f5f;
+    }
+    .f-c-red{
+        color: red;
+    }
+    .f-c-green{
+        color: green;
+    }
+    .f-c-white{
+        color: #fff;
+    }
+    .button-style{
+        height: 140px !important; 
+        border: 1px solid#000; 
+        background-color:#ffd966; 
+        width: 12%;
+        border-left:hidden; 
+        float:right;
+    }
+    .button-1{
+        margin-bottom: 10px; 
+        margin-left: 10px; 
+        margin-top: 8px;
+        background-color:white;
+    }
+    .button-2{
+        margin-bottom: 10px; 
+        margin-left: 10px;
+        background-color:white;
+    }
+    .button-3{
+        margin-left: 10px; 
+        background-color:white;
+    }
+    .bg-1{
+        background-color: #10b5f1;
+    }
+    .bg-2{
+        background-color:#ffd966;
+    }
+    .bg-3{
+        background-color: #d9e1f2;
+    }
+    .bg-4 {
+        background-color:#92ddf9;
+    }
+    .bg-5{
+        background-color:#ff4a4a;
+    }
+    .bg-6{
+        background-color:#ffff96;
+    }
+    .bg-7{
+        background-color:#c00000;
+    }
+    .bg-black{
+        background-color:#000;
+    }
+    .darkred-bg{
+        background-color:#ff0000;
+    }
+    .sl-bg{
+        background-color:#febaac;
+    } 
+    .buy-bg{
+        background-color:#305496;
+    }
+    .bg-yello{
+        background-color: #ffc000;
+    }
+    .light-red{
+        background-color:#fce4d6;
+    }
+	td{
+		text-align: center;
+	}
+	.app-main__inner{font-weight:750;}
+	
+	
+	.loader2{
+	  width: 100px;
+	  height: 100px;
+	  border-radius: 100%;
+	  position: relative;
+	  margin: 0 auto;
+	}
+
+
+	/* LOADER 6 */
+
+	#loader-6{
+	  top: 40px;
+	  left: -2.5px;
+	}
+
+	#loader-6 span{
+	  display: inline-block;
+	  width: 5px;
+	  height: 20px;
+	  background-color: #53a591;
+	}
+
+	#loader-6 span:nth-child(1){
+	  animation: grow 1s ease-in-out infinite;
+	}
+
+	#loader-6 span:nth-child(2){
+	  animation: grow 1s ease-in-out 0.15s infinite;
+	}
+
+	#loader-6 span:nth-child(3){
+	  animation: grow 1s ease-in-out 0.30s infinite;
+	}
+
+	#loader-6 span:nth-child(4){
+	  animation: grow 1s ease-in-out 0.45s infinite;
+	}
+
+	@keyframes grow{
+	  0%, 100%{
+		-webkit-transform: scaleY(1);
+		-ms-transform: scaleY(1);
+		-o-transform: scaleY(1);
+		transform: scaleY(1);
+	  }
+
+	  50%{
+		-webkit-transform: scaleY(1.8);
+		-ms-transform: scaleY(1.8);
+		-o-transform: scaleY(1.8);
+		transform: scaleY(1.8);
+	  }
+	}
+	<!-- #hideloader -->
+	<!-- { -->
+		<!-- display: none; -->
+	<!-- } -->
+	.tug_of_war{
+		background-color: #FDFD96;
+	}
+	.mild_support{
+		background-color: #dadfbc;
+	}
+	.mild_resistence{
+		background-color: #ffcccb;
+	}
+	.strong_support{
+		background-color: lightgreen;
+	}
+	.strong_resistence{
+		background-color: coral;
+	}
+	.select_support_resistence{
+		width: 100%;
+		font-size: 14px;
+		fon-weight: 700;
+		color: black;
+	}
+</style>
+<div class="app-main__inner" style="padding: 15px 0px 0 !important;">             
+<div class="tabs-animation">
+                        
+<div class="col-lg-12">
+<row>
+<div class="main-card mb-3 card">
+<ul class="nav nav-pills mt-3 ml-3" id="pills-tab" role="tablist" style="display: flex;justify-content: center;">
+  <li class="nav-item">
+	<a class="nav-link	 active " id="pills-nifty-tab" data-toggle="pill" href="#pills-nifty-dashboard" role="tab" aria-controls="pills-category" aria-selected="true">FUTURE OI ANALYSIS</a>
+  </li>
+  <li class="nav-item">
+	<a class="nav-link " id="pills-oi_analysis-tab" data-toggle="pill" href="#pills-oi_analysis_dashboard" role="tab" aria-controls="pills-merchant" aria-selected="false">FUTURE PRICE ANALYSIS</a>
+  </li>
+ </ul>
+<div class="card-body">
+	<div class="tab-content" id="pills-tabContent">
+		<div class="tab-pane fade  show active " id="pills-nifty-dashboard" role="tabpanel" aria-labelledby="pills-category-tab">
+			<h5 class="card-title">FUTURE OI Analysis Dashboard</h5>
+
+			<div class="row mb-3">
+				<div class="col-md-4">
+					<!-- <label class="fw-bold text-uppercase">Select Script:</label> -->
+					<select class="form-control" onchange="chain_type()" name="testing" id="testing">
+						<option value="oi_gainer">OI Gainer</option>
+						<option value="oi_loser">OI Loser</option>
+						<option value="long_buildup">Long Buildup</option>
+						<option value="short_buildup">Short Buildup</option>
+						<option value="long_liquidition">Long Liquidition</option>
+						<option value="short_covering">Short Covering</option>
+					</select>
+				</div>
+			</div>
+			<table class="mb-0 table table-bordered" id="option_analysis_table" style="width: 100% !important;">
+				<thead>
+					<tr class="text-center">
+						<th style="color: black; background: #ffcf40;" >Symbol</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">Last Price</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">Price Change</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">% Change</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">OI</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">OI Change</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">% OI Change</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">Volume</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">Expiry</th>
+					</tr>
+				</thead>
+				<tbody id="tbodyid">
+				</tbody>
+			</table> 	
+		</div>
+		<div class="tab-pane fade " id="pills-oi_analysis_dashboard" role="tabpanel" aria-labelledby="pills-merchant-tab">
+			<h5 class="card-title">FUTURE Price Analysis</h5>
+
+			<div class="row mb-3">
+				<div class="col-md-4">
+					<!-- <label class="fw-bold text-uppercase">Select Script:</label> -->
+					<select class="form-control" onchange="testing1_change()" name="testing1" id="testing1">
+						<option value="price_gainer">Price Gainer</option>
+						<option value="price_loser">Price Loser</option>
+					</select>
+				</div>
+			</div>
+			<table class="mb-0 table table-bordered" id="option_analysis_table_price" style="width: 100% !important;">
+				<thead>
+					<tr class="text-center">
+						<th class="bg-6" style="color: black; background: #ffcf40;">Symbol</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">Last Price</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">Price Change</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">% Change</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">OI</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">OI Change</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">% OI Change</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">Volume</th>
+						<th class="bg-6" style="color: black; background: #ffcf40;">Expiry</th>
+					</tr>
+				</thead>
+				<tbody id="price_tbodyid">
+				</tbody>
+			</table> 	
+		</div>
+	</div>
+</div>
+</div>
+
+
+
+</row>
+
+</div>
+<div id='app'>
+
+</div>
+</div>
+</div>
+<script>
+function indianRupee(x)
+{
+	var number = parseFloat(x);
+	return number.toLocaleString("en-IN", {minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'INR'})
+}
+</script>
+<script>
+var LastThursday = null;
+function lastThursdayOfMonth(year, month) 
+{ 
+	"use strict";
+	var lastDay = new Date(year, month+1, 0);
+	if(lastDay.getDay() < 4) 
+	{
+		lastDay.setDate(lastDay.getDate() - 7);
+	}
+	lastDay.setDate(lastDay.getDate() - (lastDay.getDay() - 4));
+	return lastDay;
+}
+LastThursday = lastThursdayOfMonth(new Date().getFullYear(), new Date().getMonth());
+
+var expiryDateVal = LastThursday.getDate() + '-' + LastThursday.toLocaleString('default', { month: 'short' })
+
+</script>
+<script>
+function sortTable() 
+{
+	<!-- console.log('sort'); -->
+  var table, rows, switching, i, x, y, shouldSwitch;
+  
+	table = document.getElementById('option_analysis_table');
+  
+  switching = true;
+  
+  while (switching) 
+  {
+    switching = false;
+    rows = table.rows;
+    
+    for (i = 1; i < (rows.length - 1); i++) 
+    {
+      
+      shouldSwitch = false;
+     
+      
+	  if ($('#testing').val() == 'oi_loser')
+	  {
+			x = rows[i].getElementsByTagName("TD")[6];
+			y = rows[i + 1].getElementsByTagName("TD")[6];
+			if (Number(x.innerHTML) > Number(y.innerHTML)) {
+			
+			shouldSwitch = true;
+			break;
+		  }
+	  }
+	  else if ($('#testing').val() == 'oi_gainer')
+	  {
+			x = rows[i].getElementsByTagName("TD")[6];
+			y = rows[i + 1].getElementsByTagName("TD")[6];
+			if (Number(x.innerHTML) < Number(y.innerHTML)) {
+			
+			shouldSwitch = true;
+			break;
+		  }
+	  }
+	  else 
+	  {
+			x = rows[i].getElementsByTagName("TD")[3];
+			y = rows[i + 1].getElementsByTagName("TD")[3];
+			
+			if($('#testing').val() == 'long_buildup' || $('#testing').val() == 'short_covering' )
+			{
+				if (Number(x.innerHTML) < Number(y.innerHTML)) {
+				
+				shouldSwitch = true;
+				break;
+				}
+			}
+			else
+			{
+				if (Number(x.innerHTML) > Number(y.innerHTML)) {
+				
+				shouldSwitch = true;
+				break;
+				}
+			}
+	  }
+      
+    }
+    if (shouldSwitch) 
+    {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+  <!-- $("#option_analysis_table").find("tr:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(5))").remove(); -->
+}
+
+function sortTable2() 
+{
+	<!-- console.log('sort'); -->
+  var table, rows, switching, i, x, y, shouldSwitch;
+  
+	table = document.getElementById('option_analysis_table_price');
+  switching = true;
+  
+  while (switching) 
+  {
+    switching = false;
+    rows = table.rows;
+    
+    for (i = 1; i < (rows.length - 1); i++) 
+    {
+      
+      shouldSwitch = false;
+     
+      x = rows[i].getElementsByTagName("TD")[3];
+      y = rows[i + 1].getElementsByTagName("TD")[3];
+      
+	  if ($('#testing1').val() == 'price_gainer')
+	  {
+		if (Number(x.innerHTML) < Number(y.innerHTML)) {
+			
+			shouldSwitch = true;
+			break;
+		  }
+	  }
+	  else
+	  {
+		if (Number(x.innerHTML) > Number(y.innerHTML)) {
+			
+			shouldSwitch = true;
+			break;
+		  }
+	  }
+		  
+    }
+    if (shouldSwitch) 
+    {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+</script>
+<script>
+var future_oi_analysis = true;
+var future_price_analysis = false;
+$('#pills-nifty-tab').click(function()
+{
+	<!-- future_oi_analysis = $("#pills-nifty-tab").hasClass('active'); -->
+	<!-- future_price_analysis = $("#pills-oi_analysis-tab").hasClass('active'); -->
+	$('#tbodyid').empty();
+	$('#price_tbodyid').empty();
+	future_oi_analysis = true;
+	future_price_analysis = false;
+});
+$('#pills-oi_analysis-tab').click(function()
+{
+	<!-- future_oi_analysis = $("#pills-nifty-tab").hasClass('active'); -->
+	<!-- future_price_analysis = $("#pills-oi_analysis-tab").hasClass('active'); -->
+	$('#tbodyid').empty();
+	$('#price_tbodyid').empty();
+	future_oi_analysis = false;
+	future_price_analysis = true;
+});
+
+
+function chain_type()
+{
+	$("#tbodyid").empty();
+}
+
+function testing1_change()
+{
+	$('#price_tbodyid').empty();
+}
+</script>
+<script>
+	<!-- $("#tbodyid tr").each(function(index, elem) { -->
+		<!-- alert(index); -->
+		<!-- alert(elem.cells[0].innerText); -->
+	<!-- }); -->
+</script>
+<script>
+
+	
+</script>
+<script>
+	<!-- $("#option_analysis_table tr td:nth-child(2)").each(function(index, elem) { -->
+		<!-- var current = parseInt(elem.innerHTML); -->
+		<!-- if(max.first<current) -->
+		<!-- { -->
+			<!-- max.second = max.first; -->
+			<!-- max.first = current; -->
+		<!-- } -->
+		<!-- else if(max.second<current) -->
+		<!-- { -->
+			<!-- max.second = current; -->
+		<!-- } -->
+	<!-- }); -->
+	
+	
+	
+	var socket = null;
+
+	let { createApp } = Vue;
+
+	let CoinsApp = 
+	{
+		data(){
+			return {
+				coin: 'Just a text',
+				text: null,
+			} 
+		},
+		created()
+		{
+			socket = new WebSocket(`ws://${window.location.host}/ws/futureOiAnalysis/`);
+
+			let _this = this;
+			var tbodyRef = document.getElementById('option_analysis_table').getElementsByTagName('tbody')[0];
+			var price_tbodyRef = document.getElementById('option_analysis_table_price').getElementsByTagName('tbody')[0];
+			socket.onmessage = function(event)
+			{
+				if (future_oi_analysis == true)
+				{
+					var filter = $('#testing').val();
+					_this.coins = JSON.parse(event.data);
+					live_data_dict = JSON.parse(_this.coins['live_data']);
+					
+					var flag = 0;
+					var flag_row = null;
+					$("#tbodyid tr").each(function(index, elem) {
+						symbol_text = elem.cells[0].innerText;
+						
+						if (symbol_text == live_data_dict['symbol'].slice(0,-2))
+						{
+							flag = 1;
+							flag_row = elem;
+							return false;
+						}
+					});
+					if (flag == 1)
+					{
+						if (filter == 'oi_gainer')
+						{
+							if (parseFloat(live_data_dict['oi_change']) > 0)
+							{
+								<!-- flag_row.cells[0].innerText = live_data_dict['symbol']; -->
+								flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+								flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+								
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								
+								if (change > 0)
+								{
+									flag_row.cells[2].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[2].style.color = 'red';
+								}
+								flag_row.cells[2].innerText = indianRupee(change);
+								
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2)
+								if (change_perc > 0)
+								{
+									flag_row.cells[3].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[3].style.color = 'red';
+								}
+								flag_row.cells[3].innerText = change_perc;
+								
+								flag_row.cells[4].innerText = indianRupee(live_data_dict['oi']);
+								
+								<!-- flag_row.cells[5].innerText = indianRupee(live_data_dict['oi_change']); -->
+								<!-- flag_row.cells[6].innerText = parseFloat(live_data_dict['oi_change_perc']).toFixed(2); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']);
+								
+								if (oi_change > 0)
+								{
+									flag_row.cells[5].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[5].style.color = 'red';
+								}
+								flag_row.cells[5].innerText = indianRupee(oi_change);
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2)
+								
+								if (oi_change_perc > 0)
+								{
+									flag_row.cells[6].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[6].style.color = 'red';
+								}
+								flag_row.cells[6].innerText = indianRupee(oi_change_perc);
+								
+								flag_row.cells[7].innerText = indianRupee(live_data_dict['ttq']);
+								flag_row.cells[8].innerText = expiryDateVal;
+							}
+							else
+							{
+								flag_row.remove();
+							}
+							<!-- sortTable(); -->
+						}
+						else if (filter == 'oi_loser')
+						{
+							if (parseFloat(live_data_dict['oi_change']) < 0)
+							{
+								<!-- flag_row.cells[0].innerText = live_data_dict['symbol']; -->
+								flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+								flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+								
+								<!-- flag_row.cells[2].innerText = indianRupee(parseFloat(live_data_dict['change']).toFixed(2)); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								
+								if (change > 0)
+								{
+									flag_row.cells[2].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[2].style.color = 'red';
+								}
+								flag_row.cells[2].innerText = indianRupee(change);
+								
+								<!-- flag_row.cells[3].innerText = parseFloat(live_data_dict['change_perc']).toFixed(2); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2)
+								if (change_perc > 0)
+								{
+									flag_row.cells[3].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[3].style.color = 'red';
+								}
+								flag_row.cells[3].innerText = change_perc;
+								
+								flag_row.cells[4].innerText = indianRupee(live_data_dict['oi']);
+								<!-- flag_row.cells[5].innerText = indianRupee(live_data_dict['oi_change']); -->
+								<!-- flag_row.cells[6].innerText = parseFloat(live_data_dict['oi_change_perc']).toFixed(2); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']);
+								
+								if (oi_change > 0)
+								{
+									flag_row.cells[5].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[5].style.color = 'red';
+								}
+								flag_row.cells[5].innerText = indianRupee(oi_change);
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2)
+								
+								if (oi_change_perc > 0)
+								{
+									flag_row.cells[6].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[6].style.color = 'red';
+								}
+								flag_row.cells[6].innerText = indianRupee(oi_change_perc);
+								
+								flag_row.cells[7].innerText = indianRupee(live_data_dict['ttq']);
+								flag_row.cells[8].innerText = expiryDateVal;
+							}
+							else
+							{
+								flag_row.remove();
+							}
+						}
+						else if (filter == 'long_buildup')
+						{
+							if (parseFloat(live_data_dict['change']) > 0 && parseFloat(live_data_dict['oi_change']) > 0)
+							{
+								<!-- flag_row.cells[0].innerText = live_data_dict['symbol']; -->
+								flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+								flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+								<!-- flag_row.cells[2].innerText = indianRupee(parseFloat(live_data_dict['change']).toFixed(2)); -->
+								
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								
+								if (change > 0)
+								{
+									flag_row.cells[2].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[2].style.color = 'red';
+								}
+								flag_row.cells[2].innerText = indianRupee(change);
+								<!-- flag_row.cells[3].innerText = parseFloat(live_data_dict['change_perc']).toFixed(2); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2)
+								if (change_perc > 0)
+								{
+									flag_row.cells[3].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[3].style.color = 'red';
+								}
+								flag_row.cells[3].innerText = change_perc;
+								
+								flag_row.cells[4].innerText = indianRupee(live_data_dict['oi']);
+								<!-- flag_row.cells[5].innerText = indianRupee(live_data_dict['oi_change']); -->
+								<!-- flag_row.cells[6].innerText = parseFloat(live_data_dict['oi_change_perc']).toFixed(2); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']);
+								
+								if (oi_change > 0)
+								{
+									flag_row.cells[5].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[5].style.color = 'red';
+								}
+								flag_row.cells[5].innerText = indianRupee(oi_change);
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2)
+								
+								if (oi_change_perc > 0)
+								{
+									flag_row.cells[6].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[6].style.color = 'red';
+								}
+								flag_row.cells[6].innerText = indianRupee(oi_change_perc);
+								
+								flag_row.cells[7].innerText = indianRupee(live_data_dict['ttq']);
+								flag_row.cells[8].innerText = expiryDateVal;
+							}
+							else
+							{
+								flag_row.remove();
+							}
+						}
+						else if (filter == 'short_buildup')
+						{
+							if (parseFloat(live_data_dict['change']) < 0 && parseFloat(live_data_dict['oi_change']) > 0)
+							{
+								<!-- flag_row.cells[0].innerText = live_data_dict['symbol']; -->
+								flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+								flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+								<!-- flag_row.cells[2].innerText = indianRupee(parseFloat(live_data_dict['change']).toFixed(2)); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								
+								if (change > 0)
+								{
+									flag_row.cells[2].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[2].style.color = 'red';
+								}
+								flag_row.cells[2].innerText = indianRupee(change);
+								<!-- flag_row.cells[3].innerText = parseFloat(live_data_dict['change_perc']).toFixed(2); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2)
+								if (change_perc > 0)
+								{
+									flag_row.cells[3].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[3].style.color = 'red';
+								}
+								flag_row.cells[3].innerText = change_perc;
+								
+								flag_row.cells[4].innerText = indianRupee(live_data_dict['oi']);
+								<!-- flag_row.cells[5].innerText = indianRupee(live_data_dict['oi_change']); -->
+								<!-- flag_row.cells[6].innerText = parseFloat(live_data_dict['oi_change_perc']).toFixed(2); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']);
+								
+								if (oi_change > 0)
+								{
+									flag_row.cells[5].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[5].style.color = 'red';
+								}
+								flag_row.cells[5].innerText = indianRupee(oi_change);
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2)
+								
+								if (oi_change_perc > 0)
+								{
+									flag_row.cells[6].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[6].style.color = 'red';
+								}
+								flag_row.cells[6].innerText = indianRupee(oi_change_perc); 
+								
+								flag_row.cells[7].innerText = indianRupee(live_data_dict['ttq']);
+								flag_row.cells[8].innerText = expiryDateVal;
+							}
+							else
+							{
+								flag_row.remove();
+							}
+						}
+						else if (filter == 'long_liquidition')
+						{
+							if (parseFloat(live_data_dict['change']) < 0 && parseFloat(live_data_dict['oi_change']) < 0)
+							{
+								<!-- flag_row.cells[0].innerText = live_data_dict['symbol']; -->
+								flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+								flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+								<!-- flag_row.cells[2].innerText = indianRupee(parseFloat(live_data_dict['change']).toFixed(2)); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								
+								if (change > 0)
+								{
+									flag_row.cells[2].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[2].style.color = 'red';
+								}
+								flag_row.cells[2].innerText = indianRupee(change);
+								<!-- flag_row.cells[3].innerText = parseFloat(live_data_dict['change_perc']).toFixed(2); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2)
+								if (change_perc > 0)
+								{
+									flag_row.cells[3].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[3].style.color = 'red';
+								}
+								flag_row.cells[3].innerText = change_perc;
+								
+								flag_row.cells[4].innerText = indianRupee(live_data_dict['oi']);
+								<!-- flag_row.cells[5].innerText = indianRupee(live_data_dict['oi_change']); -->
+								<!-- flag_row.cells[6].innerText = parseFloat(live_data_dict['oi_change_perc']).toFixed(2); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']);
+								
+								if (oi_change > 0)
+								{
+									flag_row.cells[5].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[5].style.color = 'red';
+								}
+								flag_row.cells[5].innerText = indianRupee(oi_change);
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2)
+								
+								if (oi_change_perc > 0)
+								{
+									flag_row.cells[6].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[6].style.color = 'red';
+								}
+								flag_row.cells[6].innerText = indianRupee(oi_change_perc);
+								
+								flag_row.cells[7].innerText = indianRupee(live_data_dict['ttq']);
+								flag_row.cells[8].innerText = expiryDateVal;
+							}
+							else
+							{
+								flag_row.remove();
+							}
+						}
+						else if (filter == 'short_covering')
+						{
+							if (parseFloat(live_data_dict['change']) > 0 && parseFloat(live_data_dict['oi_change']) < 0)
+							{
+								<!-- flag_row.cells[0].innerText = live_data_dict['symbol']; -->
+								flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+								flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+								<!-- flag_row.cells[2].innerText = indianRupee(parseFloat(live_data_dict['change']).toFixed(2)); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								
+								if (change > 0)
+								{
+									flag_row.cells[2].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[2].style.color = 'red';
+								}
+								flag_row.cells[2].innerText = indianRupee(change);
+								<!-- flag_row.cells[3].innerText = parseFloat(live_data_dict['change_perc']).toFixed(2); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2)
+								if (change_perc > 0)
+								{
+									flag_row.cells[3].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[3].style.color = 'red';
+								}
+								flag_row.cells[3].innerText = change_perc;
+								
+								flag_row.cells[4].innerText = indianRupee(live_data_dict['oi']);
+								<!-- flag_row.cells[5].innerText = indianRupee(live_data_dict['oi_change']); -->
+								<!-- flag_row.cells[6].innerText = parseFloat(live_data_dict['oi_change_perc']).toFixed(2); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']);
+								
+								if (oi_change > 0)
+								{
+									flag_row.cells[5].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[5].style.color = 'red';
+								}
+								flag_row.cells[5].innerText = indianRupee(oi_change);
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2)
+								
+								if (oi_change_perc > 0)
+								{
+									flag_row.cells[6].style.color = 'green';
+								}
+								else
+								{
+									flag_row.cells[6].style.color = 'red';
+								}
+								flag_row.cells[6].innerText = indianRupee(oi_change_perc);
+								
+								flag_row.cells[7].innerText = indianRupee(live_data_dict['ttq']);
+								flag_row.cells[8].innerText = expiryDateVal;
+							}
+							else
+							{
+								flag_row.remove();
+							}
+						}
+					}
+					else
+					{
+						if (filter == 'oi_gainer')
+						{
+							if (parseFloat(live_data_dict['oi_change']) > 0)
+							{
+								newRow = tbodyRef.insertRow();
+								<!-- newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'])); -->
+								newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+								
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['change']).toFixed(2)))); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								change_cell = newRow.insertCell();
+								change_cell.appendChild(document.createTextNode(change));
+								
+								if (change > 0)
+								{
+									change_cell.style.color = 'green';
+								}
+								else
+								{
+									change_cell.style.color = 'red';
+								}
+							
+								<!-- newRow.insertCell().appendChild(document.createTextNode(parseFloat(live_data_dict['change_perc']).toFixed(2))); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+								change_perc_cell = newRow.insertCell();
+								change_perc_cell.appendChild(document.createTextNode(change_perc));
+								
+								if (change_perc > 0)
+								{
+									change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									change_perc_cell.style.color = 'red';
+								}
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi_change']))); -->
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['oi_change_perc']).toFixed(2)))); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']).toFixed(2);
+								oi_change_cell = newRow.insertCell();
+								oi_change_cell.appendChild(document.createTextNode(indianRupee(oi_change)));
+								
+								if (oi_change > 0)
+								{
+									oi_change_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_cell.style.color = 'red';
+								}
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+								oi_change_perc_cell = newRow.insertCell();
+								oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+								
+								if (oi_change_perc > 0)
+								{
+									oi_change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_perc_cell.style.color = 'red';
+								}
+								
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ttq'])));
+								newRow.insertCell().appendChild(document.createTextNode(expiryDateVal));
+								<!-- sortTable(); -->
+							}
+						}
+						else if (filter == 'oi_loser')
+						{
+							if (parseFloat(live_data_dict['oi_change']) < 0)
+							{
+								newRow = tbodyRef.insertRow();
+								<!-- newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'])); -->
+								newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['change']).toFixed(2)))); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								change_cell = newRow.insertCell();
+								change_cell.appendChild(document.createTextNode(change));
+								
+								if (change > 0)
+								{
+									change_cell.style.color = 'green';
+								}
+								else
+								{
+									change_cell.style.color = 'red';
+								}
+								<!-- newRow.insertCell().appendChild(document.createTextNode(parseFloat(live_data_dict['change_perc']).toFixed(2))); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+								change_perc_cell = newRow.insertCell();
+								change_perc_cell.appendChild(document.createTextNode(change_perc));
+								
+								if (change_perc > 0)
+								{
+									change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									change_perc_cell.style.color = 'red';
+								}
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi_change']))); -->
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['oi_change_perc']).toFixed(2)))); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']).toFixed(2);
+								oi_change_cell = newRow.insertCell();
+								oi_change_cell.appendChild(document.createTextNode(indianRupee(oi_change)));
+								
+								if (oi_change > 0)
+								{
+									oi_change_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_cell.style.color = 'red';
+								}
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+								oi_change_perc_cell = newRow.insertCell();
+								oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+								
+								if (oi_change_perc > 0)
+								{
+									oi_change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_perc_cell.style.color = 'red';
+								}
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ttq'])));
+								newRow.insertCell().appendChild(document.createTextNode(expiryDateVal));
+							}
+						}
+						else if (filter == 'long_buildup')
+						{
+							if (parseFloat(live_data_dict['change']) > 0 && parseFloat(live_data_dict['oi_change']) > 0)
+							{
+								newRow = tbodyRef.insertRow();
+								<!-- newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'])); -->
+								newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['change']).toFixed(2)))); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								change_cell = newRow.insertCell();
+								change_cell.appendChild(document.createTextNode(change));
+								
+								if (change > 0)
+								{
+									change_cell.style.color = 'green';
+								}
+								else
+								{
+									change_cell.style.color = 'red';
+								}
+								<!-- newRow.insertCell().appendChild(document.createTextNode(parseFloat(live_data_dict['change_perc']).toFixed(2))); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+								change_perc_cell = newRow.insertCell();
+								change_perc_cell.appendChild(document.createTextNode(change_perc));
+								
+								if (change_perc > 0)
+								{
+									change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									change_perc_cell.style.color = 'red';
+								}
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi_change']))); -->
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['oi_change_perc']).toFixed(2)))); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']).toFixed(2);
+								oi_change_cell = newRow.insertCell();
+								oi_change_cell.appendChild(document.createTextNode(indianRupee(oi_change)));
+								
+								if (oi_change > 0)
+								{
+									oi_change_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_cell.style.color = 'red';
+								}
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+								oi_change_perc_cell = newRow.insertCell();
+								oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+								
+								if (oi_change_perc > 0)
+								{
+									oi_change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_perc_cell.style.color = 'red';
+								}
+								
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ttq'])));
+								newRow.insertCell().appendChild(document.createTextNode(expiryDateVal));
+							}
+						}
+						else if (filter == 'short_buildup')
+						{
+							if (parseFloat(live_data_dict['change']) < 0 && parseFloat(live_data_dict['oi_change']) > 0)
+							{
+								newRow = tbodyRef.insertRow();
+								<!-- newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'])); -->
+								newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['change']).toFixed(2)))); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								change_cell = newRow.insertCell();
+								change_cell.appendChild(document.createTextNode(change));
+								
+								if (change > 0)
+								{
+									change_cell.style.color = 'green';
+								}
+								else
+								{
+									change_cell.style.color = 'red';
+								}
+								<!-- newRow.insertCell().appendChild(document.createTextNode(parseFloat(live_data_dict['change_perc']).toFixed(2))); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+								change_perc_cell = newRow.insertCell();
+								change_perc_cell.appendChild(document.createTextNode(change_perc));
+								
+								if (change_perc > 0)
+								{
+									change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									change_perc_cell.style.color = 'red';
+								}
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi_change']))); -->
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['oi_change_perc']).toFixed(2)))); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']).toFixed(2);
+								oi_change_cell = newRow.insertCell();
+								oi_change_cell.appendChild(document.createTextNode(indianRupee(oi_change)));
+								
+								if (oi_change > 0)
+								{
+									oi_change_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_cell.style.color = 'red';
+								}
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+								oi_change_perc_cell = newRow.insertCell();
+								oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+								
+								if (oi_change_perc > 0)
+								{
+									oi_change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_perc_cell.style.color = 'red';
+								}
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ttq'])));
+								newRow.insertCell().appendChild(document.createTextNode(expiryDateVal));
+							}
+						}
+						else if (filter == 'long_liquidition')
+						{
+							if (parseFloat(live_data_dict['change']) < 0 && parseFloat(live_data_dict['oi_change']) < 0)
+							{
+								newRow = tbodyRef.insertRow();
+								<!-- newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'])); -->
+								newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['change']).toFixed(2)))); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								change_cell = newRow.insertCell();
+								change_cell.appendChild(document.createTextNode(change));
+								
+								if (change > 0)
+								{
+									change_cell.style.color = 'green';
+								}
+								else
+								{
+									change_cell.style.color = 'red';
+								}
+								<!-- newRow.insertCell().appendChild(document.createTextNode(parseFloat(live_data_dict['change_perc']).toFixed(2))); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+								change_perc_cell = newRow.insertCell();
+								change_perc_cell.appendChild(document.createTextNode(change_perc));
+								
+								if (change_perc > 0)
+								{
+									change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									change_perc_cell.style.color = 'red';
+								}
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi_change']))); -->
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['oi_change_perc']).toFixed(2)))); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']).toFixed(2);
+								oi_change_cell = newRow.insertCell();
+								oi_change_cell.appendChild(document.createTextNode(indianRupee(oi_change)));
+								
+								if (oi_change > 0)
+								{
+									oi_change_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_cell.style.color = 'red';
+								}
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+								oi_change_perc_cell = newRow.insertCell();
+								oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+								
+								if (oi_change_perc > 0)
+								{
+									oi_change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_perc_cell.style.color = 'red';
+								}
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ttq'])));
+								newRow.insertCell().appendChild(document.createTextNode(expiryDateVal));
+							}
+						}
+						else if (filter == 'short_covering')
+						{
+							if (parseFloat(live_data_dict['change']) > 0 && parseFloat(live_data_dict['oi_change']) < 0)
+							{
+								newRow = tbodyRef.insertRow();
+								<!-- newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'])); -->
+								newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['change']).toFixed(2)))); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								change_cell = newRow.insertCell();
+								change_cell.appendChild(document.createTextNode(change));
+								
+								if (change > 0)
+								{
+									change_cell.style.color = 'green';
+								}
+								else
+								{
+									change_cell.style.color = 'red';
+								}
+								<!-- newRow.insertCell().appendChild(document.createTextNode(parseFloat(live_data_dict['change_perc']).toFixed(2))); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+								change_perc_cell = newRow.insertCell();
+								change_perc_cell.appendChild(document.createTextNode(change_perc));
+								
+								if (change_perc > 0)
+								{
+									change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									change_perc_cell.style.color = 'red';
+								}
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi_change']))); -->
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['oi_change_perc']).toFixed(2)))); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']).toFixed(2);
+								oi_change_cell = newRow.insertCell();
+								oi_change_cell.appendChild(document.createTextNode(indianRupee(oi_change)));
+								
+								if (oi_change > 0)
+								{
+									oi_change_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_cell.style.color = 'red';
+								}
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+								oi_change_perc_cell = newRow.insertCell();
+								oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+								
+								if (oi_change_perc > 0)
+								{
+									oi_change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_perc_cell.style.color = 'red';
+								}
+								
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ttq'])));
+								newRow.insertCell().appendChild(document.createTextNode(expiryDateVal));
+							}
+						}
+					}
+					sortTable();
+				}
+				else if(future_price_analysis == true)
+				{
+					var price_filter = $('#testing1').val();
+					_this.coins = JSON.parse(event.data);
+					live_data_dict = JSON.parse(_this.coins['live_data']);
+					
+					var flag1 = 0;
+					var flag_row1 = null;
+					$("#price_tbodyid tr").each(function(index, elem) {
+						symbol_text = elem.cells[0].innerText;
+						<!-- if (symbol_text == live_data_dict['symbol']) -->
+						if (symbol_text == live_data_dict['symbol'].slice(0,-2))
+						{
+							flag1 = 1;
+							flag_row1 = elem;
+							return false;
+						}
+					}); 
+					if (flag1 == 1)
+					{
+						if (price_filter == 'price_gainer')
+						{
+							if (parseFloat(live_data_dict['change']) > 0)
+							{
+								<!-- flag_row1.cells[0].innerText = live_data_dict['symbol']; -->
+								flag_row1.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+								flag_row1.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+								<!-- flag_row1.cells[2].innerText = indianRupee(parseFloat(live_data_dict['change']).toFixed(2)); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								
+								if (change > 0)
+								{
+									flag_row1.cells[2].style.color = 'green';
+								}
+								else
+								{
+									flag_row1.cells[2].style.color = 'red';
+								}
+								flag_row1.cells[2].innerText = indianRupee(change);
+								<!-- flag_row1.cells[3].innerText = parseFloat(live_data_dict['change_perc']).toFixed(2); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2)
+								if (change_perc > 0)
+								{
+									flag_row1.cells[3].style.color = 'green';
+								}
+								else
+								{
+									flag_row1.cells[3].style.color = 'red';
+								}
+								flag_row1.cells[3].innerText = change_perc;
+								flag_row1.cells[4].innerText = indianRupee(live_data_dict['oi']);
+								<!-- flag_row1.cells[5].innerText = indianRupee(live_data_dict['oi_change']); -->
+								<!-- flag_row1.cells[6].innerText = parseFloat(live_data_dict['oi_change_perc']).toFixed(2); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']);
+								
+								if (oi_change > 0)
+								{
+									flag_row1.cells[5].style.color = 'green';
+								}
+								else
+								{
+									flag_row1.cells[5].style.color = 'red';
+								}
+								flag_row1.cells[5].innerText = indianRupee(oi_change);
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2)
+								
+								if (oi_change_perc > 0)
+								{
+									flag_row1.cells[6].style.color = 'green';
+								}
+								else
+								{
+									flag_row1.cells[6].style.color = 'red';
+								}
+								flag_row1.cells[6].innerText = indianRupee(oi_change_perc);
+								
+								flag_row1.cells[7].innerText = indianRupee(live_data_dict['ttq']);
+								flag_row1.cells[8].innerText = expiryDateVal;
+							}
+							else
+							{
+								flag_row1.remove();
+							}
+						}
+						else if(price_filter == 'price_loser')
+						{
+							if (parseFloat(live_data_dict['change']) < 0)
+							{
+								<!-- flag_row1.cells[0].innerText = live_data_dict['symbol']; -->
+								flag_row1.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+								flag_row1.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+								<!-- flag_row1.cells[2].innerText = indianRupee(parseFloat(live_data_dict['change']).toFixed(2)); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								
+								if (change > 0)
+								{
+									flag_row1.cells[2].style.color = 'green';
+								}
+								else
+								{
+									flag_row1.cells[2].style.color = 'red';
+								}
+								flag_row1.cells[2].innerText = indianRupee(change);
+								<!-- flag_row1.cells[3].innerText = parseFloat(live_data_dict['change_perc']).toFixed(2); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2)
+								if (change_perc > 0)
+								{
+									flag_row1.cells[3].style.color = 'green';
+								}
+								else
+								{
+									flag_row1.cells[3].style.color = 'red';
+								}
+								flag_row1.cells[3].innerText = change_perc;
+								flag_row1.cells[4].innerText = indianRupee(live_data_dict['oi']);
+								<!-- flag_row1.cells[5].innerText = indianRupee(live_data_dict['oi_change']); -->
+								<!-- flag_row1.cells[6].innerText = parseFloat(live_data_dict['oi_change_perc']).toFixed(2); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']);
+								
+								if (oi_change > 0)
+								{
+									flag_row1.cells[5].style.color = 'green';
+								}
+								else
+								{
+									flag_row1.cells[5].style.color = 'red';
+								}
+								flag_row1.cells[5].innerText = indianRupee(oi_change);
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2)
+								
+								if (oi_change_perc > 0)
+								{
+									flag_row1.cells[6].style.color = 'green';
+								}
+								else
+								{
+									flag_row1.cells[6].style.color = 'red';
+								}
+								flag_row1.cells[6].innerText = indianRupee(oi_change_perc);
+								
+								flag_row1.cells[7].innerText = indianRupee(live_data_dict['ttq']);
+								flag_row1.cells[8].innerText = expiryDateVal;
+							}
+							else
+							{
+								flag_row1.remove();
+							}
+						}
+					}
+					else
+					{
+						if (price_filter == 'price_gainer')
+						{
+							if (parseFloat(live_data_dict['change']) > 0 )
+							{
+								newRow = price_tbodyRef.insertRow();
+								<!-- newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'])); -->
+								newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['change']).toFixed(2)))); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								change_cell = newRow.insertCell();
+								change_cell.appendChild(document.createTextNode(change));
+								
+								if (change > 0)
+								{
+									change_cell.style.color = 'green';
+								}
+								else
+								{
+									change_cell.style.color = 'red';
+								}
+								<!-- newRow.insertCell().appendChild(document.createTextNode(parseFloat(live_data_dict['change_perc']).toFixed(2))); -->
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+								change_perc_cell = newRow.insertCell();
+								change_perc_cell.appendChild(document.createTextNode(change_perc));
+								
+								if (change_perc > 0)
+								{
+									change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									change_perc_cell.style.color = 'red';
+								}
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi_change']))); -->
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['oi_change_perc']).toFixed(2)))); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']).toFixed(2);
+								oi_change_cell = newRow.insertCell();
+								oi_change_cell.appendChild(document.createTextNode(indianRupee(oi_change)));
+								
+								if (oi_change > 0)
+								{
+									oi_change_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_cell.style.color = 'red';
+								}
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+								oi_change_perc_cell = newRow.insertCell();
+								oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+								
+								if (oi_change_perc > 0)
+								{
+									oi_change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_perc_cell.style.color = 'red';
+								}
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ttq'])));
+								newRow.insertCell().appendChild(document.createTextNode(expiryDateVal));
+							}
+						}
+						else if(price_filter == 'price_loser')
+						{
+							if (parseFloat(live_data_dict['change']) < 0)
+							{
+								newRow = price_tbodyRef.insertRow();
+								<!-- newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'])); -->
+								newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['change']).toFixed(2)))); -->
+								var change = parseFloat(live_data_dict['change']).toFixed(2);
+								change_cell = newRow.insertCell();
+								change_cell.appendChild(document.createTextNode(change));
+								
+								if (change > 0)
+								{
+									change_cell.style.color = 'green';
+								}
+								else
+								{
+									change_cell.style.color = 'red';
+								}
+								
+								<!-- newRow.insertCell().appendChild(document.createTextNode(parseFloat(live_data_dict['change_perc']).toFixed(2))); -->
+								
+								var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+								change_perc_cell = newRow.insertCell();
+								change_perc_cell.appendChild(document.createTextNode(change_perc));
+								
+								if (change_perc > 0)
+								{
+									change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									change_perc_cell.style.color = 'red';
+								}
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi'])));
+								
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['oi_change']))); -->
+								<!-- newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(live_data_dict['oi_change_perc']).toFixed(2)))); -->
+								
+								var oi_change = parseFloat(live_data_dict['oi_change']).toFixed(2);
+								oi_change_cell = newRow.insertCell();
+								oi_change_cell.appendChild(document.createTextNode(indianRupee(oi_change)));
+								
+								if (oi_change > 0)
+								{
+									oi_change_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_cell.style.color = 'red';
+								}
+								
+								var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+								oi_change_perc_cell = newRow.insertCell();
+								oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+								
+								if (oi_change_perc > 0)
+								{
+									oi_change_perc_cell.style.color = 'green';
+								}
+								else
+								{
+									oi_change_perc_cell.style.color = 'red';
+								}
+								
+								newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ttq'])));
+								newRow.insertCell().appendChild(document.createTextNode(expiryDateVal));
+							}
+						}
+					}
+					sortTable2();
+				}
+				<!-- sortTable(); -->
+			}
+		}
+	}
+
+	createApp(CoinsApp).mount('#app');
+</script>
+<script>
+$(document ).ready(function() {
+	$("#futureOiAnalysis").addClass("mm-show");
+});
+</script>
+{% include "Panel/footer.html" %}				 

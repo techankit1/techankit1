@@ -1,0 +1,24 @@
+<table id="users-table" class="table">
+	<thead>
+		<tr>
+			<th>Sr.No.</th>
+			<th>Date</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for date in dates %}
+			<tr>
+                <td>{{forloop.counter}}</td>
+				<td>{{date.off_date}}</td>
+				<td style="text-align: center;">
+					<div class="badge status-badge badge-info bg-danger">
+						<span class="button_span" onclick="deleteDate('{{date.id}}')"><i class="fa fa-trash" aria-hidden="true"></i></span>
+					</div>
+				</td>
+		{% endfor %}
+	</tbody>
+</table>
+<script>
+	dataTable = $("#users-table").DataTable({});
+</script>

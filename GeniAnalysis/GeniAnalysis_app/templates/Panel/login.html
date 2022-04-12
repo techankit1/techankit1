@@ -1,0 +1,408 @@
+{% load static %}
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>Genianalysis - Login</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- favicon -->		
+		<link rel="shortcut icon" type="image/x-icon" href="{% static 'LoginSignup/img/logo/favicon.ico' %}">
+        <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+
+		<!-- all css here -->
+
+		<!-- bootstrap v3.3.6 css -->
+		<link rel="stylesheet" href="{% static 'LoginSignup/css/bootstrap.min.css' %}">
+		<!-- owl.carousel css -->
+		<link rel="stylesheet" href="{% static 'LoginSignup/css/owl.carousel.css' %}">
+		<link rel="stylesheet" href="{% static 'LoginSignup/css/owl.transitions.css' %}">
+       <!-- Animate css -->
+        <link rel="stylesheet" href="{% static 'LoginSignup/css/animate.css' %}">
+        <!-- meanmenu css -->
+        <link rel="stylesheet" href="{% static 'LoginSignup/css/meanmenu.min.css' %}">
+		<!-- font-awesome css -->
+		<link rel="stylesheet" href="{% static 'LoginSignup/css/font-awesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'LoginSignup/css/themify-icons.css' %}">
+		<link rel="stylesheet" href="{% static 'LoginSignup/css/flaticon.css' %}">
+		<!-- magnific css -->
+        <link rel="stylesheet" href="{% static 'LoginSignup/css/magnific.min.css' %}">
+		<!-- style css -->
+		<link rel="stylesheet" href="{% static 'LoginSignup/css/style.css' %}">
+		<!-- responsive css -->
+		<link rel="stylesheet" href="{% static 'LoginSignup/css/responsive.css' %}">
+
+		<!-- modernizr css -->
+		<script src="{% static 'LoginSignup/js/vendor/modernizr-2.8.3.min.js' %}"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+	</head>
+	<style type="text/css">/*----------------------------------------
+20. Login And Register page
+----------------------------------------*/
+.login-page {
+    display: block;
+    overflow: hidden;
+   /* border: 1px solid #ccc;*/
+    width: 35%;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: rgb(255 255 255 / 15%) 0px 4px 16px, rgb(255 255 255 / 18%) 0px 8px 32px;
+
+}
+.login-form {
+    background: #ffffffe3;
+    padding: 22px;
+    overflow: hidden;
+}
+.login-form .form-control:focus{
+    border: 1px solid #ff220f7a;
+}
+.login-form label{
+    float: left;
+    color: #555;
+    font-weight: 300;
+    font-size: 13px;
+}
+.login-image {
+    width: 50%;
+    float: left;
+}
+.login-image, .log-inner img {
+    height: 100%;
+    max-height: 535px;
+    object-fit: cover;
+}
+.login-area form#contactForm {
+    border: none;
+    border-radius:0;
+    box-shadow: none;
+    background: #fff;
+}
+.login-form .form-control {
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding: 7px 15px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fafafa;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    min-height: 36px;
+    margin-bottom: 10px;
+}
+.login-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.login-btn {
+    /*padding: 10px 30px;*/
+    border: 1px solid #fff;
+    background: #c42b1e;
+    color: #fff;
+    height: 40px;
+    transition: 0.4s;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 25px;
+    text-transform: uppercase;
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.login-btn:hover{
+   /* border: 1px solid #E6922E;
+    background: transparent;*/
+    color: #fff;
+   /* transition: 0.4s;*/
+  /*box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset !important ;*/
+}
+
+<!-- .page-padding { -->
+    <!-- padding: 130px 0px 105px; -->
+<!-- } -->
+
+
+
+
+
+
+</style>
+		<body>
+
+
+        <div id="preloader"></div>
+        <div class="login-area page-padding" style="background-image: url({% static 'LoginSignup/img/loginBackground.jpg' %}); background-size: cover;height: 100vh;max-height: 1000px;" >
+            <div class="container">
+                <div class="row">
+                
+                    <div class="col-md-12 col-sm-8 col-xs-8">
+                        <div class="login-page" >
+                            <div class="login-form">
+                                <img src="{% static 'LoginSignup/img/logogeni.png' %}" style="width: 150px; margin-bottom: 30px;">
+                                <div class="row">
+                                    <div id="contactForm" class="log-form">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label for="exampleFormControlInput1">Email address</label>
+                                            <input type="text" id="email" class="form-control" >
+																						<center style="margin-top: -2%;"><span style="display:none;color:red;font-size: 12px;" id ="email_error">Please Enter Valid Email</span></center>
+																						
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <label for="exampleFormControlInput1">Password</label>
+                                            <input type="password" id="password" class="form-control" >
+																						<center style="margin-top: -2%;"><span style="display:none;color:red;font-size: 12px;" id ="error_password">Please Enter Valid Password</span></center>
+                                        </div>
+
+
+                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
+
+                                           
+       <!-- <div><iframe title="reCAPTCHA" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LdTrL4ZAAAAAPEIJd6knk4Y2TRX8ztEPiRJNsIV&amp;co=aHR0cHM6Ly93d3cub2lwdWxzZS5jb206NDQz&amp;hl=en&amp;v=VZKEDW9wslPbEc9RmzMqaOAP&amp;size=normal&amp;cb=esylb916pj4r" width="304" height="78" role="presentation" name="a-tzi6s0ydu725" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div> -->
+                                        <!-- </div> -->
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <button type="submit" id="submit" class="login-btn" style="margin-top: 20px;"  onclick="Login()">Sign in</button>
+											<center style="margin-top: -2%;margin-bottom: 7px;"><span style="display:none;color:red;font-size: 12px;" id ="error_admin">Invalid Credentials...!</span></center>
+											
+											<center style="margin-top: -2%;margin-bottom: 7px;"><span style="display:none;color:red;font-size: 12px;" id ="rejected">Your account got Rejected, Please contact Administrator...!</span></center>
+											<center style="margin-top: -2%;margin-bottom: 7px;"><span style="display:none;color:red;font-size: 12px;" id ="pending">Your account is not Approved yet, Please contact Administrator...!</span></center>
+                                            <!--  <button type="submit" id="submit" class="login-btn">Create an Account</button> -->
+                                            <a class="login-btn" style="background-color:transparent; padding-top: 6px;color: #555;border-color: #0000004d;" href="/signup_page/">Create an Account</a>
+                                            <a class="text-muted" href="/">Go to home page...</a>
+
+                                              <!-- <a class="text-muted" href="#">Forgot password?</a> -->
+
+                                            <div id="msgSubmit" class="h3 text-center hidden"></div> 
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="clear"></div>
+                                            
+                                           
+                                        </div> 
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+	
+		<!-- jquery latest version -->
+		<script src="{% static 'LoginSignup/js/vendor/jquery-1.12.4.min.js' %}"></script>
+		<!-- bootstrap js -->
+		<script src="{% static 'LoginSignup/js/bootstrap.min.js' %}"></script>
+		<!-- owl.carousel js -->
+		<script src="{% static 'LoginSignup/js/owl.carousel.min.js' %}"></script>
+		  <!-- stellar js -->
+        <script src="{% static 'LoginSignup/js/jquery.stellar.min.js' %}"></script>
+		<!-- magnific js -->
+        <script src="{% static 'LoginSignup/js/magnific.min.js' %}"></script>
+        <!-- wow js -->
+        <script src="{% static 'LoginSignup/js/wow.min.js' %}"></script>
+        <!-- meanmenu js -->
+        <script src="{% static 'LoginSignup/js/jquery.meanmenu.js' %}"></script>
+		<!-- Form validator js -->
+		<script src="{% static 'LoginSignup/js/form-validator.min.js' %}"></script>
+		<!-- plugins js -->
+		<script src="{% static 'LoginSignup/js/plugins.js' %}"></script>
+		<!-- main js -->
+		<script src="{% static 'LoginSignup/js/main.js' %}"></script>
+
+
+          <!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
+
+          <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+		  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	</body>
+
+</html>
+
+<script>
+$(document).ready(function(){
+	$(document).bind('keypress', function(e) {
+            if(e.keyCode==13){
+                 $('#submit').trigger('click');
+             }
+        });
+})
+
+<!-- for login -->
+$('#email').keyup(function(){
+	$('#email_error').hide();
+})
+$('#password').keyup(function(){
+	$('#error_password').hide();
+})
+$('#email').keyup(function(){
+	$('#error_admin').hide();
+	$('#rejected').hide();
+	$('#pending').hide();
+})
+$('#password').keyup(function(){
+	$('#error_admin').hide();
+	$('#rejected').hide();
+	$('#pending').hide();
+})
+
+<!-- var emailfilter = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i -->
+
+function Login(){
+  var email = $("#email").val();
+  var password = $("#password").val();
+	if (email == ""){
+		$('#email_error').show();
+	}
+	<!-- else if(! emailfilter.test(email)){ -->
+		<!-- $("#email_error").show(); -->
+	<!-- } -->
+	else if (password == ""){
+		$('#error_password').show();
+	}
+	else{
+		$.ajax({
+			method : "POST",
+			url : "/user_login_check/",
+			data : {
+				'email':email,
+				'password':password,
+			},
+			success : function(loginobj){
+				<!-- console.log(loginobj) -->
+				if (loginobj == "errorAdmin"){
+					$('#error_admin').show();
+				}
+				else if(loginobj == "rejected")
+				{
+					$('#rejected').show();
+				}
+				else if(loginobj == "pending")
+				{
+					$('#pending').show();
+				}
+				else if(loginobj == "Already Login")
+				{
+					swal({
+						title: "Login Status?",
+						text: "User Already Logged In with this account, Do you want to continue with this device ?",
+						icon: "warning",
+
+						buttons: ["No", "Yes"],
+						closeOnClickOutside: false,
+						dangerMode: true,
+					})
+					.then((willLogin) => {
+						if (willLogin) {
+							$.ajax({
+								method: "POST",
+								url: "/forced_user_log_in/",
+								data: {
+									'email':email,
+									'password':password,
+								},
+								success: function (response) 
+								{
+									if (response.status == '1')
+									{
+										{% if request.session.buy_arg %}
+											var temp = '{{request.session.buy_arg}}';
+										{% else %}
+											var temp = null;
+										{% endif %}
+										
+										
+										if (temp == 'Buy')
+										{
+											$.ajax({
+												method: "POST",
+												url: "/delete_buy_session/",
+												data: {},
+												success: function (response) 
+												{			   
+													if (response.status == '1')
+													{}
+													else
+													{}
+												}
+											});
+											location.href = "/#criptocurrency-price-section";
+										}
+										else
+										{
+											location.href = "/nifty_dashboard_page/";
+										}
+										<!-- location.href = "/nifty_dashboard_page/"; -->
+									}
+									else
+									{
+										if(response.msg == 'rejected')
+										{
+											$('#rejected').show();
+										}
+										else if(response.msg == 'pending')
+										{
+											$('#pending').show();
+										}
+										else if(response.msg == 'errorAdmin')
+										{
+											$('#error_admin').show();
+										}
+									}
+								}
+							})
+						}	
+					});
+				}
+				else
+				{
+					{% if request.session.buy_arg %}
+						var temp = '{{request.session.buy_arg}}';
+					{% else %}
+						var temp = null;
+					{% endif %}
+					
+					
+					if (temp == 'Buy')
+					{
+						$.ajax({
+							method: "POST",
+							url: "/delete_buy_session/",
+							data: {},
+							success: function (response) 
+							{			   
+								if (response.status == '1')
+								{}
+								else
+								{}
+							}
+						});
+						location.href = "/#criptocurrency-price-section";
+					}
+					else
+					{
+						location.href = "/nifty_dashboard_page/";
+					}
+					<!-- location.href = "/nifty_dashboard_page/"; -->
+				}
+				
+			}
+		});
+	}
+}
+
+
+</script>

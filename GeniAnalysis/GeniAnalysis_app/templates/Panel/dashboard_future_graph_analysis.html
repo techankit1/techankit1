@@ -1,0 +1,1235 @@
+{% load static %}
+{% include "Panel/header.html" %}
+<style type="text/css">
+    .table-bordered th , td , tr{
+        border: 1px solid #000!important;
+    }
+    .table{
+        width: 88% !important;
+        table-layout: auto;
+    }
+    .table-bordered td{
+        font-size: 12px;
+    }
+    .table-bordered th{
+        font-size: 12px;
+        padding: 4px;
+    }
+    .table-bordered td{
+        padding: 3px;
+    }
+    .f-color{
+        color: #000;
+    }
+    .green-bg{
+        background-color: #79ee9b;
+    }
+    .red-bg{
+        background-color: #ff5f5f;
+    }
+    .f-c-red{
+        color: red;
+    }
+    .f-c-green{
+        color: green;
+    }
+    .f-c-white{
+        color: #fff;
+    }
+    .button-style{
+        height: 140px !important; 
+        border: 1px solid#000; 
+        background-color:#ffd966; 
+        width: 12%;
+        border-left:hidden; 
+        float:right;
+    }
+    .button-1{
+        margin-bottom: 10px; 
+        margin-left: 10px; 
+        margin-top: 8px;
+        background-color:white;
+    }
+    .button-2{
+        margin-bottom: 10px; 
+        margin-left: 10px;
+        background-color:white;
+    }
+    .button-3{
+        margin-left: 10px; 
+        background-color:white;
+    }
+    .bg-1{
+        background-color: #10b5f1;
+    }
+    .bg-2{
+        background-color:#ffd966;
+    }
+    .bg-3{
+        background-color: #d9e1f2;
+    }
+    .bg-4 {
+        background-color:#92ddf9;
+    }
+    .bg-5{
+        background-color:#ff4a4a;
+    }
+    .bg-6{
+        background-color:#ffff96;
+    }
+    .bg-7{
+        background-color:#c00000;
+    }
+    .bg-black{
+        background-color:#000;
+    }
+    .darkred-bg{
+        background-color:#ff0000;
+    }
+    .sl-bg{
+        background-color:#febaac;
+    } 
+    .buy-bg{
+        background-color:#305496;
+    }
+    .bg-yello{
+        background-color: #ffc000;
+    }
+    .light-red{
+        background-color:#fce4d6;
+    }
+	td{
+		text-align: center;
+	}
+	.app-main__inner{font-weight:750;}
+	
+	
+	.loader2{
+	  width: 100px;
+	  height: 100px;
+	  border-radius: 100%;
+	  position: relative;
+	  margin: 0 auto;
+	}
+
+
+	/* LOADER 6 */
+
+	#loader-6{
+	  top: 40px;
+	  left: -2.5px;
+	}
+
+	#loader-6 span{
+	  display: inline-block;
+	  width: 5px;
+	  height: 20px;
+	  background-color: #53a591;
+	}
+
+	#loader-6 span:nth-child(1){
+	  animation: grow 1s ease-in-out infinite;
+	}
+
+	#loader-6 span:nth-child(2){
+	  animation: grow 1s ease-in-out 0.15s infinite;
+	}
+
+	#loader-6 span:nth-child(3){
+	  animation: grow 1s ease-in-out 0.30s infinite;
+	}
+
+	#loader-6 span:nth-child(4){
+	  animation: grow 1s ease-in-out 0.45s infinite;
+	}
+
+	@keyframes grow{
+	  0%, 100%{
+		-webkit-transform: scaleY(1);
+		-ms-transform: scaleY(1);
+		-o-transform: scaleY(1);
+		transform: scaleY(1);
+	  }
+
+	  50%{
+		-webkit-transform: scaleY(1.8);
+		-ms-transform: scaleY(1.8);
+		-o-transform: scaleY(1.8);
+		transform: scaleY(1.8);
+	  }
+	}
+	<!-- #hideloader -->
+	<!-- { -->
+		<!-- display: none; -->
+	<!-- } -->
+	.tug_of_war{
+		background-color: #FDFD96;
+	}
+	.mild_support{
+		background-color: #dadfbc;
+	}
+	.mild_resistence{
+		background-color: #ffcccb;
+	}
+	.strong_support{
+		background-color: lightgreen;
+	}
+	.strong_resistence{
+		background-color: coral;
+	}
+	.select_support_resistence{
+		width: 100%;
+		font-size: 14px;
+		fon-weight: 700;
+		color: black;
+	}
+	th{
+		background: #ffcf40 !important;
+	}
+	h6{
+		font-weight: bold;
+	}
+</style>
+<div class="app-main__inner" style="padding: 15px 0px 0 !important;">             
+<div class="tabs-animation">
+                        
+<div class="col-lg-12">
+<row>
+<div class="main-card mb-3 card">
+<div class="card-body">
+	<div class="tab-content" id="pills-tabContent">
+		<h5 class="card-title">FUTURE ANALYSIS</h5>
+		<div class="row">
+			<div class="col-md-6">
+				<h6 class="text-center" style="background: lightgreen; color: black; padding: 3px 8px 3px 8px;">LONG BUILD UP</h6>
+				<table class="mb-0 table table-bordered" id="long_build_up_table" style="width: 100% !important;">
+					<thead>
+						<!-- <tr> -->
+							<!-- <th colspan="4" class="text-center  text-uppercase">Long Build Up</th> -->
+						<!-- </tr> -->
+						<tr class="text-center">
+							<th class="bg-6" style="color: black;" >Symbol</th>
+							<th class="bg-6" style="color: black;">LTP</th>
+							<th class="bg-6" style="color: black;">% OI Change</th>
+							<th class="bg-6" style="color: black;">Price %</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyid_lbu">
+					</tbody>
+				</table> 
+			</div>
+			<div class="col-md-6">
+				<h6 class="text-center" style="background: red; color: white; padding: 3px 8px 3px 8px;">SHORT BUILD UP</h6>
+				<table class="mb-0 table table-bordered" id="short_build_up_table" style="width: 100% !important;">
+					<thead>
+						<!-- <tr> -->
+							<!-- <th colspan="4" class="text-center  text-uppercase">Short Build Up</th> -->
+						<!-- </tr> -->
+						<tr class="text-center">
+							<th class="bg-6" style="color: black;" >Symbol</th>
+							<th class="bg-6" style="color: black;">LTP</th>
+							<th class="bg-6" style="color: black;">% OI Change</th>
+							<th class="bg-6" style="color: black;">Price %</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyid_sbu">
+					</tbody>
+				</table> 
+
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-md-6">
+				<h6 class="text-center" style="background: lightgreen; color: black; padding: 3px 8px 3px 8px;">SHORT COVERING</h6>
+				<table class="mb-0 table table-bordered" id="short_covering_table" style="width: 100% !important;">
+					<thead>
+						<!-- <tr> -->
+							<!-- <th colspan="4" class="text-center">SHORT COVERING</th> -->
+						<!-- </tr> -->
+						<tr class="text-center">
+							<th class="bg-6" style="color: black;" >Symbol</th>
+							<th class="bg-6" style="color: black;">LTP</th>
+							<th class="bg-6" style="color: black;">% OI Change</th>
+							<th class="bg-6" style="color: black;">Price %</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyid_sc">
+					</tbody>
+				</table> 
+			</div>		
+			<div class="col-md-6">
+				<h6 class="text-center" style="background: red; color: white; padding: 3px 8px 3px 8px;">LONG LIQUIDATION</h6>
+				<table class="mb-0 table table-bordered" id="long_liquidation_tabl" style="width: 100% !important;">
+					<thead>
+						<!-- <tr> -->
+							<!-- <th colspan="4" class="text-center text-uppercase">Long Liquidation</th> -->
+						<!-- </tr> -->
+						<tr class="text-center">
+							<th class="bg-6" style="color: black;" >Symbol</th>
+							<th class="bg-6" style="color: black;">LTP</th>
+							<th class="bg-6" style="color: black;">% OI Change</th>
+							<th class="bg-6" style="color: black;">Price %</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyid_ll">
+					</tbody>
+				</table> 
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-md-6">
+				<h6 class="text-center" style="background: lightgreen; color: black; padding: 3px 8px 3px 8px;">PRICE GAINER</h6>
+				<table class="mb-0 table table-bordered" id="price_gainer_table" style="width: 100% !important;">
+					<thead>
+						<!-- <tr> -->
+							<!-- <th colspan="4" class="text-center">PRICE GAINER</th> -->
+						<!-- </tr> -->
+						<tr class="text-center">
+							<th class="bg-6" style="color: black;" >Symbol</th>
+							<th class="bg-6" style="color: black;">LTP</th>
+							<th class="bg-6" style="color: black;">Price Change</th>
+							<th class="bg-6" style="color: black;">Price %</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyid_pg">
+					</tbody>
+				</table> 
+			</div>
+			<div class="col-md-6">
+				<h6 class="text-center" style="background: red; color: white; padding: 3px 8px 3px 8px;">PRICE LOSER</h6>
+				<table class="mb-0 table table-bordered" id="price_loser_table" style="width: 100% !important;">
+					<thead>
+						<!-- <tr> -->
+							<!-- <th colspan="4" class="text-center">PRICE LOSER</th> -->
+						<!-- </tr> -->
+						<tr class="text-center">
+							<th class="bg-6" style="color: black;" >Symbol</th>
+							<th class="bg-6" style="color: black;">LTP</th>
+							<th class="bg-6" style="color: black;">Price Change</th>
+							<th class="bg-6" style="color: black;">Price %</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyid_pl">
+					</tbody>
+				</table> 
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-md-6">
+				<h6 class="text-center" style="background: 	#090088; color: white; padding: 3px 8px 3px 8px;">OI GAINER</h6>
+				<table class="mb-0 table table-bordered" id="oi_gainer_table" style="width: 100% !important;">
+					<thead>
+						<!-- <tr> -->
+							<!-- <th colspan="4" class="text-center">OI GAINER</th> -->
+						<!-- </tr> -->
+						<tr class="text-center">
+							<th class="bg-6" style="color: black;" >Symbol</th>
+							<th class="bg-6" style="color: black;">LTP</th>
+							<th class="bg-6" style="color: black;">% OI Change</th>
+							<th class="bg-6" style="color: black;">Price %</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyid_og">
+					</tbody>
+				</table> 
+			</div>
+			<div class="col-md-6">
+				<h6 class="text-center" style="background: 	#090088; color: white; padding: 3px 8px 3px 8px;">OI LOSER</h6>
+				<table class="mb-0 table table-bordered" id="oi_loser_table" style="width: 100% !important;">
+					<thead>
+						<!-- <tr> -->
+							<!-- <th colspan="4" class="text-center">OI LOSER</th> -->
+						<!-- </tr> -->
+						<tr class="text-center">
+							<th class="bg-6" style="color: black;" >Symbol</th>
+							<th class="bg-6" style="color: black;">LTP</th>
+							<th class="bg-6" style="color: black;">% OI Change</th>
+							<th class="bg-6" style="color: black;">Price %</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyid_ol">
+					</tbody>
+				</table> 
+			</div>
+		</div>
+		<!-- <div class="row mt-3"> -->
+			<!-- <div class="col-md-6"> -->
+				<!-- <table class="mb-0 table table-bordered" id="volume_gainer_table" style="width: 100% !important;"> -->
+					<!-- <thead> -->
+						<!-- <tr> -->
+							<!-- <th colspan="4" class="text-center">VOLUME GAINER</th> -->
+						<!-- </tr> -->
+						<!-- <tr class="text-center"> -->
+							<!-- <th class="bg-6" style="color: black;" >Symbol</th> -->
+							<!-- <th class="bg-6" style="color: black;">LTP</th> -->
+							<!-- <th class="bg-6" style="color: black;">Volume</th> -->
+							<!-- <th class="bg-6" style="color: black;">Price %</th> -->
+						<!-- </tr> -->
+					<!-- </thead> -->
+					<!-- <tbody id="tbodyid_vg"> -->
+					<!-- </tbody> -->
+				<!-- </table>  -->
+			<!-- </div> -->
+		<!-- </div> -->
+			
+	</div>
+</div>
+</div>
+
+
+
+</row>
+
+</div>
+<div id='app'>
+
+</div>
+</div>
+</div>
+<script>
+function indianRupee(x)
+{
+	var number = parseFloat(x);
+	return number.toLocaleString("en-IN", {minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'INR'})
+}
+</script>
+<script>
+var LastThursday = null;
+function lastThursdayOfMonth(year, month) 
+{ 
+	"use strict";
+	var lastDay = new Date(year, month+1, 0);
+	if(lastDay.getDay() < 4) 
+	{
+		lastDay.setDate(lastDay.getDate() - 7);
+	}
+	lastDay.setDate(lastDay.getDate() - (lastDay.getDay() - 4));
+	return lastDay;
+}
+LastThursday = lastThursdayOfMonth(new Date().getFullYear(), new Date().getMonth());
+
+var expiryDateVal = LastThursday.getDate() + '-' + LastThursday.toLocaleString('default', { month: 'short' })
+
+</script>
+<script>
+function sortTable(table_id) 
+{
+  var table, rows, switching, i, x, y, shouldSwitch;
+  
+	table = document.getElementById(table_id);
+  
+  switching = true;
+  
+  while (switching) 
+  {
+    switching = false;
+    rows = table.rows;
+    
+    for (i = 1; i < (rows.length - 1); i++) 
+    {
+      
+      shouldSwitch = false;
+     
+      x = rows[i].getElementsByTagName("TD")[2];
+      y = rows[i + 1].getElementsByTagName("TD")[2 ];
+      
+	  if (table_id == "oi_loser_table")
+	  {
+		if (Number(x.innerHTML) > Number(y.innerHTML)) {
+			
+			shouldSwitch = true;
+			break;
+		  }
+	  }
+	  else
+	  {
+		if (Number(x.innerHTML) < Number(y.innerHTML)) {
+			
+			shouldSwitch = true;
+			break;
+		  }
+	  }
+		  
+    }
+    if (shouldSwitch) 
+    {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+  $("#"+table_id).find("tr:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(5))").remove();
+}
+
+function sortTable2(table_id) 
+{
+  var table, rows, switching, i, x, y, shouldSwitch;
+  
+	table = document.getElementById(table_id);
+  
+  switching = true;
+  
+  while (switching) 
+  {
+    switching = false;
+    rows = table.rows;
+    
+    for (i = 1; i < (rows.length - 1); i++) 
+    {
+      
+      shouldSwitch = false;
+     
+      x = rows[i].getElementsByTagName("TD")[3];
+      y = rows[i + 1].getElementsByTagName("TD")[3];
+      
+	  if(table_id == "short_build_up_table" || table_id == "long_liquidation_tabl" || table_id == "price_loser_table")
+	  {
+		if (Number(x.innerHTML) > Number(y.innerHTML)) {
+			
+			shouldSwitch = true;
+			break;
+		  }
+	  }
+	  else
+	  {
+		if (Number(x.innerHTML) < Number(y.innerHTML)) {
+			
+			shouldSwitch = true;
+			break;
+		  }
+	  }
+    }
+    if (shouldSwitch) 
+    {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+  $("#"+table_id).find("tr:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(5))").remove();
+}
+</script>
+
+<script>
+	
+	var socket = null;
+
+	let { createApp } = Vue;
+
+	let CoinsApp = 
+	{
+		data(){
+			return {
+				coin: 'Just a text',
+				text: null,
+			} 
+		},
+		created()
+		{
+			socket = new WebSocket(`ws://${window.location.host}/ws/futureOiAnalysis/`);
+
+			let _this = this;
+			var lbu_tbodyRef = document.getElementById('long_build_up_table').getElementsByTagName('tbody')[0];
+			var sbu_tbodyRef = document.getElementById('short_build_up_table').getElementsByTagName('tbody')[0];
+			var ll_tbodyRef = document.getElementById('long_liquidation_tabl').getElementsByTagName('tbody')[0];
+			var sc_tbodyRef = document.getElementById('short_covering_table').getElementsByTagName('tbody')[0];
+			<!-- var vg_tbodyRef = document.getElementById('volume_gainer_table').getElementsByTagName('tbody')[0]; -->
+			var pg_tbodyRef = document.getElementById('price_gainer_table').getElementsByTagName('tbody')[0];
+			var pl_tbodyRef = document.getElementById('price_loser_table').getElementsByTagName('tbody')[0];
+			var og_tbodyRef = document.getElementById('oi_gainer_table').getElementsByTagName('tbody')[0];
+			var ol_tbodyRef = document.getElementById('oi_loser_table').getElementsByTagName('tbody')[0];
+			
+			socket.onmessage = function(event)
+			{
+				_this.coins = JSON.parse(event.data);
+				live_data_dict = JSON.parse(_this.coins['live_data']);
+				
+				<!-- long build up table  -->
+					var lbu_flag = 0;
+					var lbu_flag_row = null;
+					$("#tbodyid_lbu tr").each(function(index, elem) 
+					{
+						symbol_text = elem.cells[0].innerText;
+						
+						if (symbol_text == live_data_dict['symbol'].slice(0,-2))
+						{
+							lbu_flag = 1;
+							lbu_flag_row = elem;
+							return false;
+						}
+					});
+					if (lbu_flag == 1)
+					{	
+						if (parseFloat(live_data_dict['change']) > 0 && parseFloat(live_data_dict['oi_change']) > 0)
+						{
+							lbu_flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+							lbu_flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+							var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+									
+							if (oi_change_perc > 0)
+							{
+								lbu_flag_row.cells[2].style.color = 'green';
+							}
+							else
+							{
+								lbu_flag_row.cells[2].style.color = 'red';
+							}
+							lbu_flag_row.cells[2].innerText = oi_change_perc;
+							
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							if (change_perc > 0)
+							{
+								lbu_flag_row.cells[3].style.color = 'green';
+							}
+							else
+							{
+								lbu_flag_row.cells[3].style.color = 'red';
+							}
+							lbu_flag_row.cells[3].innerText = change_perc;
+						}
+						else
+						{
+							lbu_flag_row.remove();
+						}
+					}
+					else
+					{
+						if (parseFloat(live_data_dict['change']) > 0 && parseFloat(live_data_dict['oi_change']) > 0)
+						{
+							newRow = lbu_tbodyRef.insertRow();
+							newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+							newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+							
+							var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+							oi_change_perc_cell = newRow.insertCell();
+							oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+							
+							if (oi_change_perc > 0)
+							{
+								oi_change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								oi_change_perc_cell.style.color = 'red';
+							}
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							change_perc_cell = newRow.insertCell();
+							change_perc_cell.appendChild(document.createTextNode(change_perc));
+							
+							if (change_perc > 0)
+							{
+								change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								change_perc_cell.style.color = 'red';
+							}
+						}
+					}
+					sortTable2('long_build_up_table');
+				<!-- End long build up table  -->
+				
+				<!-- short build up table  -->
+					var sbu_flag = 0;
+					var sbu_flag_row = null;
+					$("#tbodyid_sbu tr").each(function(index, elem) 
+					{
+						symbol_text = elem.cells[0].innerText;
+						
+						if (symbol_text == live_data_dict['symbol'].slice(0,-2))
+						{
+							sbu_flag = 1;
+							sbu_flag_row = elem;
+							return false;
+						}
+					});
+					if (sbu_flag == 1)
+					{	
+						if (parseFloat(live_data_dict['change']) < 0 && parseFloat(live_data_dict['oi_change']) > 0)
+						{
+							sbu_flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+							sbu_flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+							var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+									
+							if (oi_change_perc > 0)
+							{
+								sbu_flag_row.cells[2].style.color = 'green';
+							}
+							else
+							{
+								sbu_flag_row.cells[2].style.color = 'red';
+							}
+							sbu_flag_row.cells[2].innerText = oi_change_perc;
+							
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							if (change_perc > 0)
+							{
+								sbu_flag_row.cells[3].style.color = 'green';
+							}
+							else
+							{
+								sbu_flag_row.cells[3].style.color = 'red';
+							}
+							sbu_flag_row.cells[3].innerText = change_perc;
+						}
+						else
+						{
+							sbu_flag_row.remove();
+						}
+					}
+					else
+					{
+						if (parseFloat(live_data_dict['change']) < 0 && parseFloat(live_data_dict['oi_change']) > 0)
+						{
+							newRow = sbu_tbodyRef.insertRow();
+							newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+							newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+							
+							var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+							oi_change_perc_cell = newRow.insertCell();
+							oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+							
+							if (oi_change_perc > 0)
+							{
+								oi_change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								oi_change_perc_cell.style.color = 'red';
+							}
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							change_perc_cell = newRow.insertCell();
+							change_perc_cell.appendChild(document.createTextNode(change_perc));
+							
+							if (change_perc > 0)
+							{
+								change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								change_perc_cell.style.color = 'red';
+							}
+						}
+					}
+					sortTable2('short_build_up_table');
+				<!-- End short build up table  -->
+				
+				<!-- long liquidation up table  -->
+					var ll_flag = 0;
+					var ll_flag_row = null;
+					$("#tbodyid_ll tr").each(function(index, elem) 
+					{
+						symbol_text = elem.cells[0].innerText;
+						
+						if (symbol_text == live_data_dict['symbol'].slice(0,-2))
+						{
+							ll_flag = 1;
+							ll_flag_row = elem;
+							return false;
+						}
+					});
+					if (ll_flag == 1)
+					{	
+						if (parseFloat(live_data_dict['change']) < 0 && parseFloat(live_data_dict['oi_change']) < 0)
+						{
+							ll_flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+							ll_flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+							var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+									
+							if (oi_change_perc > 0)
+							{
+								ll_flag_row.cells[2].style.color = 'green';
+							}
+							else
+							{
+								ll_flag_row.cells[2].style.color = 'red';
+							}
+							ll_flag_row.cells[2].innerText = oi_change_perc;
+							
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							if (change_perc > 0)
+							{
+								ll_flag_row.cells[3].style.color = 'green';
+							}
+							else
+							{
+								ll_flag_row.cells[3].style.color = 'red';
+							}
+							ll_flag_row.cells[3].innerText = change_perc;
+						}
+						else
+						{
+							ll_flag_row.remove();
+						}
+					}
+					else
+					{
+						if (parseFloat(live_data_dict['change']) < 0 && parseFloat(live_data_dict['oi_change']) < 0)
+						{
+							newRow = ll_tbodyRef.insertRow();
+							newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+							newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+							
+							var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+							oi_change_perc_cell = newRow.insertCell();
+							oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+							
+							if (oi_change_perc > 0)
+							{
+								oi_change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								oi_change_perc_cell.style.color = 'red';
+							}
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							change_perc_cell = newRow.insertCell();
+							change_perc_cell.appendChild(document.createTextNode(change_perc));
+							
+							if (change_perc > 0)
+							{
+								change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								change_perc_cell.style.color = 'red';
+							}
+						}
+					}
+					sortTable2('long_liquidation_tabl');
+				<!-- End long liquidation table  -->
+				
+				<!-- short covering up table  -->
+					var sc_flag = 0;
+					var sc_flag_row = null;
+					$("#tbodyid_sc tr").each(function(index, elem) 
+					{ 
+						symbol_text = elem.cells[0].innerText;
+						
+						if (symbol_text == live_data_dict['symbol'].slice(0,-2))
+						{
+							sc_flag = 1;
+							sc_flag_row = elem;
+							return false;
+						}
+					});
+					if (sc_flag == 1)
+					{	
+						if (parseFloat(live_data_dict['change']) > 0 && parseFloat(live_data_dict['oi_change']) < 0)
+						{
+							sc_flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+							sc_flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+							var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+									
+							if (oi_change_perc > 0)
+							{
+								sc_flag_row.cells[2].style.color = 'green';
+							}
+							else
+							{
+								sc_flag_row.cells[2].style.color = 'red';
+							}
+							sc_flag_row.cells[2].innerText = oi_change_perc;
+							
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							if (change_perc > 0)
+							{
+								sc_flag_row.cells[3].style.color = 'green';
+							}
+							else
+							{
+								sc_flag_row.cells[3].style.color = 'red';
+							}
+							sc_flag_row.cells[3].innerText = change_perc;
+						}
+						else
+						{
+							sc_flag_row.remove();
+						}
+					}
+					else
+					{
+						if (parseFloat(live_data_dict['change']) > 0 && parseFloat(live_data_dict['oi_change']) < 0)
+						{
+							newRow = sc_tbodyRef.insertRow();
+							newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+							newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+							
+							var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+							oi_change_perc_cell = newRow.insertCell();
+							oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+							
+							if (oi_change_perc > 0)
+							{
+								oi_change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								oi_change_perc_cell.style.color = 'red';
+							}
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							change_perc_cell = newRow.insertCell();
+							change_perc_cell.appendChild(document.createTextNode(change_perc));
+							
+							if (change_perc > 0)
+							{
+								change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								change_perc_cell.style.color = 'red';
+							}
+						}
+					}
+					sortTable2('short_covering_table');
+				<!-- End short Covering table  -->
+				
+				<!-- Price Gainer table  -->
+					var pg_flag = 0;
+					var pg_flag_row = null;
+					$("#tbodyid_pg tr").each(function(index, elem) 
+					{ 
+						symbol_text = elem.cells[0].innerText;
+						
+						if (symbol_text == live_data_dict['symbol'].slice(0,-2))
+						{
+							pg_flag = 1;
+							pg_flag_row = elem;
+							return false;
+						}
+					});
+					if (pg_flag == 1)
+					{	
+						if (parseFloat(live_data_dict['change']) > 0)
+						{
+							pg_flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+							pg_flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+							var price_change = parseFloat(live_data_dict['change']).toFixed(2);
+									
+							if (price_change > 0)
+							{
+								pg_flag_row.cells[2].style.color = 'green';
+							}
+							else
+							{
+								pg_flag_row.cells[2].style.color = 'red';
+							}
+							pg_flag_row.cells[2].innerText = price_change;
+							
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							if (change_perc > 0)
+							{
+								pg_flag_row.cells[3].style.color = 'green';
+							}
+							else
+							{
+								pg_flag_row.cells[3].style.color = 'red';
+							}
+							pg_flag_row.cells[3].innerText = change_perc;
+						}
+						else
+						{
+							pg_flag_row.remove();
+						}
+					}
+					else
+					{
+						if (parseFloat(live_data_dict['change']) > 0)
+						{
+							newRow = pg_tbodyRef.insertRow();
+							newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+							newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+							
+							var change = parseFloat(live_data_dict['change']).toFixed(2);
+							oi_change_perc_cell = newRow.insertCell();
+							oi_change_perc_cell.appendChild(document.createTextNode(change));
+							
+							if (change > 0)
+							{
+								oi_change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								oi_change_perc_cell.style.color = 'red';
+							}
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							change_perc_cell = newRow.insertCell();
+							change_perc_cell.appendChild(document.createTextNode(change_perc));
+							
+							if (change_perc > 0)
+							{
+								change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								change_perc_cell.style.color = 'red';
+							}
+						}
+					}
+					sortTable2('price_gainer_table');
+				<!-- End Price Gainer table  -->
+				
+				<!-- Price loser table  -->
+					var pl_flag = 0;
+					var pl_flag_row = null;
+					$("#tbodyid_pl tr").each(function(index, elem) 
+					{ 
+						symbol_text = elem.cells[0].innerText;
+						
+						if (symbol_text == live_data_dict['symbol'].slice(0,-2))
+						{
+							pl_flag = 1;
+							pl_flag_row = elem;
+							return false;
+						}
+					});
+					if (pl_flag == 1)
+					{	
+						if (parseFloat(live_data_dict['change']) <= 0)
+						{
+							pl_flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+							pl_flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+							var price_change = parseFloat(live_data_dict['change']).toFixed(2);
+									
+							if (price_change > 0)
+							{
+								pl_flag_row.cells[2].style.color = 'green';
+							}
+							else
+							{
+								pl_flag_row.cells[2].style.color = 'red';
+							}
+							pl_flag_row.cells[2].innerText = price_change;
+							
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							if (change_perc > 0)
+							{
+								pl_flag_row.cells[3].style.color = 'green';
+							}
+							else
+							{
+								pl_flag_row.cells[3].style.color = 'red';
+							}
+							pl_flag_row.cells[3].innerText = change_perc;
+						}
+						else
+						{
+							pl_flag_row.remove();
+						}
+					}
+					else
+					{ 
+						if (parseFloat(live_data_dict['change']) <= 0)
+						{
+							newRow = pl_tbodyRef.insertRow();
+							newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+							newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+							
+							var change = parseFloat(live_data_dict['change']).toFixed(2);
+							oi_change_perc_cell = newRow.insertCell();
+							oi_change_perc_cell.appendChild(document.createTextNode(change));
+							
+							if (change > 0)
+							{
+								oi_change_perc_cell.style.color = 'green';
+							}
+							else 
+							{
+								oi_change_perc_cell.style.color = 'red';
+							}
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							change_perc_cell = newRow.insertCell();
+							change_perc_cell.appendChild(document.createTextNode(change_perc));
+							
+							if (change_perc > 0)
+							{
+								change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								change_perc_cell.style.color = 'red';
+							}
+						}
+					}
+					sortTable2('price_loser_table');
+				<!-- End Price Gainer table  -->
+				
+				<!-- OI Gainer table  -->
+					var og_flag = 0;
+					var og_flag_row = null;
+					$("#tbodyid_og tr").each(function(index, elem) 
+					{ 
+						symbol_text = elem.cells[0].innerText;
+						
+						if (symbol_text == live_data_dict['symbol'].slice(0,-2))
+						{
+							og_flag = 1;
+							og_flag_row = elem;
+							return false;
+						}
+					});
+					if (og_flag == 1)
+					{	
+						if (parseFloat(live_data_dict['oi_change']) > 0)
+						{
+							og_flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+							og_flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+							var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+									
+							if (oi_change_perc > 0)
+							{
+								og_flag_row.cells[2].style.color = 'green';
+							}
+							else
+							{
+								og_flag_row.cells[2].style.color = 'red';
+							}
+							og_flag_row.cells[2].innerText = oi_change_perc;
+							
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							if (change_perc > 0)
+							{
+								og_flag_row.cells[3].style.color = 'green';
+							}
+							else
+							{
+								og_flag_row.cells[3].style.color = 'red';
+							}
+							og_flag_row.cells[3].innerText = change_perc;
+						}
+						else
+						{
+							og_flag_row.remove();
+						}
+					}
+					else
+					{
+						if (parseFloat(live_data_dict['oi_change']) > 0)
+						{
+							newRow = og_tbodyRef.insertRow();
+							newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+							newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+							
+							var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+							oi_change_perc_cell = newRow.insertCell();
+							oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+							
+							if (oi_change_perc > 0)
+							{
+								oi_change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								oi_change_perc_cell.style.color = 'red';
+							}
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							change_perc_cell = newRow.insertCell();
+							change_perc_cell.appendChild(document.createTextNode(change_perc));
+							
+							if (change_perc > 0)
+							{
+								change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								change_perc_cell.style.color = 'red';
+							}
+						}
+					}
+					sortTable('oi_gainer_table');
+				<!-- End oi gainer table  -->
+				
+				<!-- OI Gainer table  -->
+					var ol_flag = 0;
+					var ol_flag_row = null;
+					$("#tbodyid_ol tr").each(function(index, elem) 
+					{ 
+						symbol_text = elem.cells[0].innerText;
+						
+						if (symbol_text == live_data_dict['symbol'].slice(0,-2))
+						{
+							ol_flag = 1;
+							ol_flag_row = elem;
+							return false;
+						}
+					});
+					if (ol_flag == 1)
+					{	
+						if (parseFloat(live_data_dict['oi_change']) <= 0)
+						{
+							ol_flag_row.cells[0].innerText = live_data_dict['symbol'].slice(0,-2);
+							ol_flag_row.cells[1].innerText = indianRupee(live_data_dict['ltp']);
+							var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+									
+							if (oi_change_perc > 0)
+							{
+								ol_flag_row.cells[2].style.color = 'green';
+							}
+							else
+							{
+								ol_flag_row.cells[2].style.color = 'red';
+							}
+							ol_flag_row.cells[2].innerText = oi_change_perc;
+							
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							if (change_perc > 0)
+							{
+								ol_flag_row.cells[3].style.color = 'green';
+							}
+							else
+							{
+								ol_flag_row.cells[3].style.color = 'red';
+							}
+							ol_flag_row.cells[3].innerText = change_perc;
+						}
+						else
+						{
+							ol_flag_row.remove();
+						}
+					}
+					else
+					{
+						if (parseFloat(live_data_dict['oi_change']) <= 0)
+						{
+							newRow = ol_tbodyRef.insertRow();
+							newRow.insertCell().appendChild(document.createTextNode(live_data_dict['symbol'].slice(0,-2)));
+							newRow.insertCell().appendChild(document.createTextNode(indianRupee(live_data_dict['ltp'])));
+							
+							var oi_change_perc = parseFloat(live_data_dict['oi_change_perc']).toFixed(2);
+							oi_change_perc_cell = newRow.insertCell();
+							oi_change_perc_cell.appendChild(document.createTextNode(oi_change_perc));
+							
+							if (oi_change_perc > 0)
+							{
+								oi_change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								oi_change_perc_cell.style.color = 'red';
+							}
+							var change_perc = parseFloat(live_data_dict['change_perc']).toFixed(2);
+							change_perc_cell = newRow.insertCell();
+							change_perc_cell.appendChild(document.createTextNode(change_perc));
+							
+							if (change_perc > 0)
+							{
+								change_perc_cell.style.color = 'green';
+							}
+							else
+							{
+								change_perc_cell.style.color = 'red';
+							}
+						}
+					}
+					sortTable('oi_loser_table');
+				<!-- End oi loser table  -->
+			}
+		}
+	}
+
+	createApp(CoinsApp).mount('#app');
+</script>
+<script>
+$(document ).ready(function() {
+	$("#futureOiAnalysis").addClass("mm-show");
+});
+</script>
+{% include "Panel/footer.html" %}				 

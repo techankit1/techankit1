@@ -1,0 +1,15 @@
+[0;1;31m●[0m gunicorn.service - gunicorn daemon
+     Loaded: loaded (/etc/systemd/system/gunicorn.service; disabled; vendor preset: enabled)
+     Active: [0;1;31mfailed[0m (Result: exit-code) since Wed 2022-01-19 11:59:05 UTC; 2min 38s ago
+TriggeredBy: [0;1;31m●[0m gunicorn.socket
+    Process: 2791 ExecStart=/home/sammy/myprojectdir/myprojectenv/bin/gunicorn --access-logfile - -k uvicorn.workers.UvicornWorker --workers 3 --bind unix:/run/gunicorn.sock myproject.asgi:application [0;1;31m(code=exited, status=217/USER)[0m
+   Main PID: 2791 (code=exited, status=217/USER)
+
+Jan 19 11:59:05 ip-172-31-4-209 systemd[1]: Started gunicorn daemon.
+Jan 19 11:59:05 ip-172-31-4-209 systemd[2791]: [0;1;31m[0;1;39m[0;1;31mgunicorn.service: Failed to determine user credentials: No such process[0m
+Jan 19 11:59:05 ip-172-31-4-209 systemd[2791]: [0;1;31m[0;1;39m[0;1;31mgunicorn.service: Failed at step USER spawning /home/sammy/myprojectdir/myprojectenv/bin/gunicorn: No such process[0m
+Jan 19 11:59:05 ip-172-31-4-209 systemd[1]: [0;1;39m[0;1;31m[0;1;39mgunicorn.service: Main process exited, code=exited, status=217/USER[0m
+Jan 19 11:59:05 ip-172-31-4-209 systemd[1]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185mgunicorn.service: Failed with result 'exit-code'.[0m
+Jan 19 11:59:05 ip-172-31-4-209 systemd[1]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185mgunicorn.service: Start request repeated too quickly.[0m
+Jan 19 11:59:05 ip-172-31-4-209 systemd[1]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185mgunicorn.service: Failed with result 'exit-code'.[0m
+Jan 19 11:59:05 ip-172-31-4-209 systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start gunicorn daemon.[0m

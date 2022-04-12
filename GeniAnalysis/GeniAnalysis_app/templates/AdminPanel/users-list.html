@@ -1,0 +1,412 @@
+{% load static %}
+{% include "AdminPanel/header.html" %}
+<style type="text/css">
+	.content {
+		padding: 40px 0;
+	}
+ 
+	/*
+			.filter-wrapper{
+			padding: 30px 0;
+			}*/
+
+	.filter-checkbox {
+		margin-left: 30px
+	}
+
+	.filter-checkbox:first-child {
+		margin-left: 0
+	}
+	.users-container{
+		padding-bottom: 30px;
+	}
+	.button_span:hover{
+		cursor: pointer;
+	}
+	.modal-backdrop{
+	z-index: inherit;
+	}
+    .pac-container {
+        z-index: 10000 !important;
+    }
+	.modal-backdrop {
+	  display: none;
+	}
+	details-container{
+		font-size: 14px;
+		<!-- font-weight: bold; -->
+		line-spacing: 3rem;
+		<!-- line-height: 2rem; -->
+	}
+	.text-name{
+		font-size: 16px; 
+		font-weight: bold;
+		color: black;
+	}
+	#id_div_info{
+	  overflow-wrap: break-word;
+	}
+	#users-table_length
+	{
+		float: left;
+	}
+	#users-table_filter
+	{
+		float: right;
+	}
+	.table-bordered th {
+		text-align: center;
+	}
+</style>
+
+
+
+<div class="app-main__inner" style="padding: 15px 0px 0 !important;">                    
+	<div class="tabs-animation">                    
+		<div class="col-lg-12" style="width: 100% !important";>
+			<row>
+				<div class="container card shadow users-container" style="width: 100% !important";>
+					<div class="content">
+						<div class="row">
+							<div class="col-8">
+								<div class="filter-wrapper">
+
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="btn-group submitter-group float-right">
+									<div class="input-group-prepend">
+										<div class="input-group-text">Status</div>
+									</div>
+									<select class="form-control status-dropdown">
+										<option value="All">All</option>
+										<option value="Pending" selected>Pending</option>
+										<option value="Approved" >Approved</option>
+										<option value="Rejected">Rejected</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="id_table_container">
+						{{string}}
+					</div>
+				</div>
+			</row>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="modal fade" id="myModal" style="background: rgba(0,0,0,0.5) !important; ">
+    <div class="modal-dialog modal-md" style="margin-top: 164px; z-index: 10000000000;">
+      <div class="modal-content" style="">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Add Subscription</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+			<div class="col-md-12 mx-auto">
+				<div class="row mx-auto details-container" id="id_div_info">
+					<div class="col-md-4 text-left">
+						<p class="mt-2" style="margin-bottom: 20px;"><span class="text-name">User Name: </span></p>
+						<p class="mt-4 mb-1" style="margin-bottom: 20px;"><span class="text-name mt-4">Plan Type:</span></p><br>
+						<p class="mt-2 mb-1" style="margin-bottom: 20px;"><span class="text-name mt-4">Start Date:</span></p><br>
+						<p class="mt-2"><span class="text-name ">End Date:</span></p>
+					</div>
+					<div class="col-md-8 text-left">
+						<input type="hidden" value="" id="id_user_id">
+						<p><span class="text-data"> <input type="text" id="id_user_name" class="form-control" readonly> </span></p>
+						<p><span class="text-data">
+							<select onchange="calculate_date_on_type()" id="id_plan_type_select" class="form-control">
+								{% for subscription in subscription_plans_obj %}
+									{% if subscription.subscription_type == 'Trial' %}
+										<option value="{{subscription.subscription_days}}">{{subscription.subscription_type}}</option>
+									{% else %}
+										<option value="{{subscription.subscription_type}}">{{subscription.subscription_type}}</option>
+									{% endif %}
+								{% endfor %}
+								<!-- <option value="Monthly">Monthly</option> -->
+								<!-- <option value="Yearly">Yearly</option> -->
+							</select>
+						</span></p>
+						<p><span class="text-data">
+							<input type="date" onclick="hide_start_date_error()" min="{% now 'Y-m-d' %}" class="form-control" id="id_start_date">
+							<span style="color: red; font-size: 12px; display: none;" id="id_start_date_error">Please select the date</span>
+						</span></p>
+						<p><span class="text-data">
+							<input type="date" onclick="hide_end_date_error()" class="form-control" id="id_end_date" readonly>
+							<span style="color: red; font-size: 12px; display: none;" id="id_end_date_error">Please select the date</span>
+						</span></p>
+					</div>
+					<div class="col-md-12 mt-2 text-center">
+						<button class="btn btn-primary" id="id_add_subscription_btn" onclick="add_subscription_func()">Submit</button>
+					</div>
+				</div>
+			</div>
+		  </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+ </div>
+<script> 
+	$(document.body).on('change','#id_start_date',function(){
+		<!-- var plan_type = $('#id_plan_type_select').val(); -->
+		var plan_type = $("#id_plan_type_select option:selected").text();
+		
+		if (plan_type == 'Monthly')
+		{
+			var s_date = new Date($('#id_start_date').val());
+			var nextMonth = new Date(s_date.getFullYear(), s_date.getMonth() + 1, s_date.getDate());
+			
+			nextMonth = nextMonth.getFullYear() + '-' + ((nextMonth.getMonth() + 1) <= 9 ? '0' + (nextMonth.getMonth() + 1) : (nextMonth.getMonth() + 1)) + '-' + ((nextMonth.getDate()) <= 9 ? '0' + (nextMonth.getDate()) : (nextMonth.getDate()));
+			
+			document.getElementById("id_end_date").value = nextMonth;
+		}
+		else if (plan_type == 'Yearly')
+		{
+			var s_date = new Date($('#id_start_date').val());
+			var nextYear = new Date(s_date.getFullYear(), s_date.getMonth() + 12, s_date.getDate());
+			
+			nextYear = nextYear.getFullYear() + '-' + ((nextYear.getMonth() + 1) <= 9 ? '0' + (nextYear.getMonth() + 1) : (nextYear.getMonth() + 1)) + '-' + ((nextYear.getDate()) <= 9 ? '0' + (nextYear.getDate()) : (nextYear.getDate()));
+			
+			document.getElementById("id_end_date").value = nextYear;
+		}
+		else if(plan_type == 'Trial')
+		{
+			plan_days = $('#id_plan_type_select').val();
+			var s_date = new Date($('#id_start_date').val());
+			var nextYear = new Date(s_date.getFullYear(), s_date.getMonth(), s_date.getDate() + parseInt(plan_days));
+			
+			nextYear = nextYear.getFullYear() + '-' + ((nextYear.getMonth() + 1) <= 9 ? '0' + (nextYear.getMonth() + 1) : (nextYear.getMonth() + 1)) + '-' + ((nextYear.getDate()) <= 9 ? '0' + (nextYear.getDate()) : (nextYear.getDate()));
+			
+			document.getElementById("id_end_date").value = nextYear;
+		}
+	});
+	function calculate_date_on_type()
+	{
+		<!-- var plan_type = $('#id_plan_type_select').val(); -->
+		var plan_type = $("#id_plan_type_select option:selected").text();
+		
+		if (plan_type == 'Monthly')
+		{
+			var s_date = new Date($('#id_start_date').val());
+			var nextMonth = new Date(s_date.getFullYear(), s_date.getMonth() + 1, s_date.getDate());
+			
+			nextMonth = nextMonth.getFullYear() + '-' + ((nextMonth.getMonth() + 1) <= 9 ? '0' + (nextMonth.getMonth() + 1) : (nextMonth.getMonth() + 1)) + '-' + ((nextMonth.getDate()) <= 9 ? '0' + (nextMonth.getDate()) : (nextMonth.getDate()));
+			
+			document.getElementById("id_end_date").value = nextMonth;
+		}
+		else if (plan_type == 'Yearly')
+		{
+			var s_date = new Date($('#id_start_date').val());
+			var nextYear = new Date(s_date.getFullYear(), s_date.getMonth() + 12, s_date.getDate());
+			
+			nextYear = nextYear.getFullYear() + '-' + ((nextYear.getMonth() + 1) <= 9 ? '0' + (nextYear.getMonth() + 1) : (nextYear.getMonth() + 1)) + '-' + ((nextYear.getDate()) <= 9 ? '0' + (nextYear.getDate()) : (nextYear.getDate()));
+			
+			document.getElementById("id_end_date").value = nextYear;
+		}
+		else if(plan_type == 'Trial')
+		{
+			plan_days = $('#id_plan_type_select').val();
+			var s_date = new Date($('#id_start_date').val());
+			var nextYear = new Date(s_date.getFullYear(), s_date.getMonth(), s_date.getDate() + parseInt(plan_days));
+			
+			nextYear = nextYear.getFullYear() + '-' + ((nextYear.getMonth() + 1) <= 9 ? '0' + (nextYear.getMonth() + 1) : (nextYear.getMonth() + 1)) + '-' + ((nextYear.getDate()) <= 9 ? '0' + (nextYear.getDate()) : (nextYear.getDate()));
+			
+			document.getElementById("id_end_date").value = nextYear;
+		}
+	}
+	<!-- on change function for caluculate montly and yearly dates  -->
+	function hide_start_date_error()
+	{
+		$('#id_start_date_error').hide();
+	}
+	function hide_end_date_error()
+	{
+		$('#id_end_date_error').hide();
+	}
+	function add_subscription(user_id, username, s_date, e_date)
+	{
+		$('#id_user_name').val(username);
+		$('#id_user_id').val(user_id);
+		$("#id_plan_type_select option[value='Monthly']").prop("selected", true);
+		
+		if (s_date != 'None' || e_date != 'None')
+		{
+			var s_date = new Date(s_date);
+			var e_date = new Date(e_date);
+			
+			var e_date = new Date(e_date.getFullYear(), e_date.getMonth(), e_date.getDate() + 1);
+			var nextMonth = new Date(e_date.getFullYear(), e_date.getMonth() + 1, e_date.getDate());
+			
+			var s_date_val = e_date.getFullYear() + '-' + ((e_date.getMonth() + 1) <= 9 ? '0' + (e_date.getMonth() + 1) : (e_date.getMonth() + 1)) + '-' + ((e_date.getDate()) <= 9 ? '0' + (e_date.getDate()) : (e_date.getDate()));
+			var e_date_val = nextMonth.getFullYear() + '-' + ((nextMonth.getMonth() + 1) <= 9 ? '0' + (nextMonth.getMonth() + 1) : (nextMonth.getMonth() + 1)) + '-' + ((nextMonth.getDate()) <= 9 ? '0' + (nextMonth.getDate()) : (nextMonth.getDate()));
+			
+			document.getElementById("id_start_date").value = s_date_val;
+			document.getElementById("id_end_date").value = e_date_val;
+			
+			var d = e_date.getDate();
+			var m = e_date.getMonth() + 1;
+			var y = e_date.getFullYear();
+			
+			var e_date = y + '-' + (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+			
+			var input = document.getElementById("id_start_date").setAttribute("min", e_date);
+			var input = document.getElementById("id_end_date").setAttribute("min", e_date);
+			
+		}
+		else
+		{
+			var today = new Date();
+			var nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+			
+			var today = today.getFullYear() + '-' + ((today.getMonth() + 1) <= 9 ? '0' + (today.getMonth() + 1) : (today.getMonth() + 1)) + '-' + ((today.getDate()) <= 9 ? '0' + (today.getDate()) : (today.getDate()));
+			var nextMonth = nextMonth.getFullYear() + '-' + ((nextMonth.getMonth() + 1) <= 9 ? '0' + (nextMonth.getMonth() + 1) : (nextMonth.getMonth() + 1)) + '-' + ((nextMonth.getDate()) <= 9 ? '0' + (nextMonth.getDate()) : (nextMonth.getDate()));
+			
+			document.getElementById("id_start_date").value = today;
+			document.getElementById("id_end_date").value = nextMonth;
+		}
+		
+	}
+	function add_subscription_func()
+	{
+		username = $('#id_user_name').val();
+		user_id = $('#id_user_id').val();
+		plan_type = $("#id_plan_type_select option:selected").text();
+		s_date = $('#id_start_date').val();
+		e_date = $('#id_end_date').val(); 
+		
+		if (s_date == "" || s_date == null)
+		{
+			$('#id_start_date_error').show();
+		}
+		else if (e_date == "" || e_date == null)
+		{
+			$('#id_end_date_error').show();
+		}
+		else 
+		{
+			$.ajax({
+				method: "POST",
+				url: "/add_manual_subscription/",
+				data: {
+					'user_id':user_id,
+					'plan_type':plan_type, 
+					's_date':s_date, 
+					'e_date':e_date, 
+					'filter_status': $('.status-dropdown').val()
+				},
+				success: function (response) 
+				{			
+					$( "#myModal" ).removeClass( "show" );
+					if (response.status == '1')
+					{
+						swal(""+response.msg+"", {
+							icon: "success",
+							button: "Ok",
+							closeOnClickOutside: false,
+						}).then(function () {
+						
+							$('#id_table_container').html(response.string);
+
+						});
+					}
+					else
+					{
+						swal(""+response.smg+"", {
+							icon: "info",
+							button: "Ok",
+							closeOnClickOutside: true,
+						});
+					}
+				}
+			});
+		}
+	}
+</script>
+<script>
+	function approveDisapprove(id, defined_status)
+	{
+		swal({
+			title: "Change Status?",
+			text: "Press yes to change the status",
+			icon: "warning",
+
+			buttons: ["No", "Yes"],
+			closeOnClickOutside: false,
+			dangerMode: true,
+		})
+		.then((willUpdate) => {
+			if (willUpdate) {
+				$.ajax({
+					method: "POST",
+					url: "/change_user_approval_status/",
+					data: {
+						'user_id': id,
+						'status':defined_status,
+						'filter_status': $('.status-dropdown').val()
+					},
+					success: function (response) 
+					{
+						if (response.status == '1'){
+							swal(""+response.msg+"", {
+								icon: "success",
+								button: "Ok",
+								closeOnClickOutside: false,
+							}).then(function () {
+							
+								$('#id_table_container').html(response.string);
+						});
+						}
+						else{
+							swal(""+response.msg+"", {
+							icon: "info",
+							button: "Ok",
+							closeOnClickOutside: true,
+							});
+						}
+					}
+				})
+			}	
+		});
+	}
+</script>
+<script>
+	$(document).ready(function () {
+		
+		dataTable = $("#users-table").DataTable({});
+
+		$('.status-dropdown').on('change', function (e) 
+		{
+			$.ajax({
+				method: "POST",
+				url: "/user_list_filter/",
+				data: {
+					'status':this.value,
+				},
+				success: function (response) 
+				{
+					if (response.status == '1')
+					{
+						$('#id_table_container').html(response.string);
+					}
+				}
+			})
+		})
+	});
+</script>
+							
+{% include "AdminPanel/footer.html" %}				 
