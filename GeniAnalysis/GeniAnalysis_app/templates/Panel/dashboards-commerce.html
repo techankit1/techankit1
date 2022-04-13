@@ -3498,100 +3498,90 @@ function indianRupee(x)
 				var gann_count = 0;
 
 				socket.onmessage = function(event){
-				
+					
+					<!-- console.log(gann_count); -->
 					<!-- Gann Angle Caluculations -->
 	
-						var now_for_gann = new Date();
-						var datetime_for_gann = new Date (new Date().toDateString() + ' ' + '09:30');
+						<!-- var now_for_gann = new Date(); -->
+						<!-- var datetime_for_gann = new Date (new Date().toDateString() + ' ' + '09:30'); -->
 						
-						if (gann_count == 0)
-						{
-							if (now_for_gann.getTime() >= datetime_for_gann.getTime()) 
-							{
-								$.ajax({
-									method: "POST",
-									url: "/get_gann_values/",
-									data: {
-										'type': 'NIFTY',
-									},
-									success: function (response) 
-									{			   
-										if (response.status == "1")
-										{
-											var gann_high = parseFloat(response.data[0].high_val);
-											var gann_low = parseFloat(response.data[0].low_val);
+						<!-- if (gann_count == 0) -->
+						<!-- { -->
+							<!-- if (now_for_gann.getTime() >= datetime_for_gann.getTime())  -->
+							<!-- { -->
+								<!-- $.ajax({ -->
+									<!-- method: "POST", -->
+									<!-- url: "/get_gann_values/", -->
+									<!-- data: { -->
+										<!-- 'type': 'NIFTY', -->
+									<!-- }, -->
+									<!-- success: function (response)  -->
+									<!-- {			    -->
+										<!-- if (response.status == "1") -->
+										<!-- { -->
+											<!-- var gann_high = parseFloat(response.data[0].high_val); -->
+											<!-- var gann_low = parseFloat(response.data[0].low_val); -->
 											
-											var gann_high_360 = ((Math.sqrt(parseFloat(gann_low)) + 2) * (Math.sqrt(parseFloat(gann_low)) + 2)).toFixed(2);
+											<!-- var gann_high_360 = ((Math.sqrt(parseFloat(gann_low)) + 2) * (Math.sqrt(parseFloat(gann_low)) + 2)).toFixed(2); -->
 											
-											//<!-- Caluculation for long position  -->
+												<!-- var gann_high_15_incr = ((gann_high_360-gann_low)/24).toFixed(2); -->
+												
+												<!-- var gann_high_0 = gann_low; -->
+												
+												<!-- var gann_high_15 = parseFloat(gann_low) + parseFloat(gann_high_15_incr) -->
+												
+												<!-- var gann_high_30 = parseFloat(gann_high_15) + parseFloat(gann_high_15_incr) -->
+												
+												<!-- var gann_high_45 = parseFloat(gann_high_30) + parseFloat(gann_high_15_incr) -->
+												
+												<!-- var gann_high_60 = parseFloat(gann_high_45) + parseFloat(gann_high_15_incr) -->
+												
+												<!-- var gann_high_75 = parseFloat(gann_high_60) + parseFloat(gann_high_15_incr) -->
+												
+												<!-- var gann_high_90 = parseFloat(gann_high_75) + parseFloat(gann_high_15_incr) -->
+												
+												<!-- $('#id_gann_high').html(gann_high); -->
+												<!-- $('#id_gann_low').html(gann_low); -->
+												
+												<!-- $('#id_g_15_high').html((Math.round(gann_high_15 * 4) / 4).toFixed(2)); -->
+												<!-- $('#id_g_45_high').html((Math.round(gann_high_45 * 4) / 4).toFixed(2)); -->
+												<!-- $('#id_g_90_high').html((Math.round(gann_high_90 * 4) / 4).toFixed(2)); -->
 											
-												var gann_high_15_incr = ((gann_high_360-gann_low)/24).toFixed(2);
+												<!-- var gann_low_360 = ((Math.sqrt(parseFloat(gann_high)) - 2) * (Math.sqrt(parseFloat(gann_high)) - 2)).toFixed(5); -->
 												
-												//<!-- var gann_high_360_incr = (gann_high_360-gann_low).toFixed(2); -->
+												<!-- var gann_low_15_incr = ((gann_low_360-gann_high)/24).toFixed(2); -->
 												
-												var gann_high_0 = gann_low;
+												<!-- var gann_low_0 = gann_high; -->
 												
-												var gann_high_15 = parseFloat(gann_low) + parseFloat(gann_high_15_incr)
+												<!-- var gann_low_15 = parseFloat(gann_high) + parseFloat(gann_low_15_incr) -->
 												
-												var gann_high_30 = parseFloat(gann_high_15) + parseFloat(gann_high_15_incr)
+												<!-- var gann_low_30 = parseFloat(gann_low_15) + parseFloat(gann_low_15_incr) -->
 												
-												var gann_high_45 = parseFloat(gann_high_30) + parseFloat(gann_high_15_incr)
+												<!-- var gann_low_45 = parseFloat(gann_low_30) + parseFloat(gann_low_15_incr) -->
 												
-												var gann_high_60 = parseFloat(gann_high_45) + parseFloat(gann_high_15_incr)
+												<!-- var gann_low_60 = parseFloat(gann_low_45) + parseFloat(gann_low_15_incr) -->
 												
-												var gann_high_75 = parseFloat(gann_high_60) + parseFloat(gann_high_15_incr)
+												<!-- var gann_low_75 = parseFloat(gann_low_60) + parseFloat(gann_low_15_incr) -->
 												
-												var gann_high_90 = parseFloat(gann_high_75) + parseFloat(gann_high_15_incr)
+												<!-- var gann_low_90 = parseFloat(gann_low_75) + parseFloat(gann_low_15_incr) -->
 												
-												$('#id_gann_high').html(gann_high);
-												$('#id_gann_low').html(gann_low);
+												<!-- $('#id_g_15_low').html((Math.round(gann_low_15 * 4) / 4).toFixed(2)); -->
+												<!-- $('#id_g_45_low').html((Math.round(gann_low_45 * 4) / 4).toFixed(2)); -->
+												<!-- $('#id_g_90_low').html((Math.round(gann_low_90 * 4) / 4).toFixed(2)); -->
 												
-												$('#id_g_15_high').html((Math.round(gann_high_15 * 4) / 4).toFixed(2));
-												$('#id_g_45_high').html((Math.round(gann_high_45 * 4) / 4).toFixed(2));
-												$('#id_g_90_high').html((Math.round(gann_high_90 * 4) / 4).toFixed(2));
-												
-												
-											
-											//<!-- End Caluculation for long position  -->
-											
-											//<!-- Caluculation for short position	-->
-											
-												var gann_low_360 = ((Math.sqrt(parseFloat(gann_high)) - 2) * (Math.sqrt(parseFloat(gann_high)) - 2)).toFixed(5);
-												
-												var gann_low_15_incr = ((gann_low_360-gann_high)/24).toFixed(2);
-												
-												var gann_low_0 = gann_high;
-												
-												var gann_low_15 = parseFloat(gann_high) + parseFloat(gann_low_15_incr)
-												
-												var gann_low_30 = parseFloat(gann_low_15) + parseFloat(gann_low_15_incr)
-												
-												var gann_low_45 = parseFloat(gann_low_30) + parseFloat(gann_low_15_incr)
-												
-												var gann_low_60 = parseFloat(gann_low_45) + parseFloat(gann_low_15_incr)
-												
-												var gann_low_75 = parseFloat(gann_low_60) + parseFloat(gann_low_15_incr)
-												
-												var gann_low_90 = parseFloat(gann_low_75) + parseFloat(gann_low_15_incr)
-												
-												$('#id_g_15_low').html((Math.round(gann_low_15 * 4) / 4).toFixed(2));
-												$('#id_g_45_low').html((Math.round(gann_low_45 * 4) / 4).toFixed(2));
-												$('#id_g_90_low').html((Math.round(gann_low_90 * 4) / 4).toFixed(2));
-												
-												gann_count = 1;
-										}
-										else
-										{
-											//<!--// alert(response.msg); -->
-										}
-									}
-								});
-							}
-						}
+												<!-- gann_count = 1; -->
+										<!-- } -->
+										<!-- else -->
+										<!-- { -->
+										<!-- } -->
+									<!-- } -->
+								<!-- }); -->
+							<!-- } -->
+						<!-- } -->
 						//<!-- End Caluculation for short position	-->
 
 					<!-- Gann Angle Caluculations --> 
-				
+					<!-- console.log(event.data); -->
 					_this.coins = JSON.parse(event.data);
 					<!-- console.log(_this.coins); -->
 					

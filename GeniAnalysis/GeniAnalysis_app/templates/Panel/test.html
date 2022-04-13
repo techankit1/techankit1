@@ -5314,14 +5314,16 @@ function indianRupee(x)
 		
 		let { createApp } = Vue;
 
-		let CoinsApp = {
+		let CoinsApp = 
+		{
 			data(){
 				return {
 					coin: 'just a coin',
 					coins: null,
 				}
 			},
-			created(){
+			created()
+			{
 				
 				
 				let socket = new WebSocket(`ws://${window.location.host}/ws/testing/`);
@@ -5332,7 +5334,8 @@ function indianRupee(x)
 				var ltp_price_val = 0;
 				var gann_count = 0;
 
-				socket.onmessage = function(event){
+				socket.onmessage = function(event)
+				{
 				
 					<!-- Gann Angle Caluculations -->
 	
@@ -5428,799 +5431,867 @@ function indianRupee(x)
 					<!-- Gann Angle Caluculations --> 
 				
 					_this.coins = JSON.parse(event.data);
-					<!-- console.log(_this.coins); -->
 					
-					<!-- console.log(_this.coins['connect']); -->
-					
-					<!-- Nifty Dashboard -->
-					
-					live_data_dict = JSON.parse(_this.coins['live_data']);
-					
-					<!-- console.log(live_data_dict); -->
-					
-					if(live_data_dict['symbol']=='NIFTY-I')
+					if (_this.coins['option_chain'] == "None" && _this.coins['live_data'] == "None")
 					{
-						$('#id_nifty_i').html((live_data_dict['ltp']).toFixed(2));
+						console.log('option and live data are blank!!!');
 					}
-					
-					if(live_data_dict['symbol']=='INDIA VIX')
+					else if(_this.coins['option_chain'] == "None")
 					{
-						$('#id_india_vix').html((live_data_dict['ltp']).toFixed(2));
+						console.log('option data is blank!!!');
 					}
-					
-					if(live_data_dict['symbol']=='NIFTY 50')
+					else if(_this.coins['live_data'] == "None")
 					{
-						<!-- console.log(live_data_dict); -->
-						var high_val = parseFloat((live_data_dict['day_high'])).toFixed(2);
-						var low_val = parseFloat((live_data_dict['day_low'])).toFixed(2);
-						ltp_price_val = parseFloat((live_data_dict['ltp'])).toFixed(2);
-						var prev_day_close_val = parseFloat((live_data_dict['prev_day_close'])).toFixed(2);
-						var day_open_val = parseFloat((live_data_dict['day_open'])).toFixed(2);
-						var low_val = parseFloat((live_data_dict['day_low'])).toFixed(2);
-						<!-- var day_open_val = 17921.00; -->
-						$('#id_symbol').html(live_data_dict['symbol']);	// Symbol
+						console.log('live data is blank!!!');
+					}
+					else
+					{
+						live_data_dict = JSON.parse(_this.coins['live_data']);
+						option_data_dict = JSON.parse(_this.coins['option_chain']);
+						//<!-- console.log(live_data_dict); -->
 						
-						if (ltp_price_val > prev_day_close_val)
+						if(live_data_dict['symbol']=='NIFTY-I')
 						{
-							document.getElementById('id_price').style.color = 'green';
+							$('#id_nifty_i').html((live_data_dict['ltp']).toFixed(2));
 						}
-						else
+						
+						if(live_data_dict['symbol']=='INDIA VIX')
 						{
-							document.getElementById('id_price').style.color = 'red';
+							$('#id_india_vix').html((live_data_dict['ltp']).toFixed(2));
 						}
-						$('#id_price').html(ltp_price_val);		// Price
-						$('#id_pclose').html(prev_day_close_val);	// Previous day close
-						$('#id_open').html(day_open_val);	// open
-						$('#id_high').html(high_val);	// High
-						$('#id_low').html(low_val);		// low
 						
-						$('#id_last_update_time').html(live_data_dict['timestamp'].substr(11, 5));		// previous updated time
-						
-						$('#id_change').html(live_data_dict['_change_perc'].toFixed(2));
-						
-						
-						
-						var pivot_val = ((live_data_dict['prev_day_close'] + live_data_dict['day_high'] + live_data_dict['day_low'])/3).toFixed(2)
-						$('#id_pivot').html(pivot_val);		// Pivot
-						<!-- pivot =  (P.close+High+Low)/3 -->
-						
-						<!-- R1 = (2*Pivot)-Low -->
-						$('#id_r1').html(((2*pivot_val)-live_data_dict['day_low']).toFixed(2));	//R1
-						
-						<!-- R2 = Pivot+(High-Low) -->
-						<!-- var r2_val	 = parseFloat(high_val - low_val).toFixed(2);		//R2 -->
-						<!-- console.log(r2_val); -->
-						<!-- var new_pivot_val = parseFloat(pivot_val).toFixed(2); -->
-						<!-- console.log(new_pivot_val); -->
-						<!-- var new_r2_val = new_pivot_val + r2_val; -->
-						<!-- console.log(new_r2_val); -->
-						<!-- console.log(pivot_val); -->
-						<!-- console.log(high_val); -->
-						<!-- console.log(low_val); -->
-						<!-- var r2_val	 = (pivot_val + (high_val - low_val)); -->
-						var r2_val	= math.sum(pivot_val, (high_val - low_val)).toFixed(2);
-						$('#id_r2').html(r2_val);
-						
-						
-						<!-- S1 = (2*Pivot)-High -->
-						$('#id_s1').html(((2*pivot_val)-live_data_dict['day_high']).toFixed(2));	//S1
-						
-						<!-- S2 = Pivot-(High-Low) -->
-						var s2_val	= (pivot_val - (high_val - low_val)).toFixed(2);		//S2
-						$('#id_s2').html(s2_val);
-						
-						<!-- Reversal Time -->
-						<!-- PTD=MOD((SQRT(OPEN)*180)-225,360) -->
-						<!-- Time= PTD/60 -->
-						<!-- Total Time = 9+ Time -->
-						<!-- MID1= MID(Total Time,1,2)/24 -->
-						<!-- Mid2 =MID(Total Time,3,2)/27 -->
-						<!-- Reversal Time= MID1+MID2 -->
-						
-						var PTD = math.mod((Math.sqrt(day_open_val) * 180)-225, 360);
-						var Time = PTD/60;	
-						var Total_Time = (9 + Time).toFixed(2);					
-						var MID1 = Total_Time.substring(0, 2)/24;
-						var MID2 = Total_Time.substring(5, 2)/27;
-						 
-						var hour_val = (Math.round(MID1*24));
-						var min_val = (Math.round(MID2*1440));
-						
-						<!-- console.log(parseFloat(MID1) + parseFloat(MID2)); -->
-						
-						$('#id_reversal_time_1').html(hour_val + ':' + min_val);
-						$('#id_reversal_time_2').html('0:' + min_val);
-						
+						if(live_data_dict['symbol']=='NIFTY 50')
+						{
+							//<!-- console.log(live_data_dict); -->
+							var high_val = parseFloat((live_data_dict['day_high'])).toFixed(2);
+							var low_val = parseFloat((live_data_dict['day_low'])).toFixed(2);
+							ltp_price_val = parseFloat((live_data_dict['ltp'])).toFixed(2);
+							var prev_day_close_val = parseFloat((live_data_dict['prev_day_close'])).toFixed(2);
+							var day_open_val = parseFloat((live_data_dict['day_open'])).toFixed(2);
+							var low_val = parseFloat((live_data_dict['day_low'])).toFixed(2);
+							//<!-- var day_open_val = 17921.00; -->
+							$('#id_symbol').html(live_data_dict['symbol']);	// Symbol
 							
-						
-						<!-- Enter Strike Price Calculation -->
-						if (count_enter_strike_price == 0)
-						{
-							var enter_strike_price = Math.round(day_open_val).toString();
-							<!-- var enter_strike_price = '17590'; -->
-							last2 = enter_strike_price.slice(-2);
-							var diff = 0;
-							var new_enter_strike_price = 0.0;
-							if(last2 >= 90)
+							if (ltp_price_val > prev_day_close_val)
 							{
-								diff = 100 - parseInt(last2); 
-								new_enter_strike_price = parseInt(enter_strike_price) + diff;
-							}
-							else if(last2 < 90)
-							{
-								new_enter_strike_price = enter_strike_price - last2;
+								document.getElementById('id_price').style.color = 'green';
 							}
 							else
 							{
-								new_enter_strike_price = enter_strike_price;
+								document.getElementById('id_price').style.color = 'red';
 							}
+							$('#id_price').html(ltp_price_val);		// Price
+							$('#id_pclose').html(prev_day_close_val);	// Previous day close
+							$('#id_open').html(day_open_val);	// open
+							$('#id_high').html(high_val);	// High
+							$('#id_low').html(low_val);		// low
 							
-							var arr_low = new Array();
-							var arr_high = new Array();
-							var array_high_val = 0;
-							var array_low_val = 0;
+							$('#id_last_update_time').html(live_data_dict['timestamp'].substr(11, 5));		// previous updated time
 							
-							var count_temp = 100;
-							arr_low.push(parseInt(new_enter_strike_price));
-							for(var i = 0; i<5; i++)
-							{
-								arr_low.push(parseInt(new_enter_strike_price) - count_temp);
-								<!-- if (i < 4) -->
-								<!-- { -->
-								arr_high.push(parseInt(new_enter_strike_price) + count_temp);
-								<!-- } -->
-								
-								count_temp = count_temp + 100;
-							}
-							arr_low.reverse();
-							var new_array = arr_low.concat(arr_high);
+							$('#id_change').html(live_data_dict['_change_perc'].toFixed(2));
 							
-							$.each(new_array , function (key, value) 
-							{
-								$('#id_enter_strike_price_select').append($('<option>',
-								{
-									value: value,
-									text: value 
-								}));
-							});
-
-							$("#id_enter_strike_price_select option[value='" + new_enter_strike_price + "']").attr("selected","selected");
-							$('#id_strike_price_1').html(new_enter_strike_price);
-							$('#id_strike_price_2').html(parseInt(new_enter_strike_price) + 50);
-							$('#id_strike_price_3').html(parseInt(new_enter_strike_price) + 100);
 							
-							$('#id_h_call_change_oi_1').html(new_enter_strike_price);
-							$('#id_h_call_change_oi_2').html(parseInt(new_enter_strike_price) + 50);
-							$('#id_h_call_change_oi_3').html(parseInt(new_enter_strike_price + 100));
 							
-							$('#id_h_put_change_oi_1').html(new_enter_strike_price);
-							$('#id_h_put_change_oi_2').html(parseInt(new_enter_strike_price) + 50);
-							$('#id_h_put_change_oi_3').html(parseInt(new_enter_strike_price) + 100);
+							var pivot_val = ((live_data_dict['prev_day_close'] + live_data_dict['day_high'] + live_data_dict['day_low'])/3).toFixed(2)
+							$('#id_pivot').html(pivot_val);		// Pivot
+							//<!-- pivot =  (P.close+High+Low)/3 -->
+							
+							<!-- R1 = (2*Pivot)-Low -->
+							$('#id_r1').html(((2*pivot_val)-live_data_dict['day_low']).toFixed(2));	//R1
+							
+							//<!-- R2 = Pivot+(High-Low) -->
+							//<!-- var r2_val	 = parseFloat(high_val - low_val).toFixed(2);		//R2 -->
+							//<!-- console.log(r2_val); -->
+							//<!-- var new_pivot_val = parseFloat(pivot_val).toFixed(2); -->
+							//<!-- console.log(new_pivot_val); -->
+							//<!-- var new_r2_val = new_pivot_val + r2_val; -->
+							//<!-- console.log(new_r2_val); -->
+							//<!-- console.log(pivot_val); -->
+							//<!-- console.log(high_val); -->
+							//<!-- console.log(low_val); -->
+							//<!-- var r2_val	 = (pivot_val + (high_val - low_val)); -->
+							var r2_val	= math.sum(pivot_val, (high_val - low_val)).toFixed(2);
+							$('#id_r2').html(r2_val);
+							
+							
+							//<!-- S1 = (2*Pivot)-High -->
+							$('#id_s1').html(((2*pivot_val)-live_data_dict['day_high']).toFixed(2));	//S1
+							
+							//<!-- S2 = Pivot-(High-Low) -->
+							var s2_val	= (pivot_val - (high_val - low_val)).toFixed(2);		//S2
+							$('#id_s2').html(s2_val);
+							
+							//<!-- Reversal Time -->
+							//<!-- PTD=MOD((SQRT(OPEN)*180)-225,360) -->
+							//<!-- Time= PTD/60 -->
+							//<!-- Total Time = 9+ Time -->
+							//<!-- MID1= MID(Total Time,1,2)/24 -->
+							//<!-- Mid2 =MID(Total Time,3,2)/27 -->
+							//<!-- Reversal Time= MID1+MID2 -->
+							
+							var PTD = math.mod((Math.sqrt(day_open_val) * 180)-225, 360);
+							var Time = PTD/60;	
+							var Total_Time = (9 + Time).toFixed(2);					
+							var MID1 = Total_Time.substring(0, 2)/24;
+							var MID2 = Total_Time.substring(5, 2)/27;
 							 
+							var hour_val = (Math.round(MID1*24));
+							var min_val = (Math.round(MID2*1440));
 							
-							<!-- first time history log -->
+							//<!-- console.log(parseFloat(MID1) + parseFloat(MID2)); -->
 							
-							<!-- log_time = temp_date_time.getHours() + ":" +temp_date_time.getMinutes(); -->
+							$('#id_reversal_time_1').html(hour_val + ':' + min_val);
+							$('#id_reversal_time_2').html('0:' + min_val);
 							
-							strike_price1 = $('#id_h_call_change_oi_1').html();
-							strike_price2 = $('#id_h_call_change_oi_2').html();
-							strike_price3 = $('#id_h_call_change_oi_3').html();
-							<!-- log_time = temp_date_time.getHours() + ":" +temp_date_time.getMinutes(); -->
+								
 							
-							$.ajax({
-								method: "POST",
-								url: "/history_logging_data/",
-								data: {
-									'strike_price1': strike_price1,
-									'strike_price2': strike_price2,
-									'strike_price3': strike_price3,
-									<!-- 'log_time':log_time, -->
-									'first_history': first_history,
-								},
-								success: function (response) 
-								{			   
-									if (response.status == '1')
+							//<!-- Enter Strike Price Calculation -->
+							if (count_enter_strike_price == 0)
+							{
+								var enter_strike_price = Math.round(day_open_val).toString();
+								//<!-- var enter_strike_price = '17590'; -->
+								last2 = enter_strike_price.slice(-2);
+								var diff = 0;
+								var new_enter_strike_price = 0.0;
+								if(last2 >= 90)
+								{
+									diff = 100 - parseInt(last2); 
+									new_enter_strike_price = parseInt(enter_strike_price) + diff;
+								}
+								else if(last2 < 90)
+								{
+									new_enter_strike_price = enter_strike_price - last2;
+								}
+								else
+								{
+									new_enter_strike_price = enter_strike_price;
+								}
+								
+								var arr_low = new Array();
+								var arr_high = new Array();
+								var array_high_val = 0;
+								var array_low_val = 0;
+								
+								var count_temp = 100;
+								arr_low.push(parseInt(new_enter_strike_price));
+								for(var i = 0; i<5; i++)
+								{
+									arr_low.push(parseInt(new_enter_strike_price) - count_temp);
+									<!-- if (i < 4) -->
+									<!-- { -->
+									arr_high.push(parseInt(new_enter_strike_price) + count_temp);
+									<!-- } -->
+									
+									count_temp = count_temp + 100;
+								}
+								arr_low.reverse();
+								var new_array = arr_low.concat(arr_high);
+								
+								$.each(new_array , function (key, value) 
+								{
+									$('#id_enter_strike_price_select').append($('<option>',
 									{
-										first_history = 'No';
-										
-										var tbodyRef = document.getElementById('history_log_table').getElementsByTagName('tbody')[0];
-										add_time_arg = parseInt($("#id_time_select option:selected").text());
-										var history_count = 0;
-										var total_call_change = 0;
-										var total_put_change = 0;
-										var total_oi_change = 0;
-										var first_record = 0;
-										var prev_call_change_val = 0;
-										var prev_put_change_val = 0;
-										var string_time = null;
-										var last_spot_price = null;
-										response.data.forEach(function(value) 
-										{	
-											if (history_count == add_time_arg)
-											{
-												history_count = 0;
-											}
-											if (history_count==0)
-											{
-												newRow = tbodyRef.insertRow();
-												
-												cell_obj = newRow.insertCell();
-												cell_obj.style.backgroundColor="#FADA5E";
-												cell_obj.appendChild(document.createTextNode(value.col1.slice(0, -7)));
-												
-												string_time = value.col1.slice(0, -7);
-												
-												cell_obj = newRow.insertCell(1);
-												cell_obj.style.backgroundColor="#e8e8d6";
-												cell_obj.appendChild(document.createTextNode(indianRupee(value.col2)));
-												
-												cell_obj = newRow.insertCell(2);
-												cell_obj.style.backgroundColor="#e8e8d6";
-												cell_obj.appendChild(document.createTextNode(indianRupee(value.col3)));
-												
-												cell_obj = newRow.insertCell(3);
-												cell_obj.style.backgroundColor="#e8e8d6";
-												cell_obj.appendChild(document.createTextNode(indianRupee(value.col4)));
-												
-												
-												cell_obj = newRow.insertCell(4);
-												cell_obj.style.backgroundColor="#ffcccb";
-												cell_obj.style.color="red";
-												cell_obj.appendChild(document.createTextNode(indianRupee(value.col5)));
-												
-												cell_obj = newRow.insertCell(5);
-												cell_obj.style.backgroundColor="#ffcccb";
-												cell_obj.style.color="red";
-												cell_obj.appendChild(document.createTextNode(indianRupee(value.col6)));
-												
-												cell_obj = newRow.insertCell(6);
-												cell_obj.style.backgroundColor="#ffcccb";
-												cell_obj.style.color="red";
-												cell_obj.appendChild(document.createTextNode(indianRupee(value.col7)));
-												
-												total_call_change = parseInt(value.col2) + parseInt(value.col3) + parseInt(value.col4)
-												total_put_change = parseInt(value.col5) + parseInt(value.col6) + parseInt(value.col7)
-												
-												cell_obj1 = newRow.insertCell(7);
-												cell_obj1.style.background="#353935";
-												cell_obj1.style.textAlign = "center";
-												cell_obj1.appendChild(document.createTextNode(indianRupee(total_call_change)));
-												
-												cell_obj2 = newRow.insertCell(8);
-												cell_obj2.style.background="#353935";
-												cell_obj2.style.textAlign = "center";
-												cell_obj2.appendChild(document.createTextNode(indianRupee(total_put_change)));
-												
-												if (total_call_change > total_put_change)
-												{
-													cell_obj1.style.color="#FF7276";
-													cell_obj2.style.color="#FF7276";
-												}
-												else
-												{
-													cell_obj2.style.color="lightgreen";
-													cell_obj1.style.color="#FF7276";
-												}
-												
-												
-												if (first_record > 0)
-												{
-													cell_obj = newRow.insertCell(9);
-													cell_obj.style.textAlign = "center";
-													<!-- cell_obj.style.background = "r"; -->
-													if (parseFloat(value.col8) > last_spot_price)
-													{
-														cell_obj.style.background = "lightgreen";
-													}
-													else
-													{
-														cell_obj.style.background = "#ffcccb";
-														cell_obj.style.color = "red";
-													}
-													cell_obj.appendChild(document.createTextNode(value.col8));
-													
-													last_spot_price = parseFloat(value.col8);
-												}
-												else
-												{
-													<!-- First Record -->
-													cell_obj = newRow.insertCell(9);
-													cell_obj.style.textAlign = "center";
-													cell_obj.style.background = "lightgreen";
-													cell_obj.appendChild(document.createTextNode(value.col8));
-													last_spot_price = parseFloat(value.col8);
-												}
+										value: value,
+										text: value 
+									}));
+								});
 
-												total_oi_change = total_put_change - total_call_change;
-												
-												if (total_oi_change == 0)
+								$("#id_enter_strike_price_select option[value='" + new_enter_strike_price + "']").attr("selected","selected");
+								$('#id_strike_price_1').html(new_enter_strike_price);
+								$('#id_strike_price_2').html(parseInt(new_enter_strike_price) + 50);
+								$('#id_strike_price_3').html(parseInt(new_enter_strike_price) + 100);
+								
+								$('#id_h_call_change_oi_1').html(new_enter_strike_price);
+								$('#id_h_call_change_oi_2').html(parseInt(new_enter_strike_price) + 50);
+								$('#id_h_call_change_oi_3').html(parseInt(new_enter_strike_price + 100));
+								
+								$('#id_h_put_change_oi_1').html(new_enter_strike_price);
+								$('#id_h_put_change_oi_2').html(parseInt(new_enter_strike_price) + 50);
+								$('#id_h_put_change_oi_3').html(parseInt(new_enter_strike_price) + 100);
+								 
+								
+								//<!-- first time history log -->
+								
+								//<!-- log_time = temp_date_time.getHours() + ":" +temp_date_time.getMinutes(); -->
+								
+								strike_price1 = $('#id_h_call_change_oi_1').html();
+								strike_price2 = $('#id_h_call_change_oi_2').html();
+								strike_price3 = $('#id_h_call_change_oi_3').html();
+								//<!-- log_time = temp_date_time.getHours() + ":" +temp_date_time.getMinutes(); -->
+								
+								$.ajax({
+									method: "POST",
+									url: "/history_logging_data/",
+									data: {
+										'strike_price1': strike_price1,
+										'strike_price2': strike_price2,
+										'strike_price3': strike_price3,
+										<!-- 'log_time':log_time, -->
+										'first_history': first_history,
+									},
+									success: function (response) 
+									{			   
+										if (response.status == '1')
+										{
+											first_history = 'No';
+											
+											var tbodyRef = document.getElementById('history_log_table').getElementsByTagName('tbody')[0];
+											add_time_arg = parseInt($("#id_time_select option:selected").text());
+											var history_count = 0;
+											var total_call_change = 0;
+											var total_put_change = 0;
+											var total_oi_change = 0;
+											var first_record = 0;
+											var prev_call_change_val = 0;
+											var prev_put_change_val = 0;
+											var string_time = null;
+											var last_spot_price = null;
+											response.data.forEach(function(value) 
+											{	
+												if (history_count == add_time_arg)
 												{
-													cell_obj = newRow.insertCell(10);
-													cell_obj.style.backgroundColor="lightpink";
-													cell_obj.style.color="black";
-													cell_obj.style.textAlign = "center";
-													cell_obj.appendChild(document.createTextNode('No Data'));
-													i_market_view = 'No Data';
+													history_count = 0;
 												}
-												else if(total_oi_change > 400000)
+												if (history_count==0)
 												{
-													cell_obj = newRow.insertCell(10);
-													cell_obj.style.backgroundColor="lightgreen";
-													cell_obj.style.color="black";
-													cell_obj.style.textAlign = "center";
-													cell_obj.appendChild(document.createTextNode('BULLISH'));
-													i_market_view = 'BULLISH';
-												}
-												else if(total_oi_change < 400000)
-												{
-													cell_obj = newRow.insertCell(10);
-													cell_obj.style.backgroundColor="#fd0e35";
-													cell_obj.style.color="black";
-													cell_obj.style.textAlign = "center";
-													cell_obj.appendChild(document.createTextNode('BEARISH'));
-													i_market_view = 'BEARISH';
-												}
-												else if(total_oi_change < 100000)
-												{
-													cell_obj = newRow.insertCell(10);
-													cell_obj.style.backgroundColor="lightgrey";
-													cell_obj.style.color="black";
-													cell_obj.style.textAlign = "center";
-													cell_obj.appendChild(document.createTextNode('Wait'));
-													i_market_view = 'Wait';
-												}
-												
-												var ce_per = 0;
-												if (first_record > 0)
-												{
-													if((total_call_change > 0) && (prev_call_change_val > 0))
+													newRow = tbodyRef.insertRow();
+													
+													cell_obj = newRow.insertCell();
+													cell_obj.style.backgroundColor="#FADA5E";
+													cell_obj.appendChild(document.createTextNode(value.col1.slice(0, -7)));
+													
+													string_time = value.col1.slice(0, -7);
+													
+													cell_obj = newRow.insertCell(1);
+													cell_obj.style.backgroundColor="#e8e8d6";
+													cell_obj.appendChild(document.createTextNode(indianRupee(value.col2)));
+													
+													cell_obj = newRow.insertCell(2);
+													cell_obj.style.backgroundColor="#e8e8d6";
+													cell_obj.appendChild(document.createTextNode(indianRupee(value.col3)));
+													
+													cell_obj = newRow.insertCell(3);
+													cell_obj.style.backgroundColor="#e8e8d6";
+													cell_obj.appendChild(document.createTextNode(indianRupee(value.col4)));
+													
+													
+													cell_obj = newRow.insertCell(4);
+													cell_obj.style.backgroundColor="#ffcccb";
+													cell_obj.style.color="red";
+													cell_obj.appendChild(document.createTextNode(indianRupee(value.col5)));
+													
+													cell_obj = newRow.insertCell(5);
+													cell_obj.style.backgroundColor="#ffcccb";
+													cell_obj.style.color="red";
+													cell_obj.appendChild(document.createTextNode(indianRupee(value.col6)));
+													
+													cell_obj = newRow.insertCell(6);
+													cell_obj.style.backgroundColor="#ffcccb";
+													cell_obj.style.color="red";
+													cell_obj.appendChild(document.createTextNode(indianRupee(value.col7)));
+													
+													total_call_change = parseInt(value.col2) + parseInt(value.col3) + parseInt(value.col4)
+													total_put_change = parseInt(value.col5) + parseInt(value.col6) + parseInt(value.col7)
+													
+													cell_obj1 = newRow.insertCell(7);
+													cell_obj1.style.background="#353935";
+													cell_obj1.style.textAlign = "center";
+													cell_obj1.appendChild(document.createTextNode(indianRupee(total_call_change)));
+													
+													cell_obj2 = newRow.insertCell(8);
+													cell_obj2.style.background="#353935";
+													cell_obj2.style.textAlign = "center";
+													cell_obj2.appendChild(document.createTextNode(indianRupee(total_put_change)));
+													
+													if (total_call_change > total_put_change)
 													{
-														ce_per = ((total_call_change-prev_call_change_val)/prev_call_change_val)*100;
-													}
-													else if((total_call_change < 0) && (prev_call_change_val < 0))
-													{
-														ce_per = ((total_call_change-prev_call_change_val)/-prev_call_change_val)*100;
-													}
-													else if((total_call_change > 0) && (prev_call_change_val < 0))
-													{
-														ce_per = ((total_call_change-prev_call_change_val)/-prev_call_change_val)*100;
+														cell_obj1.style.color="#FF7276";
+														cell_obj2.style.color="#FF7276";
 													}
 													else
 													{
-														ce_per = ((total_call_change-prev_call_change_val)/prev_call_change_val)*100;
+														cell_obj2.style.color="lightgreen";
+														cell_obj1.style.color="#FF7276";
 													}
-													if (ce_per <= 0)
+													
+													
+													if (first_record > 0)
 													{
-														cell_obj = newRow.insertCell(11);
-														cell_obj.style.backgroundColor="#ffcccb";
-														cell_obj.style.color="red";
+														cell_obj = newRow.insertCell(9);
 														cell_obj.style.textAlign = "center";
-														cell_obj.appendChild(document.createTextNode(ce_per.toFixed(2)+'%'));
+														<!-- cell_obj.style.background = "r"; -->
+														if (parseFloat(value.col8) > last_spot_price)
+														{
+															cell_obj.style.background = "lightgreen";
+														}
+														else
+														{
+															cell_obj.style.background = "#ffcccb";
+															cell_obj.style.color = "red";
+														}
+														cell_obj.appendChild(document.createTextNode(value.col8));
+														
+														last_spot_price = parseFloat(value.col8);
 													}
 													else
 													{
-														cell_obj = newRow.insertCell(11);
+														//<!-- First Record -->
+														cell_obj = newRow.insertCell(9);
+														cell_obj.style.textAlign = "center";
+														cell_obj.style.background = "lightgreen";
+														cell_obj.appendChild(document.createTextNode(value.col8));
+														last_spot_price = parseFloat(value.col8);
+													}
+
+													total_oi_change = total_put_change - total_call_change;
+													
+													if (total_oi_change == 0)
+													{
+														cell_obj = newRow.insertCell(10);
+														cell_obj.style.backgroundColor="lightpink";
+														cell_obj.style.color="black";
+														cell_obj.style.textAlign = "center";
+														cell_obj.appendChild(document.createTextNode('No Data'));
+														i_market_view = 'No Data';
+													}
+													else if(total_oi_change > 400000)
+													{
+														cell_obj = newRow.insertCell(10);
 														cell_obj.style.backgroundColor="lightgreen";
 														cell_obj.style.color="black";
 														cell_obj.style.textAlign = "center";
-														cell_obj.appendChild(document.createTextNode(ce_per.toFixed(2)+'%'));
+														cell_obj.appendChild(document.createTextNode('BULLISH'));
+														i_market_view = 'BULLISH';
 													}
-												}
-												else
-												{
-													cell_obj = newRow.insertCell(11);
-													<!-- cell_obj.style.backgroundColor="lightgreen"; -->
-													cell_obj.style.color="black";
-													cell_obj.style.textAlign = "center";
-													cell_obj.appendChild(document.createTextNode('-'));
-												}
-												
-												var pe_per = 0;
-												if (first_record > 0)
-												{
-													if((total_put_change > 0) && (prev_put_change_val > 0))
+													else if(total_oi_change < 400000)
 													{
-														pe_per = ((total_put_change-prev_put_change_val)/prev_put_change_val)*100;
-													}
-													else if((total_put_change < 0) && (prev_put_change_val < 0))
-													{
-														pe_per = ((total_put_change-prev_put_change_val)/-prev_put_change_val)*100;
-													}
-													else if((total_put_change > 0) && (prev_put_change_val < 0))
-													{
-														pe_per = ((total_put_change-prev_put_change_val)/-prev_put_change_val)*100;
-													}
-													else
-													{
-														pe_per = ((total_put_change-prev_put_change_val)/prev_put_change_val)*100;
-													}
-													if (pe_per <= 0)
-													{
-														cell_obj = newRow.insertCell(12);
-														cell_obj.style.backgroundColor="#ffcccb";
-														cell_obj.style.color="red";
+														cell_obj = newRow.insertCell(10);
+														cell_obj.style.backgroundColor="#fd0e35";
+														cell_obj.style.color="black";
 														cell_obj.style.textAlign = "center";
-														cell_obj.appendChild(document.createTextNode(pe_per.toFixed(2)+'%'));
+														cell_obj.appendChild(document.createTextNode('BEARISH'));
+														i_market_view = 'BEARISH';
+													}
+													else if(total_oi_change < 100000)
+													{
+														cell_obj = newRow.insertCell(10);
+														cell_obj.style.backgroundColor="lightgrey";
+														cell_obj.style.color="black";
+														cell_obj.style.textAlign = "center";
+														cell_obj.appendChild(document.createTextNode('Wait'));
+														i_market_view = 'Wait';
+													}
+													
+													var ce_per = 0;
+													if (first_record > 0)
+													{
+														if((total_call_change > 0) && (prev_call_change_val > 0))
+														{
+															ce_per = ((total_call_change-prev_call_change_val)/prev_call_change_val)*100;
+														}
+														else if((total_call_change < 0) && (prev_call_change_val < 0))
+														{
+															ce_per = ((total_call_change-prev_call_change_val)/-prev_call_change_val)*100;
+														}
+														else if((total_call_change > 0) && (prev_call_change_val < 0))
+														{
+															ce_per = ((total_call_change-prev_call_change_val)/-prev_call_change_val)*100;
+														}
+														else
+														{
+															ce_per = ((total_call_change-prev_call_change_val)/prev_call_change_val)*100;
+														}
+														if (ce_per <= 0)
+														{
+															cell_obj = newRow.insertCell(11);
+															cell_obj.style.backgroundColor="#ffcccb";
+															cell_obj.style.color="red";
+															cell_obj.style.textAlign = "center";
+															cell_obj.appendChild(document.createTextNode(ce_per.toFixed(2)+'%'));
+														}
+														else
+														{
+															cell_obj = newRow.insertCell(11);
+															cell_obj.style.backgroundColor="lightgreen";
+															cell_obj.style.color="black";
+															cell_obj.style.textAlign = "center";
+															cell_obj.appendChild(document.createTextNode(ce_per.toFixed(2)+'%'));
+														}
 													}
 													else
 													{
-														cell_obj = newRow.insertCell(12);
+														cell_obj = newRow.insertCell(11);
+														//<!-- cell_obj.style.backgroundColor="lightgreen"; -->
+														cell_obj.style.color="black";
+														cell_obj.style.textAlign = "center";
+														cell_obj.appendChild(document.createTextNode('-'));
+													}
+													
+													var pe_per = 0;
+													if (first_record > 0)
+													{
+														if((total_put_change > 0) && (prev_put_change_val > 0))
+														{
+															pe_per = ((total_put_change-prev_put_change_val)/prev_put_change_val)*100;
+														}
+														else if((total_put_change < 0) && (prev_put_change_val < 0))
+														{
+															pe_per = ((total_put_change-prev_put_change_val)/-prev_put_change_val)*100;
+														}
+														else if((total_put_change > 0) && (prev_put_change_val < 0))
+														{
+															pe_per = ((total_put_change-prev_put_change_val)/-prev_put_change_val)*100;
+														}
+														else
+														{
+															pe_per = ((total_put_change-prev_put_change_val)/prev_put_change_val)*100;
+														}
+														if (pe_per <= 0)
+														{
+															cell_obj = newRow.insertCell(12);
+															cell_obj.style.backgroundColor="#ffcccb";
+															cell_obj.style.color="red";
+															cell_obj.style.textAlign = "center";
+															cell_obj.appendChild(document.createTextNode(pe_per.toFixed(2)+'%'));
+														}
+														else
+														{
+															cell_obj = newRow.insertCell(12);
+															cell_obj.style.backgroundColor="lightgreen";
+															cell_obj.style.color="black";
+															cell_obj.style.textAlign = "center";
+															cell_obj.appendChild(document.createTextNode(pe_per.toFixed(2)+'%'));
+														}
+													}
+													else
+													{
+														cell_obj = newRow.insertCell(11);
+														//<!-- cell_obj.style.backgroundColor="lightgreen"; -->
+														cell_obj.style.color="black";
+														cell_obj.style.textAlign = "center";
+														cell_obj.appendChild(document.createTextNode('-'));
+													}
+													
+													//<!-- var dc_change = ((total_put_change - total_call_change)/total_call_change)*100; -->
+													
+													//<!-- if (dc_change <= 0) -->
+													//<!-- { -->
+													//	<!-- cell_obj = newRow.insertCell(13); -->
+													//	<!-- cell_obj.style.backgroundColor="#ffcccb"; -->
+													//	<!-- cell_obj.style.color="red"; -->
+													//	<!-- cell_obj.style.textAlign = "center"; -->
+													//	<!-- cell_obj.appendChild(document.createTextNode(dc_change.toFixed(2)+'%')); -->
+													//<!-- } -->
+													//<!-- else -->
+													//<!-- { -->
+													//	<!-- cell_obj = newRow.insertCell(13); -->
+													//	<!-- cell_obj.style.backgroundColor="lightgreen"; -->
+													//	<!-- cell_obj.style.color="black"; -->
+													//	<!-- cell_obj.style.textAlign = "center"; -->
+													//	<!-- cell_obj.appendChild(document.createTextNode(dc_change.toFixed(2)+'%')); -->
+													//<!-- } -->
+													
+													if (pe_per>=0 && ce_per <=0)
+													{
+														cell_obj = newRow.insertCell(13);
 														cell_obj.style.backgroundColor="lightgreen";
 														cell_obj.style.color="black";
 														cell_obj.style.textAlign = "center";
-														cell_obj.appendChild(document.createTextNode(pe_per.toFixed(2)+'%'));
+														cell_obj.appendChild(document.createTextNode('BULLISH'));
 													}
+													else if(pe_per <=0 && ce_per >= 0)
+													{
+														cell_obj = newRow.insertCell(13);
+														cell_obj.style.backgroundColor="#fd0e35";
+														cell_obj.style.color="black";
+														cell_obj.style.textAlign = "center";
+														cell_obj.appendChild(document.createTextNode('BEARISH'));
+													}
+													else
+													{
+														cell_obj = newRow.insertCell(13);
+														cell_obj.style.backgroundColor="#eedc82";
+														cell_obj.style.color="black";
+														cell_obj.style.textAlign = "center";
+														cell_obj.appendChild(document.createTextNode('Wait'));
+													}
+													first_record = 1;
+													$("#history_log_table tbody").prepend(newRow);
+													history_count = history_count + 1;
+													prev_call_change_val = total_call_change;
+													prev_put_change_val = total_put_change;
+													previous_call_oi = total_call_change;
+													previous_put_oi = total_put_change;
 												}
 												else
 												{
-													cell_obj = newRow.insertCell(11);
-													<!-- cell_obj.style.backgroundColor="lightgreen"; -->
-													cell_obj.style.color="black";
-													cell_obj.style.textAlign = "center";
-													cell_obj.appendChild(document.createTextNode('-'));
+													history_count = history_count + 1;
 												}
-												
-												<!-- var dc_change = ((total_put_change - total_call_change)/total_call_change)*100; -->
-												
-												<!-- if (dc_change <= 0) -->
-												<!-- { -->
-													<!-- cell_obj = newRow.insertCell(13); -->
-													<!-- cell_obj.style.backgroundColor="#ffcccb"; -->
-													<!-- cell_obj.style.color="red"; -->
-													<!-- cell_obj.style.textAlign = "center"; -->
-													<!-- cell_obj.appendChild(document.createTextNode(dc_change.toFixed(2)+'%')); -->
-												<!-- } -->
-												<!-- else -->
-												<!-- { -->
-													<!-- cell_obj = newRow.insertCell(13); -->
-													<!-- cell_obj.style.backgroundColor="lightgreen"; -->
-													<!-- cell_obj.style.color="black"; -->
-													<!-- cell_obj.style.textAlign = "center"; -->
-													<!-- cell_obj.appendChild(document.createTextNode(dc_change.toFixed(2)+'%')); -->
-												<!-- } -->
-												
-												if (pe_per>=0 && ce_per <=0)
-												{
-													cell_obj = newRow.insertCell(13);
-													cell_obj.style.backgroundColor="lightgreen";
-													cell_obj.style.color="black";
-													cell_obj.style.textAlign = "center";
-													cell_obj.appendChild(document.createTextNode('BULLISH'));
-												}
-												else if(pe_per <=0 && ce_per >= 0)
-												{
-													cell_obj = newRow.insertCell(13);
-													cell_obj.style.backgroundColor="#fd0e35";
-													cell_obj.style.color="black";
-													cell_obj.style.textAlign = "center";
-													cell_obj.appendChild(document.createTextNode('BEARISH'));
-												}
-												else
-												{
-													cell_obj = newRow.insertCell(13);
-													cell_obj.style.backgroundColor="#eedc82";
-													cell_obj.style.color="black";
-													cell_obj.style.textAlign = "center";
-													cell_obj.appendChild(document.createTextNode('Wait'));
-												}
-												first_record = 1;
-												$("#history_log_table tbody").prepend(newRow);
-												history_count = history_count + 1;
-												prev_call_change_val = total_call_change;
-												prev_put_change_val = total_put_change;
-												previous_call_oi = total_call_change;
-												previous_put_oi = total_put_change;
-											}
-											else
-											{
-												history_count = history_count + 1;
+											});
+											//<!-- console.log(response.data); -->
+											temp_date_time = new Date (new Date().toDateString() + ' ' + string_time);
+											temp_date_time.setMinutes( temp_date_time.getMinutes() + add_time_arg );
+											run = setInterval(request , history_data_time);
+											global_last_spot_price = last_spot_price;
+											
+											setTimeout(function(){
+												geniModeCalculation(6);
+											},2000);
+										}
+										else
+										{
+											//<!-- console.log(response.msg); -->
+											temp_date_time = new Date (new Date().toDateString() + ' ' + '09:15');
+											run = setInterval(request , history_data_time)
+										}
+									}
+								});	
+								
+								//<!-- end first time history log -->
+							
+							//<!-- end Enter strike price calculation -->
+								count_enter_strike_price = 1;
+							}
+						}
+						//<!-- end Nifty Dashboard -->
+						
+						//<!-- option chain analysis -->
+						
+							//<!-- small chain analysis -->
+							
+								var new_ltp_val = Math.round(ltp_price_val).toString();
+								last2 = new_ltp_val.slice(-2);
+								var diff = 0;
+								var new_ltp_val_1 = 0.0;
+								if(last2 > 50)
+								{
+									diff = 100 - parseInt(last2); 
+									new_ltp_val_1 = parseInt(new_ltp_val) + diff;
+								}
+								else if(last2 < 50)
+								{
+									new_ltp_val_1 = new_ltp_val - last2;
+								}
+								else
+								{
+									new_ltp_val_1 = new_ltp_val;
+								}
+								
+								var arr_low = new Array();
+								var arr_high = new Array();
+								var array_high_val = 0;
+								var array_low_val = 0;
+								
+								var count_temp = 50;
+								arr_low.push(parseInt(new_ltp_val_1));
+								for(var i = 0; i<4; i++)
+								{
+									arr_low.push(parseInt(new_ltp_val_1) - count_temp);
+									arr_high.push(parseInt(new_ltp_val_1) + count_temp);
+									
+									count_temp = count_temp + 50;
+								}
+								arr_low.reverse();
+								var new_array = arr_low.concat(arr_high);
+								
+							//	<!-- console.log(new_array[0]); -->
+							
+							//<!-- end small chain analysis -->
+						
+							_this.option_data = JSON.parse(_this.coins['option_chain']);
+							
+							//<!-- console.log(_this.option_data); -->
+							
+							var tbodyRef = document.getElementById('option_analysis_table').getElementsByTagName('tbody')[0];
+							
+							$("#tbodyid").empty();
+							
+							var count_row = 0;
+							var newRow = null;
+							var max_call_oi = 0;
+							var max_call_oi_row = null;
+							var max_put_oi = 0;
+							var max_put_oi_row = null;
+							
+							var max_call_change_oi = 0;
+							var max_call_change_oi_row = null;
+							var max_put_change_oi = 0;
+							var max_put_change_oi_row = null;
+							
+							var strike_price_1 = $('#id_strike_price_1').text();
+							var strike_price_2 = $('#id_strike_price_2').text();
+							var strike_price_3 = $('#id_strike_price_3').text();
+							
+							var SP1_c_change_oi = null;
+							var SP2_c_change_oi = null;
+							var SP3_c_change_oi = null;
+							
+							var sp1_p_change_oi = null;
+							var sp2_p_change_oi = null;
+							var sp3_p_change_oi = null;
+							
+							var sp1_c_ltp = null;
+							var sp2_c_ltp = null;
+							var sp3_p_ltp = null;
+							var strike_count = 0;
+							var strike_true_status = 0;
+							var strike_call_oi = 0;
+							var strike_put_oi = 0;
+							var strike_call_change_oi = 0;
+							var strike_put_change_oi = 0;
+							
+							var total_pcr_call_oi = 0;
+							var total_pcr_put_oi = 0;
+
+							_this.option_data.forEach(function(value) 
+							{
+							//	//<!-- console.log('value : ' + value.strike); -->
+							//	// Insert a row at the end of table
+								
+								if (count_row == 0)
+								{
+									newRow = tbodyRef.insertRow();
+								}
+
+							//	// Insert a cell at the end of the row
+								if (value.type == "CE")
+								{
+									total_pcr_call_oi = total_pcr_call_oi + parseFloat(value.oi);
+									sbu_obj = newRow.insertCell();
+									sbu_obj.style.backgroundColor="red";
+									sbu_obj.appendChild(document.createTextNode('Short Build Up'));
+									newRow.insertCell().appendChild(document.createTextNode(indianRupee(value.oi)));
+									if (value.oi > max_call_oi)
+									{
+										max_call_oi = value.oi;
+										max_call_oi_row = value;
+									}
+									newRow.insertCell().appendChild(document.createTextNode(indianRupee(value.oi_change)));
+									if (value.oi_change > max_call_change_oi)
+									{
+										max_call_change_oi = value.oi_change;
+										max_call_change_oi_row = value;
+									}
+									newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(value.ltq))));
+									newRow.insertCell().appendChild(document.createTextNode(parseFloat(value.price_change).toFixed(2)));
+									newRow.insertCell().appendChild(document.createTextNode(value.ltp));
+									newRow.insertCell().appendChild(document.createTextNode('-'));
+									strike_cell_obj = newRow.insertCell();
+									strike_cell_obj.style.backgroundColor="#c6e6f5";
+									strike_cell_obj.appendChild(document.createTextNode(value.strike));
+									
+									if (strike_count < 9)
+									{
+										if (new_array[strike_count] == value.strike)
+										{
+											strike_true_status = 1;
+											strike_call_oi = value.oi;
+											strike_call_change_oi = value.oi_change;
+										}
+									}
+									
+									if (value.strike == strike_price_1)
+									{
+										sp1_c_change_oi = value.oi_change;
+										sp1_c_ltp = value.ltp;
+									}
+									else if(value.strike == strike_price_2)
+									{
+										sp2_c_change_oi = value.oi_change;
+										sp2_c_ltp = value.ltp;
+									}
+									else if(value.strike == strike_price_3)
+									{
+										sp3_c_change_oi = value.oi_change;									
+									}
+									count_row = 1;
+								}
+								else
+								{
+									total_pcr_put_oi = total_pcr_put_oi + parseFloat(value.oi);
+									 
+									if (strike_true_status == 1)
+									{
+										strike_true_status = 0;
+										strike_put_oi = value.oi;
+										strike_put_change_oi = value.oi_change;
+										
+										if(new_ltp_val_1 == new_array[strike_count])
+										{
+											$('#id_strike_small_' + (parseInt(strike_count)+1)).html(new_array[strike_count]);
+											$('#id_strike_small_' + (parseInt(strike_count)+1)).css("background-color", "#fffdaf");
+											$('#id_pcr_' + (parseInt(strike_count)+1)).html(((parseFloat(strike_put_oi)/parseFloat(strike_call_oi)).toFixed(2)));
+											$('#id_pcr_' + (parseInt(strike_count)+1)).css("background-color", "#fffdaf");
+										}
+										else
+										{
+											$('#id_strike_small_' + (parseInt(strike_count)+1)).html(new_array[strike_count]);
+											$('#id_pcr_' + (parseInt(strike_count)+1)).html(((parseFloat(strike_put_oi)/parseFloat(strike_call_oi)).toFixed(2)));
+										}
+										var net_change_val = (parseFloat(strike_put_change_oi)-parseFloat(strike_call_change_oi).toFixed(2));
+										$('#id_net_change_' + (parseInt(strike_count)+1)).html(indianRupee(net_change_val));
+										if (net_change_val >= 0)
+										{
+											$('#id_net_change_' + (parseInt(strike_count)+1)).css("color", "green");
+											$('#id_net_change_' + (parseInt(strike_count)+1)).css("background-color", "	#a3e5c4");
+										}
+										else
+										{
+											$('#id_net_change_' + (parseInt(strike_count)+1)).css("color", "red");
+											$('#id_net_change_' + (parseInt(strike_count)+1)).css("background-color", "#FFCCCB");
+										}
+										
+										strike_count = strike_count + 1;
+									}
+									
+									if (value.strike == strike_price_1)
+									{
+										sp1_p_change_oi = value.oi_change;
+									}
+									else if(value.strike == strike_price_2)
+									{
+										sp2_p_change_oi = value.oi_change;
+									}
+									else if(value.strike == strike_price_3)
+									{
+										sp3_p_change_oi = value.oi_change;									
+										sp3_p_ltp = value.ltp;
+									}
+									newRow.insertCell().appendChild(document.createTextNode('-'));
+									newRow.insertCell().appendChild(document.createTextNode(value.ltp));
+									newRow.insertCell().appendChild(document.createTextNode(parseFloat(value.price_change).toFixed(2)));
+									newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(value.ltq))));
+									newRow.insertCell().appendChild(document.createTextNode(indianRupee(value.oi_change)));
+									if (value.oi_change > max_put_change_oi)
+									{
+										max_put_change_oi = value.oi_change;
+										max_put_change_oi_row = value;
+									}
+									newRow.insertCell().appendChild(document.createTextNode(indianRupee(value.oi)));
+									if (value.oi > max_put_oi)
+									{
+										max_put_oi = value.oi;
+										max_put_oi_row = value;
+									}
+									lbu_obj = newRow.insertCell();
+									lbu_obj.style.backgroundColor="red";
+									lbu_obj.appendChild(document.createTextNode('Long Build Up'));
+									count_row = 0;
+								}
+								//<!-- console.log('strike_count' + strike_count + ' put oi ' + strike_put_oi + 'call ' + strike_call_oi); -->
+								
+								//<!-- var newCell2 = newRow.insertCell(); -->
+								
+	 
+								//// Append a text node to the cell
+								//<!-- var newText = document.createTextNode(value.strike); -->
+								//<!-- newCell.appendChild(newText); -->
+							});
+							
+							var above_pcr_value = ((parseFloat(total_pcr_put_oi)/parseFloat(total_pcr_call_oi)).toFixed(2))
+							
+							if (above_pcr_value >= 0.5 && above_pcr_value < 0.7)
+							{
+								$('#id_pcr').html('OVERSOLD');
+							}
+							else if(above_pcr_value >= 0.5 && above_pcr_value < 1.5)
+							{
+								$('#id_pcr').html('OVERBOUGHT');
+							}
+							else
+							{
+								$('#id_pcr').html('NEUTRAL');
+							}
+							
+							$('#id_call_chng_oi_1').html(indianRupee(sp1_c_change_oi));
+							$('#id_call_chng_oi_2').html(indianRupee(sp2_c_change_oi));
+							$('#id_call_chng_oi_3').html(indianRupee(sp3_c_change_oi));
+							
+							$('#id_put_chng_oi_1').html(indianRupee(sp1_p_change_oi));
+							$('#id_put_chng_oi_2').html(indianRupee(sp2_p_change_oi));
+							$('#id_put_chng_oi_3').html(indianRupee(sp3_p_change_oi));
+							
+							$('#id_c_ltp_1').html(sp1_c_ltp);
+							$('#id_c_ltp_2').html(sp2_c_ltp);
+							$('#id_p_ltp_1').html(sp3_p_ltp);
+							//
+							//<!-- console.log($('#id_buy_ltp_2').html()); -->
+							//<!-- console.log(bearish_status); -->
+							
+							if (genimode_first_count == 0)
+							{
+								//<!-- geniModeCalculation(7); -->
+								genimode_first_count = 1;
+							}
+							
+							if (bullish_status == true)
+							{
+								var geni_sl_ltp = parseFloat($('#id_buy_ltp_1').html()) - 30;
+								var geni_target_ltp = $('#id_buy_ltp_2').html();
+								if (parseFloat(sp1_c_ltp) >= parseFloat(geni_target_ltp))
+								{
+								//	<!-- Update genimode_target_on here -->
+									if (target == 0)
+									{
+										var selected_strike_price = parseInt($("#id_enter_strike_price_select option:selected").text());
+										$.ajax({
+											method: "POST",
+											url: "/set_target_stop_loss/",
+											data: {
+												'edit_type':'target',
+												'symbol':'Nifty',
+												'status':'On',
+												'selected_strike_price': selected_strike_price,
+											},
+											success: function (response) 
+											{			   
+												if (response.status == '1'){}
+												else{}
 											}
 										});
-										<!-- console.log(response.data); -->
-										temp_date_time = new Date (new Date().toDateString() + ' ' + string_time);
-										temp_date_time.setMinutes( temp_date_time.getMinutes() + add_time_arg );
-										run = setInterval(request , history_data_time);
-										global_last_spot_price = last_spot_price;
-										
-										setTimeout(function(){
-											geniModeCalculation(6);
-										},2000);
+										$('#id_led_box').show();
+										$('#id_led_box_2').hide();
+										target = 1;
+										stop_loss = 0;
 									}
-									else
+								}
+								else if (parseFloat(sp1_c_ltp) < geni_sl_ltp )
+								{
+									//<!-- Update genimode_stop_loss_on here -->
+									if (stop_loss == 0)
 									{
-										<!-- console.log(response.msg); -->
-										temp_date_time = new Date (new Date().toDateString() + ' ' + '09:15');
-										run = setInterval(request , history_data_time)
+										var selected_strike_price = parseInt($("#id_enter_strike_price_select option:selected").text());
+										$.ajax({
+											method: "POST",
+											url: "/set_target_stop_loss/",
+											data: {
+												'edit_type':'stop loss',
+												'symbol':'Nifty',
+												'status':'On',
+												'selected_strike_price': selected_strike_price,
+											},
+											success: function (response) 
+											{			   
+												if (response.status == '1'){}
+												else{}
+											}
+										});
+										$('#id_led_box_2').show();
+										$('#id_led_box').hide();
+										target = 0;
+										stop_loss = 1;
 									}
 								}
-							});	
-							
-							<!-- end first time history log -->
-						
-						<!-- end Enter strike price calculation -->
-							count_enter_strike_price = 1;
-						}
-					}
-					<!-- end Nifty Dashboard -->
-					
-					<!-- option chain analysis -->
-					
-						<!-- small chain analysis -->
-						
-							var new_ltp_val = Math.round(ltp_price_val).toString();
-							last2 = new_ltp_val.slice(-2);
-							var diff = 0;
-							var new_ltp_val_1 = 0.0;
-							if(last2 > 50)
-							{
-								diff = 100 - parseInt(last2); 
-								new_ltp_val_1 = parseInt(new_ltp_val) + diff;
 							}
-							else if(last2 < 50)
+							else if (bearish_status == true)
 							{
-								new_ltp_val_1 = new_ltp_val - last2;
-							}
-							else
-							{
-								new_ltp_val_1 = new_ltp_val;
-							}
-							
-							var arr_low = new Array();
-							var arr_high = new Array();
-							var array_high_val = 0;
-							var array_low_val = 0;
-							
-							var count_temp = 50;
-							arr_low.push(parseInt(new_ltp_val_1));
-							for(var i = 0; i<4; i++)
-							{
-								arr_low.push(parseInt(new_ltp_val_1) - count_temp);
-								arr_high.push(parseInt(new_ltp_val_1) + count_temp);
+								var geni_sl_ltp = parseFloat($('#id_buy_ltp_1').html()) - 30;
+								var geni_target_ltp = $('#id_buy_ltp_2').html();
 								
-								count_temp = count_temp + 50;
-							}
-							arr_low.reverse();
-							var new_array = arr_low.concat(arr_high);
-							
-							<!-- console.log(new_array[0]); -->
-						
-						<!-- end small chain analysis -->
-					
-						_this.option_data = JSON.parse(_this.coins['option_chain']);
-						
-						<!-- console.log(_this.option_data); -->
-						
-						var tbodyRef = document.getElementById('option_analysis_table').getElementsByTagName('tbody')[0];
-						
-						$("#tbodyid").empty();
-						
-						var count_row = 0;
-						var newRow = null;
-						var max_call_oi = 0;
-						var max_call_oi_row = null;
-						var max_put_oi = 0;
-						var max_put_oi_row = null;
-						
-						var max_call_change_oi = 0;
-						var max_call_change_oi_row = null;
-						var max_put_change_oi = 0;
-						var max_put_change_oi_row = null;
-						
-						var strike_price_1 = $('#id_strike_price_1').text();
-						var strike_price_2 = $('#id_strike_price_2').text();
-						var strike_price_3 = $('#id_strike_price_3').text();
-						
-						var SP1_c_change_oi = null;
-						var SP2_c_change_oi = null;
-						var SP3_c_change_oi = null;
-						
-						var sp1_p_change_oi = null;
-						var sp2_p_change_oi = null;
-						var sp3_p_change_oi = null;
-						
-						var sp1_c_ltp = null;
-						var sp2_c_ltp = null;
-						var sp3_p_ltp = null;
-						var strike_count = 0;
-						var strike_true_status = 0;
-						var strike_call_oi = 0;
-						var strike_put_oi = 0;
-						var strike_call_change_oi = 0;
-						var strike_put_change_oi = 0;
-						
-						var total_pcr_call_oi = 0;
-						var total_pcr_put_oi = 0;
-
-						_this.option_data.forEach(function(value) 
-						{
-							//<!-- console.log('value : ' + value.strike); -->
-							// Insert a row at the end of table
-							
-							if (count_row == 0)
-							{
-								newRow = tbodyRef.insertRow();
-							}
-
-							// Insert a cell at the end of the row
-							if (value.type == "CE")
-							{
-								total_pcr_call_oi = total_pcr_call_oi + parseFloat(value.oi);
-								sbu_obj = newRow.insertCell();
-								sbu_obj.style.backgroundColor="red";
-								sbu_obj.appendChild(document.createTextNode('Short Build Up'));
-								newRow.insertCell().appendChild(document.createTextNode(indianRupee(value.oi)));
-								if (value.oi > max_call_oi)
+								if (parseFloat(sp3_p_ltp) >= parseFloat(geni_target_ltp))
 								{
-									max_call_oi = value.oi;
-									max_call_oi_row = value;
-								}
-								newRow.insertCell().appendChild(document.createTextNode(indianRupee(value.oi_change)));
-								if (value.oi_change > max_call_change_oi)
-								{
-									max_call_change_oi = value.oi_change;
-									max_call_change_oi_row = value;
-								}
-								newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(value.ltq))));
-								newRow.insertCell().appendChild(document.createTextNode(parseFloat(value.price_change).toFixed(2)));
-								newRow.insertCell().appendChild(document.createTextNode(value.ltp));
-								newRow.insertCell().appendChild(document.createTextNode('-'));
-								strike_cell_obj = newRow.insertCell();
-								strike_cell_obj.style.backgroundColor="#c6e6f5";
-								strike_cell_obj.appendChild(document.createTextNode(value.strike));
-								
-								if (strike_count < 9)
-								{
-									if (new_array[strike_count] == value.strike)
-									{
-										strike_true_status = 1;
-										strike_call_oi = value.oi;
-										strike_call_change_oi = value.oi_change;
-									}
-								}
-								
-								if (value.strike == strike_price_1)
-								{
-									sp1_c_change_oi = value.oi_change;
-									sp1_c_ltp = value.ltp;
-								}
-								else if(value.strike == strike_price_2)
-								{
-									sp2_c_change_oi = value.oi_change;
-									sp2_c_ltp = value.ltp;
-								}
-								else if(value.strike == strike_price_3)
-								{
-									sp3_c_change_oi = value.oi_change;									
-								}
-								count_row = 1;
-							}
-							else
-							{
-								total_pcr_put_oi = total_pcr_put_oi + parseFloat(value.oi);
-								 
-								if (strike_true_status == 1)
-								{
-									strike_true_status = 0;
-									strike_put_oi = value.oi;
-									strike_put_change_oi = value.oi_change;
+									//<!-- Update genimode_target_on here -->
 									
-									if(new_ltp_val_1 == new_array[strike_count])
-									{
-										$('#id_strike_small_' + (parseInt(strike_count)+1)).html(new_array[strike_count]);
-										$('#id_strike_small_' + (parseInt(strike_count)+1)).css("background-color", "#fffdaf");
-										$('#id_pcr_' + (parseInt(strike_count)+1)).html(((parseFloat(strike_put_oi)/parseFloat(strike_call_oi)).toFixed(2)));
-										$('#id_pcr_' + (parseInt(strike_count)+1)).css("background-color", "#fffdaf");
-									}
-									else
-									{
-										$('#id_strike_small_' + (parseInt(strike_count)+1)).html(new_array[strike_count]);
-										$('#id_pcr_' + (parseInt(strike_count)+1)).html(((parseFloat(strike_put_oi)/parseFloat(strike_call_oi)).toFixed(2)));
-									}
-									var net_change_val = (parseFloat(strike_put_change_oi)-parseFloat(strike_call_change_oi).toFixed(2));
-									$('#id_net_change_' + (parseInt(strike_count)+1)).html(indianRupee(net_change_val));
-									if (net_change_val >= 0)
-									{
-										$('#id_net_change_' + (parseInt(strike_count)+1)).css("color", "green");
-										$('#id_net_change_' + (parseInt(strike_count)+1)).css("background-color", "	#a3e5c4");
-									}
-									else
-									{
-										$('#id_net_change_' + (parseInt(strike_count)+1)).css("color", "red");
-										$('#id_net_change_' + (parseInt(strike_count)+1)).css("background-color", "#FFCCCB");
-									}
-									
-									strike_count = strike_count + 1;
-								}
-								
-								if (value.strike == strike_price_1)
-								{
-									sp1_p_change_oi = value.oi_change;
-								}
-								else if(value.strike == strike_price_2)
-								{
-									sp2_p_change_oi = value.oi_change;
-								}
-								else if(value.strike == strike_price_3)
-								{
-									sp3_p_change_oi = value.oi_change;									
-									sp3_p_ltp = value.ltp;
-								}
-								newRow.insertCell().appendChild(document.createTextNode('-'));
-								newRow.insertCell().appendChild(document.createTextNode(value.ltp));
-								newRow.insertCell().appendChild(document.createTextNode(parseFloat(value.price_change).toFixed(2)));
-								newRow.insertCell().appendChild(document.createTextNode(indianRupee(parseFloat(value.ltq))));
-								newRow.insertCell().appendChild(document.createTextNode(indianRupee(value.oi_change)));
-								if (value.oi_change > max_put_change_oi)
-								{
-									max_put_change_oi = value.oi_change;
-									max_put_change_oi_row = value;
-								}
-								newRow.insertCell().appendChild(document.createTextNode(indianRupee(value.oi)));
-								if (value.oi > max_put_oi)
-								{
-									max_put_oi = value.oi;
-									max_put_oi_row = value;
-								}
-								lbu_obj = newRow.insertCell();
-								lbu_obj.style.backgroundColor="red";
-								lbu_obj.appendChild(document.createTextNode('Long Build Up'));
-								count_row = 0;
-							}
-							<!-- console.log('strike_count' + strike_count + ' put oi ' + strike_put_oi + 'call ' + strike_call_oi); -->
-							
-							<!-- var newCell2 = newRow.insertCell(); -->
-							
- 
-							// Append a text node to the cell
-							<!-- var newText = document.createTextNode(value.strike); -->
-							<!-- newCell.appendChild(newText); -->
-						});
-						
-						var above_pcr_value = ((parseFloat(total_pcr_put_oi)/parseFloat(total_pcr_call_oi)).toFixed(2))
-						
-						if (above_pcr_value >= 0.5 && above_pcr_value < 0.7)
-						{
-							$('#id_pcr').html('OVERSOLD');
-						}
-						else if(above_pcr_value >= 0.5 && above_pcr_value < 1.5)
-						{
-							$('#id_pcr').html('OVERBOUGHT');
-						}
-						else
-						{
-							$('#id_pcr').html('NEUTRAL');
-						}
-						
-						$('#id_call_chng_oi_1').html(indianRupee(sp1_c_change_oi));
-						$('#id_call_chng_oi_2').html(indianRupee(sp2_c_change_oi));
-						$('#id_call_chng_oi_3').html(indianRupee(sp3_c_change_oi));
-						
-						$('#id_put_chng_oi_1').html(indianRupee(sp1_p_change_oi));
-						$('#id_put_chng_oi_2').html(indianRupee(sp2_p_change_oi));
-						$('#id_put_chng_oi_3').html(indianRupee(sp3_p_change_oi));
-						
-						$('#id_c_ltp_1').html(sp1_c_ltp);
-						$('#id_c_ltp_2').html(sp2_c_ltp);
-						$('#id_p_ltp_1').html(sp3_p_ltp);
-						
-						<!-- console.log($('#id_buy_ltp_2').html()); -->
-						<!-- console.log(bearish_status); -->
-						
-						if (genimode_first_count == 0)
-						{
-							<!-- geniModeCalculation(7); -->
-							genimode_first_count = 1;
-						}
-						
-						if (bullish_status == true)
-						{
-							var geni_sl_ltp = parseFloat($('#id_buy_ltp_1').html()) - 30;
-							var geni_target_ltp = $('#id_buy_ltp_2').html();
-							if (parseFloat(sp1_c_ltp) >= parseFloat(geni_target_ltp))
-							{
-								<!-- Update genimode_target_on here -->
-								if (target == 0)
-								{
 									var selected_strike_price = parseInt($("#id_enter_strike_price_select option:selected").text());
 									$.ajax({
 										method: "POST",
@@ -6237,17 +6308,20 @@ function indianRupee(x)
 											else{}
 										}
 									});
-									$('#id_led_box').show();
-									$('#id_led_box_2').hide();
-									target = 1;
-									stop_loss = 0;
+									
+									if (target1 == 0)
+									{
+										$('#id_led_box').show();
+										$('#id_led_box_2').hide();
+										target1 = 1;
+										stop_loss1= 0;
+										other_target = 0;
+									}								
 								}
-							}
-							else if (parseFloat(sp1_c_ltp) < geni_sl_ltp )
-							{
-								<!-- Update genimode_stop_loss_on here -->
-								if (stop_loss == 0)
+								else if (parseFloat(sp3_p_ltp) < geni_sl_ltp )
 								{
+									//<!-- Update genimode_stop_loss_on here -->
+									
 									var selected_strike_price = parseInt($("#id_enter_strike_price_select option:selected").text());
 									$.ajax({
 										method: "POST",
@@ -6264,30 +6338,30 @@ function indianRupee(x)
 											else{}
 										}
 									});
-									$('#id_led_box_2').show();
-									$('#id_led_box').hide();
-									target = 0;
-									stop_loss = 1;
+									
+									if (stop_loss1 == 0)
+									{
+										$('#id_led_box_2').show();
+										$('#id_led_box').hide();
+										target1 = 0;
+										stop_loss1 = 1;
+										other_target = 0;
+									}
 								}
 							}
-						}
-						else if (bearish_status == true)
-						{
-							var geni_sl_ltp = parseFloat($('#id_buy_ltp_1').html()) - 30;
-							var geni_target_ltp = $('#id_buy_ltp_2').html();
-							
-							if (parseFloat(sp3_p_ltp) >= parseFloat(geni_target_ltp))
+							else if (other_status == true)
 							{
-								<!-- Update genimode_target_on here -->
+								//<!-- Update genimode_target_off here -->
+								//<!-- Update genimode_stop_loss_off here -->
 								
 								var selected_strike_price = parseInt($("#id_enter_strike_price_select option:selected").text());
 								$.ajax({
 									method: "POST",
 									url: "/set_target_stop_loss/",
 									data: {
-										'edit_type':'target',
+										'edit_type':'',
 										'symbol':'Nifty',
-										'status':'On',
+										'status':'Off',
 										'selected_strike_price': selected_strike_price,
 									},
 									success: function (response) 
@@ -6297,104 +6371,43 @@ function indianRupee(x)
 									}
 								});
 								
-								if (target1 == 0)
+								if (other_target == 0)
 								{
-									$('#id_led_box').show();
+									$('#id_led_box').hide();
 									$('#id_led_box_2').hide();
-									target1 = 1;
-									stop_loss1= 0;
-									other_target = 0;
-								}								
-							}
-							else if (parseFloat(sp3_p_ltp) < geni_sl_ltp )
-							{
-								<!-- Update genimode_stop_loss_on here -->
-								
-								var selected_strike_price = parseInt($("#id_enter_strike_price_select option:selected").text());
-								$.ajax({
-									method: "POST",
-									url: "/set_target_stop_loss/",
-									data: {
-										'edit_type':'stop loss',
-										'symbol':'Nifty',
-										'status':'On',
-										'selected_strike_price': selected_strike_price,
-									},
-									success: function (response) 
-									{			   
-										if (response.status == '1'){}
-										else{}
-									}
-								});
-								
-								if (stop_loss1 == 0)
-								{
-									$('#id_led_box_2').show();
-									$('#id_led_box').hide();
+									other_target = 1;
+									target = 0;
 									target1 = 0;
-									stop_loss1 = 1;
-									other_target = 0;
+									stop_loss = 0;
+									stop_loss1 = 0;
 								}
 							}
-						}
-						else if (other_status == true)
-						{
-							<!-- Update genimode_target_off here -->
-							<!-- Update genimode_stop_loss_off here -->
 							
-							var selected_strike_price = parseInt($("#id_enter_strike_price_select option:selected").text());
-							$.ajax({
-								method: "POST",
-								url: "/set_target_stop_loss/",
-								data: {
-									'edit_type':'',
-									'symbol':'Nifty',
-									'status':'Off',
-									'selected_strike_price': selected_strike_price,
-								},
-								success: function (response) 
-								{			   
-									if (response.status == '1'){}
-									else{}
-								}
-							});
+							$('#id_total_call_chng_oi').html(indianRupee(parseInt(sp1_c_change_oi) + parseInt(sp2_c_change_oi) + parseInt(sp3_c_change_oi)));
+							$('#id_total_put_chng_oi').html(indianRupee(parseInt(sp1_p_change_oi) + parseInt(sp2_p_change_oi) + parseInt(sp3_p_change_oi)));
+							//<!-- $('#id_total_ltp').html((parseFloat(sp1_c_ltp) + parseFloat(sp2_c_ltp) + parseFloat(sp3_p_ltp)).toFixed(2)); -->
 							
-							if (other_target == 0)
-							{
-								$('#id_led_box').hide();
-								$('#id_led_box_2').hide();
-								other_target = 1;
-								target = 0;
-								target1 = 0;
-								stop_loss = 0;
-								stop_loss1 = 0;
-							}
-						}
-						
-						$('#id_total_call_chng_oi').html(indianRupee(parseInt(sp1_c_change_oi) + parseInt(sp2_c_change_oi) + parseInt(sp3_c_change_oi)));
-						$('#id_total_put_chng_oi').html(indianRupee(parseInt(sp1_p_change_oi) + parseInt(sp2_p_change_oi) + parseInt(sp3_p_change_oi)));
-						<!-- $('#id_total_ltp').html((parseFloat(sp1_c_ltp) + parseFloat(sp2_c_ltp) + parseFloat(sp3_p_ltp)).toFixed(2)); -->
-						
 
-						$('#id_call_strike_price').html(indianRupee(max_call_oi_row.strike));
-						$('#id_call_oi').html(indianRupee(max_call_oi_row.oi));
-						$('#id_call_volume').html(indianRupee(parseFloat(max_call_oi_row.ltq)));
+							$('#id_call_strike_price').html(indianRupee(max_call_oi_row.strike));
+							$('#id_call_oi').html(indianRupee(max_call_oi_row.oi));
+							$('#id_call_volume').html(indianRupee(parseFloat(max_call_oi_row.ltq)));
+							
+							$('#id_put_strike_price').html(indianRupee(max_put_oi_row.strike));
+							$('#id_put_oi').html(indianRupee(max_put_oi_row.oi));
+							$('#id_put_volume').html(indianRupee(parseFloat(max_put_oi_row.ltq)));
+							
+							$('#id_call_change_strike_price').html(indianRupee(max_call_change_oi_row.strike));
+							$('#id_call_change_oi').html(indianRupee(max_call_change_oi_row.oi_change));
+							$('#id_call_change_volume').html(indianRupee(parseFloat(max_call_change_oi_row.ltq)));
+							
+							$('#id_put_change_strike_price').html(indianRupee(max_put_change_oi_row.strike));
+							$('#id_put_change_oi').html(indianRupee(max_put_change_oi_row.oi_change));
+							$('#id_put_change_volume').html(indianRupee(parseFloat(max_put_change_oi_row.ltq)));
+							
+							
 						
-						$('#id_put_strike_price').html(indianRupee(max_put_oi_row.strike));
-						$('#id_put_oi').html(indianRupee(max_put_oi_row.oi));
-						$('#id_put_volume').html(indianRupee(parseFloat(max_put_oi_row.ltq)));
-						
-						$('#id_call_change_strike_price').html(indianRupee(max_call_change_oi_row.strike));
-						$('#id_call_change_oi').html(indianRupee(max_call_change_oi_row.oi_change));
-						$('#id_call_change_volume').html(indianRupee(parseFloat(max_call_change_oi_row.ltq)));
-						
-						$('#id_put_change_strike_price').html(indianRupee(max_put_change_oi_row.strike));
-						$('#id_put_change_oi').html(indianRupee(max_put_change_oi_row.oi_change));
-						$('#id_put_change_volume').html(indianRupee(parseFloat(max_put_change_oi_row.ltq)));
-						
-						
-					
-					<!-- end option chain analysis -->
+						//<!-- end option chain analysis -->
+					}
 				}
 			}
 		}

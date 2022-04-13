@@ -2,9 +2,9 @@
 
 ### PRODUCTION ###
 		
-# truedata_production_username = 'tdws186'
-# truedata_production_password = 'ashish@186_stockgini2'
-# truedata_production_port = '8082'
+truedata_production_username = 'tdws186'
+truedata_production_password = 'ashish@186_stockgini2'
+truedata_production_port = '8082'
 
 ### DEVELOPMENT ###
 

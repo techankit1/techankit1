@@ -25,13 +25,13 @@ from datetime import datetime as dt
 import pandas as pd
 pd.set_option("display.max_columns", None, "display.max_rows", None)
 
-username = credentials.truedata_development_username
-password = credentials.truedata_development_password
-realtime_port = credentials.truedata_development_port
+# username = credentials.truedata_development_username
+# password = credentials.truedata_development_password
+# realtime_port = credentials.truedata_development_port
 
-# username = credentials.truedata_production_username
-# password = credentials.truedata_production_password
-# realtime_port = credentials.truedata_production_port
+username = credentials.truedata_production_username
+password = credentials.truedata_production_password
+realtime_port = credentials.truedata_production_port
 # url = 'replay.truedata.in'
 url = 'push.truedata.in' 
 

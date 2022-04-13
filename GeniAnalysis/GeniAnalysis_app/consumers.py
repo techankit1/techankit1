@@ -64,54 +64,29 @@ class TestingConsumer(AsyncJsonWebsocketConsumer):
 								temp_dict['timestamp'] = live_data.timestamp.isoformat()
 								temp_dict['_change_perc'] = 0.0
 								
-								# option_chain = nifty_chain.get_option_chain()
-								
 								data['live_data'] = json.dumps(temp_dict)
-								# data['option_chain'] = json.dumps(option_chain.to_dict('records'), default=default)
 								
 								await self.send_json(data)
 								count = count + 1
 					else:
 						if (check_time >= dt_time(9,15) and check_time <= dt_time(15,30)):
-							await asyncio.sleep(.001)
+							await asyncio.sleep(1)
 							for req_id in nifty_ids:
-								live_data = vars(td_app.live_data[req_id])
-										
-								temp_live_data = td_app.live_data[req_id]
-								
-								live_data['new_change'] = temp_live_data.change_perc
-								
-								new_live_data = json.dumps(live_data, default=default)
-								
-								# option_chain = nifty_chain.get_option_chain()
-								
-								data['live_data'] = new_live_data
-								# data['option_chain'] = json.dumps(option_chain.to_dict('records'), default=default)
-								
-								await self.send_json(data)  
-
-							# for req_id in req_ids:
-								# if not td_app.live_data[req_id] == live_data_objs[req_id]:
-									# if req_id == 2000 or req_id == 2002 or req_id == 2003:
-										# live_data = vars(td_app.live_data[req_id])
-										
-										# temp_live_data = td_app.live_data[req_id]
-										
-										# live_data['new_change'] = temp_live_data.change_perc
-										
-										# new_live_data = json.dumps(live_data, default=default)
-										
-										
-										# option_chain = nifty_chain.get_option_chain()
-										
-										# data['live_data'] = new_live_data
-										# data['option_chain'] = json.dumps(option_chain.to_dict('records'), default=default)
-										
-										# await self.send(json.dumps(data))	 
-
-										# live_data_objs[req_id] = deepcopy(td_app.live_data[req_id])
-								# else:
-									# pass 
+								try:
+									live_data = vars(td_app.live_data[req_id])
+									temp_live_data = td_app.live_data[req_id]
+									live_data['new_change'] = temp_live_data.change_perc
+									new_live_data = json.dumps(live_data, default=default)
+									data['live_data'] = new_live_data
+								except:
+									data['live_data'] = "None"
+									
+								try:								
+									option_chain = nifty_chain.get_option_chain()
+									data['option_chain'] = json.dumps(option_chain.to_dict('records'), default=default)
+								except:
+									data['option_chain'] = "None"
+								await self.send_json(data)	
 						else:
 							await asyncio.sleep(1)
 							
@@ -129,10 +104,7 @@ class TestingConsumer(AsyncJsonWebsocketConsumer):
 									temp_dict['timestamp'] = live_data.timestamp.isoformat()
 									temp_dict['_change_perc'] = 0.0
 									
-									# option_chain = nifty_chain.get_option_chain()
-									
 									data['live_data'] = json.dumps(temp_dict)
-									# data['option_chain'] = json.dumps(option_chain.to_dict('records'), default=default)
 									
 									await self.send_json(data)
 									count = count + 1
