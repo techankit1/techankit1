@@ -1,4 +1,4 @@
-from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.generic.websocket import AsyncWebsocketConsumer, AsyncJsonWebsocketConsumer
 import requests
 import json
 import time
@@ -19,14 +19,17 @@ from datetime import time as dt_time
 channel_layer = get_channel_layer()
 
 
-class TestingConsumer(AsyncWebsocketConsumer): 
+class TestingConsumer(AsyncJsonWebsocketConsumer):
+	def __init__(self, *args, **kwargs):
+		super(TestingConsumer, self).__init__(*args, **kwargs)
+		self.disconnected = True
+
 	async def connect(self):
 		await self.channel_layer.group_add('coins', self.channel_name)
 		await self.accept()
 		self.connected = True
 			
 		print("Connected to the socket\n")
-	'''	
 
 		# ws = ''
 		live_data_objs = {}
@@ -61,12 +64,12 @@ class TestingConsumer(AsyncWebsocketConsumer):
 								temp_dict['timestamp'] = live_data.timestamp.isoformat()
 								temp_dict['_change_perc'] = 0.0
 								
-								option_chain = nifty_chain.get_option_chain()
+								# option_chain = nifty_chain.get_option_chain()
 								
 								data['live_data'] = json.dumps(temp_dict)
-								data['option_chain'] = json.dumps(option_chain.to_dict('records'), default=default)
+								# data['option_chain'] = json.dumps(option_chain.to_dict('records'), default=default)
 								
-								await self.send(json.dumps(data))
+								await self.send_json(data)
 								count = count + 1
 					else:
 						if (check_time >= dt_time(9,15) and check_time <= dt_time(15,30)):
@@ -80,12 +83,12 @@ class TestingConsumer(AsyncWebsocketConsumer):
 								
 								new_live_data = json.dumps(live_data, default=default)
 								
-								option_chain = nifty_chain.get_option_chain()
+								# option_chain = nifty_chain.get_option_chain()
 								
 								data['live_data'] = new_live_data
-								data['option_chain'] = json.dumps(option_chain.to_dict('records'), default=default)
+								# data['option_chain'] = json.dumps(option_chain.to_dict('records'), default=default)
 								
-								await self.send(json.dumps(data))  
+								await self.send_json(data)  
 
 							# for req_id in req_ids:
 								# if not td_app.live_data[req_id] == live_data_objs[req_id]:
@@ -126,24 +129,26 @@ class TestingConsumer(AsyncWebsocketConsumer):
 									temp_dict['timestamp'] = live_data.timestamp.isoformat()
 									temp_dict['_change_perc'] = 0.0
 									
-									option_chain = nifty_chain.get_option_chain()
+									# option_chain = nifty_chain.get_option_chain()
 									
 									data['live_data'] = json.dumps(temp_dict)
-									data['option_chain'] = json.dumps(option_chain.to_dict('records'), default=default)
+									# data['option_chain'] = json.dumps(option_chain.to_dict('records'), default=default)
 									
-									await self.send(json.dumps(data))
+									await self.send_json(data)
 									count = count + 1
 				except:
 					pass
 		except ConnectionError as error:
 			exit()
+
+		self.disconnected = False
 	   
  
 	async def disconnect(self, code):
 		await self.channel_layer.group_discard('coins', self.channel_name)
 		self.connected = False
-		
-'''
+		self.disconnected = True
+	
 
 class BankNiftyConsumer(AsyncWebsocketConsumer):
 	async def connect(self):

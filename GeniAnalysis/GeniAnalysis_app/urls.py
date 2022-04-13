@@ -5,6 +5,8 @@ from django.conf.urls.static import static
 # from . import views_web
 
 urlpatterns = [
+
+    path('load_test/', views.load_test, name='load_test'),
 		##################### RENDER PAGE URLS ########################
     path('', views.websiteHomePage, name='websiteHomePage'),
     path('login/', views.user_login_page, name='user_login_page'),
