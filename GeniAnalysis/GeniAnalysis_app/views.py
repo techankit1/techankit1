@@ -8,25 +8,18 @@ from django.core.mail import EmailMessage
 from .models import *
 from datetime import datetime, timedelta, time, date
 from django.template.loader import get_template, render_to_string
-import string, json
-import base64
+import string
 import random
 import operator
-import math
-import os
 import traceback
 from django.db.models import Q	 
 import requests
 from truedata_ws.websocket.TD import TD
-import pandas as pd
 import datetime as dt
-from timeloop import Timeloop
-from copy import deepcopy
 import string
 import random
 from django.views.decorators.cache import cache_control
 import calendar
-import schedule
 import time as t
 from django.utils import timezone
 from datetime import datetime as dt
@@ -36,6 +29,10 @@ from . import credentials
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 from email.mime.image import MIMEImage
+
+
+def load_test(request):
+	return render(request, 'Panel/test.html')
 
 def send_email(subject, string, to_email):
 	try:
